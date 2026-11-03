@@ -1,0 +1,353 @@
+[
+  {
+    "category": "lodge",
+    "currency": "USD",
+    "days": "3 days, 2 nights",
+    "highlights": [
+      "Elephants beneath Kilimanjaro",
+      "Observation Hill views over the swamps",
+      "Sunrise and sunset game drives"
+    ],
+    "images": [
+      "assets/p-elephants.png",
+      "assets/p-giraffes.png",
+      "assets/p-deck.png"
+    ],
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "text": "Drive south to Amboseli, check in and go out on an afternoon game drive.",
+        "title": "Nairobi to Amboseli"
+      },
+      {
+        "d": "Day 2",
+        "text": "Game drives around the swamps and up Observation Hill.",
+        "title": "Full day in Amboseli"
+      },
+      {
+        "d": "Day 3",
+        "text": "Morning game drive with Kilimanjaro views, then return to Nairobi.",
+        "title": "Return to Nairobi"
+      }
+    ],
+    "live": true,
+    "order": 3,
+    "overview": "Big elephant herds against the snows of Kilimanjaro. Amboseli makes a perfect start or end to any Kenya safari.",
+    "price": null,
+    "region": "Amboseli",
+    "title": "3 Days Amboseli Tour",
+    "id": "amboseli"
+  },
+  {
+    "category": "camping",
+    "currency": "USD",
+    "days": "6 days, 5 nights",
+    "highlights": [
+      "Five nights under canvas",
+      "Unhurried game drives",
+      "Mara River crossings in season"
+    ],
+    "images": [
+      "assets/p-tent.png",
+      "assets/p-balloons.png",
+      "assets/p-vans.png"
+    ],
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "text": "Drive to camp, settle in, evening game drive.",
+        "title": "Nairobi to the Mara"
+      },
+      {
+        "d": "Days 2–5",
+        "text": "Daily game drives, with time for a balloon flight or village visit.",
+        "title": "Maasai Mara"
+      },
+      {
+        "d": "Day 6",
+        "text": "Breakfast and the drive back.",
+        "title": "Return to Nairobi"
+      }
+    ],
+    "live": true,
+    "order": 6,
+    "overview": "Private camping in the Maasai Mara, famous for its abundant wildlife. Plenty of time in the reserve, at a slower pace and a lower cost than a lodge.",
+    "price": null,
+    "region": "Maasai Mara",
+    "title": "6 Days Mara Camping Safari",
+    "id": "camping6"
+  },
+  {
+    "category": "multi",
+    "currency": "USD",
+    "days": "9 days, 8 nights",
+    "highlights": [
+      "Amboseli, the Rift Valley lakes and the Mara",
+      "The Big Five",
+      "A relaxed pace"
+    ],
+    "images": [
+      "assets/p-giraffes.png",
+      "assets/p-elephants.png",
+      "assets/p-nakuru.png",
+      "assets/p-balloons.png"
+    ],
+    "itinerary": [
+      {
+        "d": "Days 1–2",
+        "text": "Elephants and Kilimanjaro.",
+        "title": "Amboseli"
+      },
+      {
+        "d": "Day 3",
+        "text": "Boat ride on the lake.",
+        "title": "Lake Naivasha"
+      },
+      {
+        "d": "Day 4",
+        "text": "Flamingos and rhino.",
+        "title": "Lake Nakuru"
+      },
+      {
+        "d": "Days 5–8",
+        "text": "Game drives across the reserve.",
+        "title": "Maasai Mara"
+      },
+      {
+        "d": "Day 9",
+        "text": "Drive back to Nairobi.",
+        "title": "Return to Nairobi"
+      }
+    ],
+    "live": true,
+    "order": 7,
+    "overview": "Kenya’s most attractive parks in one journey, starting in Amboseli with views of Kilimanjaro and finishing in the Maasai Mara.",
+    "price": null,
+    "region": "Amboseli, Rift Valley, Mara",
+    "title": "9 Days Classic Safari",
+    "id": "classic9"
+  },
+  {
+    "category": "multi",
+    "currency": "USD",
+    "days": "5 days, 4 nights",
+    "highlights": [
+      "Three parks in five days",
+      "Flamingos and rhino at Lake Nakuru",
+      "Kilimanjaro views in Amboseli"
+    ],
+    "images": [
+      "assets/p-nakuru.png",
+      "assets/p-balloons.png",
+      "assets/p-elephants.png"
+    ],
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "text": "Drive to the Mara, afternoon game drive.",
+        "title": "Nairobi to the Maasai Mara"
+      },
+      {
+        "d": "Day 2",
+        "text": "Full day of game drives.",
+        "title": "Maasai Mara"
+      },
+      {
+        "d": "Day 3",
+        "text": "Drive to Lake Nakuru for an afternoon game drive.",
+        "title": "Lake Nakuru"
+      },
+      {
+        "d": "Day 4",
+        "text": "Long scenic drive to Amboseli.",
+        "title": "Amboseli"
+      },
+      {
+        "d": "Day 5",
+        "text": "Morning drive, then return to Nairobi.",
+        "title": "Return to Nairobi"
+      }
+    ],
+    "live": true,
+    "order": 5,
+    "overview": "Three classic parks in one trip: straight to the Maasai Mara, then the flamingo shores of Lake Nakuru, and finally Amboseli under Kilimanjaro.",
+    "price": null,
+    "region": "Mara, Nakuru, Amboseli",
+    "title": "5 Days Mara, Nakuru & Amboseli",
+    "id": "combo5"
+  },
+  {
+    "category": "lodge",
+    "currency": "USD",
+    "days": "11 days, 10 nights",
+    "highlights": [
+      "Samburu, Rift Valley, Mara and Amboseli",
+      "Lodges and luxury tented camps",
+      "Our longest Kenya itinerary"
+    ],
+    "images": [
+      "assets/p-deck.png",
+      "assets/p-tent.png",
+      "assets/p-balloons.png",
+      "assets/p-lion.png"
+    ],
+    "itinerary": [
+      {
+        "d": "Days 1–2",
+        "text": "Wildlife of the north.",
+        "title": "Samburu"
+      },
+      {
+        "d": "Day 3",
+        "text": "Overnight near the mountain.",
+        "title": "Mount Kenya region"
+      },
+      {
+        "d": "Days 4–5",
+        "text": "Rift Valley lakes.",
+        "title": "Lake Nakuru and Naivasha"
+      },
+      {
+        "d": "Days 6–8",
+        "text": "Game drives across the reserve.",
+        "title": "Maasai Mara"
+      },
+      {
+        "d": "Days 9–10",
+        "text": "Kilimanjaro views.",
+        "title": "Amboseli"
+      },
+      {
+        "d": "Day 11",
+        "text": "Drive back to Nairobi.",
+        "title": "Return to Nairobi"
+      }
+    ],
+    "live": true,
+    "order": 8,
+    "overview": "Lodges and luxury tented camps across the best of Kenya, from the dry north to the Mara and Amboseli.",
+    "price": null,
+    "region": "Kenya highlights",
+    "title": "11 Days Kenya Lodge Safari",
+    "id": "lodge11"
+  },
+  {
+    "category": "lodge",
+    "currency": "USD",
+    "days": "3 days, 2 nights",
+    "highlights": [
+      "Game drives across the Mara plains",
+      "Big cats and large herds",
+      "Optional hot-air balloon flight",
+      "Optional Maasai village visit"
+    ],
+    "images": [
+      "assets/p-balloons.png",
+      "assets/p-tent.png",
+      "assets/p-deck.png"
+    ],
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "text": "Morning pick-up, drive via the Great Rift Valley viewpoint, check in at camp and head out on an afternoon game drive.",
+        "title": "Nairobi to the Maasai Mara"
+      },
+      {
+        "d": "Day 2",
+        "text": "Morning and afternoon game drives, or a full day out with a picnic lunch.",
+        "title": "Full day in the reserve"
+      },
+      {
+        "d": "Day 3",
+        "text": "Early game drive and breakfast, then the drive back to Nairobi.",
+        "title": "Return to Nairobi"
+      }
+    ],
+    "live": true,
+    "order": 2,
+    "overview": "A carefully paced trip into Kenya’s best-known reserve. You stay at Sentinel Mara Camp and spend your days on game drives across the open plains, home to big cats and huge herds.",
+    "price": null,
+    "region": "Maasai Mara",
+    "title": "3 Days Maasai Mara Safari",
+    "id": "mara"
+  },
+  {
+    "category": "day",
+    "currency": "USD",
+    "days": "1 day",
+    "highlights": [
+      "Big game minutes from the city",
+      "Baby elephants at the orphanage",
+      "Hand-feed giraffes at the Giraffe Centre",
+      "Hotel or airport pick-up"
+    ],
+    "images": [
+      "assets/p-lion.png",
+      "assets/p-giraffes.png",
+      "assets/p-elephants.png"
+    ],
+    "itinerary": [
+      {
+        "d": "Morning",
+        "text": "Early pick-up and a 4-hour game drive looking for lion, rhino, giraffe and buffalo.",
+        "title": "Nairobi National Park"
+      },
+      {
+        "d": "Late morning",
+        "text": "Watch the orphaned baby elephants at feeding time.",
+        "title": "Elephant orphanage"
+      },
+      {
+        "d": "Afternoon",
+        "text": "Meet the Rothschild giraffes up close, then drop-off at your hotel.",
+        "title": "Giraffe Centre"
+      }
+    ],
+    "live": true,
+    "order": 1,
+    "overview": "A full day around Nairobi: a game drive in Nairobi National Park with the city skyline behind, the baby elephants at the elephant orphanage, then face to face with Rothschild giraffes at the Giraffe Centre.",
+    "price": null,
+    "region": "Nairobi",
+    "title": "1 Day Nairobi Tour & Excursion",
+    "id": "nairobi"
+  },
+  {
+    "category": "lodge",
+    "currency": "USD",
+    "days": "3 days, 2 nights",
+    "highlights": [
+      "Reticulated giraffe and Grevy’s zebra",
+      "The Ewaso Nyiro river",
+      "Samburu culture"
+    ],
+    "images": [
+      "assets/p-vans.png",
+      "assets/p-cruisers.png",
+      "assets/p-giraffes.png"
+    ],
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "text": "Drive north past Mount Kenya, arrive for lunch and an afternoon game drive.",
+        "title": "Nairobi to Samburu"
+      },
+      {
+        "d": "Day 2",
+        "text": "Full day of game drives along the river.",
+        "title": "Samburu and Shaba"
+      },
+      {
+        "d": "Day 3",
+        "text": "Morning drive, then back to Nairobi.",
+        "title": "Return to Nairobi"
+      }
+    ],
+    "live": true,
+    "order": 4,
+    "overview": "An action-packed wildlife and cultural safari in Kenya’s dry north, home to species you won’t see further south.",
+    "price": null,
+    "region": "Samburu",
+    "title": "3 Days Samburu or Shaba",
+    "id": "samburu"
+  }
+]

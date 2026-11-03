@@ -1,0 +1,93 @@
+[
+  {
+    "currency": "KES",
+    "fit": "contain",
+    "image": "assets/v-bus.png",
+    "live": true,
+    "name": "Coach bus",
+    "order": 7,
+    "price": null,
+    "seats": "Large groups",
+    "type": "Group bus",
+    "use": "Long-distance group travel",
+    "id": "coach"
+  },
+  {
+    "currency": "KES",
+    "fit": "cover",
+    "image": "assets/p-coasters.png",
+    "live": true,
+    "name": "Toyota Coaster",
+    "order": 6,
+    "price": null,
+    "seats": "Large groups",
+    "type": "Group bus",
+    "use": "Groups, events and school trips",
+    "id": "coaster"
+  },
+  {
+    "currency": "KES",
+    "fit": "contain",
+    "image": "assets/v-hiace.png",
+    "live": true,
+    "name": "Toyota HiAce",
+    "order": 5,
+    "price": null,
+    "seats": "Up to 14 seats",
+    "type": "Passenger van",
+    "use": "Airport transfers and small groups",
+    "id": "hiace"
+  },
+  {
+    "currency": "KES",
+    "fit": "contain",
+    "image": "assets/v-landcruiser.png",
+    "live": true,
+    "name": "Toyota Land Cruiser",
+    "order": 3,
+    "price": null,
+    "seats": "5–7 seats",
+    "type": "Premium SUV",
+    "use": "Business, VIP and family travel",
+    "id": "lc"
+  },
+  {
+    "currency": "KES",
+    "fit": "cover",
+    "image": "assets/p-cruisers.png",
+    "live": true,
+    "name": "Land Cruiser safari 4x4",
+    "order": 1,
+    "price": null,
+    "seats": "6–7 seats",
+    "type": "Safari 4x4",
+    "use": "Game drives and rough roads",
+    "id": "lc4"
+  },
+  {
+    "currency": "KES",
+    "fit": "contain",
+    "image": "assets/v-sclass.png",
+    "live": true,
+    "name": "Mercedes S-Class or similar",
+    "order": 4,
+    "price": null,
+    "seats": "4 seats",
+    "type": "Executive saloon",
+    "use": "Airport VIP and executive transfers",
+    "id": "sclass"
+  },
+  {
+    "currency": "KES",
+    "fit": "cover",
+    "image": "assets/p-vans.png",
+    "live": true,
+    "name": "Safari van, pop-up roof",
+    "order": 2,
+    "price": null,
+    "seats": "7 seats",
+    "type": "Safari van",
+    "use": "Classic safari circuits",
+    "id": "van"
+  }
+]
