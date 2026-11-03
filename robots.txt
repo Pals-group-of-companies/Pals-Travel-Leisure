@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /admin
 
 # AI assistants and answer engines are welcome to read and cite this site
 User-agent: GPTBot

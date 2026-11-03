@@ -1,0 +1,79 @@
+{
+ "doctype": "DocType",
+ "name": "Pals Website Item",
+ "module": "Pals Website",
+ "custom": 0,
+ "istable": 0,
+ "autoname": "hash",
+ "naming_rule": "Random",
+ "engine": "InnoDB",
+ "field_order": [
+  "kind",
+  "title",
+  "live",
+  "sort_order",
+  "data"
+ ],
+ "fields": [
+  {
+   "fieldname": "kind",
+   "fieldtype": "Select",
+   "label": "Kind",
+   "options": "tours\nvehicles",
+   "reqd": 1,
+   "in_standard_filter": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "live",
+   "fieldtype": "Check",
+   "label": "Shown on website",
+   "default": "0",
+   "in_standard_filter": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sort_order",
+   "fieldtype": "Float",
+   "label": "Sort order"
+  },
+  {
+   "fieldname": "data",
+   "fieldtype": "Long Text",
+   "label": "Data (JSON)",
+   "description": "Everything the website shows for this item. Edit it from the website admin."
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1,
+   "print": 1,
+   "share": 1
+  }
+ ],
+ "title_field": "title",
+ "show_title_field_in_link": 0,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "creation": "2026-11-03 00:00:00.000000",
+ "modified": "2026-11-03 00:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "states": [],
+ "links": [],
+ "actions": []
+}

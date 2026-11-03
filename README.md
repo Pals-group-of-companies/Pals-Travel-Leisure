@@ -30,23 +30,26 @@ python3 -m http.server 8000
 
 ## How bookings and the admin work
 
-The site runs in two modes and picks one automatically.
+The site picks one of three modes automatically:
 
-**Connected mode (the live version on claude.ai).** Tours, vehicles and every booking request are stored in a real-time database. The admin can change prices, photos, descriptions, inclusions and exclusions, hide or delete trips, and see every request and every interested person. Changes show on the site instantly.
+**With the Frappe server (the normal setup).** Set `FRAPPE_URL` at the top of the script in `index.html`. The `pals_website` app on your Frappe/ERPNext server then does the following:
+- checks the admin sign-in.
+- stores the safaris, the car hire fleet, photos and every booking request.
+- shows changes the admin makes on the website straight away.
 
-**Standalone mode (this repo on GitHub Pages or any web host).** There is no database, so:
-- Tours and vehicles come from `data/tours.json` and `data/vehicles.json`. Edit those files and push to update the site.
-- When a visitor sends any form, WhatsApp opens with all their answers filled in, addressed to +254 757 129 599.
-- The admin page opens, but explains that saving needs a database.
+Setup steps are in [`frappe-app/README.md`](frappe-app/README.md). If the server is unreachable, visitors still see the tours from `data/*.json` and forms open WhatsApp.
 
-To make the admin save changes on your own hosting, connect a database (for example the company's Frappe/ERPNext system, Firebase or Supabase). The places to wire it are the `boot` section (loading tours, vehicles and bookings) and the `patch`, `submit` and upload handlers in `index.html`.
+**Without a server (`FRAPPE_URL` left empty).**
+- Tours and vehicles come from `data/tours.json` and `data/vehicles.json`.
+- Forms open WhatsApp with the visitor's answers filled in, addressed to +254 757 129 599.
+- The admin can't sign in.
 
-## Admin login
+**On claude.ai.** Data is stored in the artifact's database. Editing needs edit access to the artifact.
 
-- Open the footer link **Admin login**, or go to `/#admin`.
-- Username `admin`, password `admin`.
+## Admin
 
-**Important:** this login is checked in the browser, so anyone who reads the page code can see it. It keeps casual visitors out of the dashboard but is not real security. Before the site goes public, replace it with a proper login on the server side and change the password.
+- Open `https://palstravelleisure.co.ke/admin2`. There is no link to it anywhere on the website.
+- Sign in with the Frappe account that has the **Pals Website Manager** role (see `frappe-app/README.md`). Frappe checks the password on the server. Nothing secret is stored in the website code.
 
 ## Push this folder to GitHub
 

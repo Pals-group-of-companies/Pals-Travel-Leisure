@@ -273,7 +273,12 @@ dl.kv{margin:0;display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:10px
 (() => {
   // ---------- assets (ids in this artifact) ----------
   const A = { logo:'51a167d775e24fea8980ff0569e85ee9', jet:'a4001fba780a15ca5213bf84b1272355', ticket:'e168b152dc648fdfb30477d215a022c4', passport:'d05e6aeda649adc3973df32f0769322a', sign:'3f30be3f3420124553c9ec26ec58c09e', roadtrip:'61794eba8f4cbb609ad8e78760ed3ff7', liberty:'f0eba04dc7454e3ddafdb1c2198885f7', aar:'d752185cb97123d94af617d469817526', uniserv:'e13a52906ba069b4123b6f1a962f63ce', light:'b79471d48ef12784223887ba46e2f080', balloons:'8d0a6c0fa593a0e1ff2ba0b3d66af8e5', eleph:'ce1beb06230a827c3fd2cf21ef60ddef', lion:'920e7bfd1cd5fc3efc8808a44bf94589', nakuru:'c1613f035608aef0a49eb52f5cb5b57e', giraffes:'28f5c37804dda436a9546247332865dc', tent:'da4c0fede6598934b3e39cf3f683a85f', deck:'07824e41a6f25e1576ff958ec6b2ff9d', vans:'f103c9a85620842f7023c06823aac314', ngoro:'3221ce3a2df5bb8db49b622f952a1a6d', cruisers:'54c22e0eb5ed8ff10b9d3bc71f343cf7', lc:'d6b2b7005a9c984d0a62750272a4ab72', sclass:'faf37deecbf4e3afe7862818eca8096c', hiace:'90862219153eda3276bdedec16933644', bus:'46f57b9230f8da695940b0296a8965b4', coasters:'a51cb30a33f17cb860b7e4d56b517e74' };
+  // ---------- server ----------
+  // Address of the Frappe/ERPNext site that runs the "pals_website" app (see frappe-app/README.md),
+  // for example 'https://erp.palstravelleisure.co.ke'. Leave empty to run without a server.
+  const FRAPPE_URL = '';
   const STANDALONE = !(window.claude && window.claude.use);
+  const FRAPPE = STANDALONE && !!FRAPPE_URL;
   const LOCAL = {"90c6425e16b02228f2b8cc24712cffe0": "assets/sch-stmarys.png", "c163d2b890024e5158614f20ea4ba03a": "assets/sch-loreto.png", "4b63e48b0af8308c682a78b8fd62a2d6": "assets/sch-logos.png", "c4a35b7de4083be0ef96b150d90acd98": "assets/sch-anatolia.png", "90d5fd86448c427087e05311c6e34019": "assets/sch-van-side.jpg", "999e58600560f6c0338322eb507c3397": "assets/sch-vans-front.jpg", "6164622308769e2e79860f24e445556a": "assets/sch-vans-rear.jpg", "92c638b4322d573ff900e7830232690f": "assets/sch-vans-rear2.jpg", "51a167d775e24fea8980ff0569e85ee9": "assets/pals-logo.png", "a4001fba780a15ca5213bf84b1272355": "assets/jet.png", "e168b152dc648fdfb30477d215a022c4": "assets/ticket.png", "d05e6aeda649adc3973df32f0769322a": "assets/passport.png", "3f30be3f3420124553c9ec26ec58c09e": "assets/sign.png", "61794eba8f4cbb609ad8e78760ed3ff7": "assets/roadtrip.png", "f0eba04dc7454e3ddafdb1c2198885f7": "assets/liberty.png", "d752185cb97123d94af617d469817526": "assets/aar.png", "e13a52906ba069b4123b6f1a962f63ce": "assets/uniserv.png", "b79471d48ef12784223887ba46e2f080": "assets/light.png", "8d0a6c0fa593a0e1ff2ba0b3d66af8e5": "assets/p-balloons.png", "ce1beb06230a827c3fd2cf21ef60ddef": "assets/p-elephants.png", "920e7bfd1cd5fc3efc8808a44bf94589": "assets/p-lion.png", "c1613f035608aef0a49eb52f5cb5b57e": "assets/p-nakuru.png", "28f5c37804dda436a9546247332865dc": "assets/p-giraffes.png", "da4c0fede6598934b3e39cf3f683a85f": "assets/p-tent.png", "07824e41a6f25e1576ff958ec6b2ff9d": "assets/p-deck.png", "f103c9a85620842f7023c06823aac314": "assets/p-vans.png", "3221ce3a2df5bb8db49b622f952a1a6d": "assets/p-ngorongoro.png", "54c22e0eb5ed8ff10b9d3bc71f343cf7": "assets/p-cruisers.png", "d6b2b7005a9c984d0a62750272a4ab72": "assets/v-landcruiser.png", "faf37deecbf4e3afe7862818eca8096c": "assets/v-sclass.png", "90862219153eda3276bdedec16933644": "assets/v-hiace.png", "46f57b9230f8da695940b0296a8965b4": "assets/v-bus.png", "a51cb30a33f17cb860b7e4d56b517e74": "assets/p-coasters.png", "52b82684beb9cdfe757cf47b95ac6413": "assets/il-map.png", "ddae3ffeb68adaa009370e442615ee22": "assets/il-puzzle.png", "27af5f88f04e95432afc9afe4ef068a2": "assets/il-cars.png", "014a75f13afd30b613de9b4a26c4882d": "assets/il-globe.png", "cdd1ba1aaa9d370f6d3ae5481d73c338": "assets/ic-price.png", "7c8b7920406c2d46924f13be39806acc": "assets/ic-fleet.png", "aa64882000eb6923ccd369337470f760": "assets/ic-driver.png", "1fbe9c044b2a1273c53f1afda8984f37": "assets/ic-support.png", "3f1649853736b4f5bdd13873d1c4d2db": "assets/sv-tours.png", "8303f5dee39ecba2dc24a1c1a6716c68": "assets/sv-hotel.png", "6fcc7c847bc21f012bfbbfcff3dbd55d": "assets/sv-flight.png", "c5979621acaccd4f3d05195492d72d01": "assets/sv-car.png", "a3fe3315188dd793c078735ce7ced05c": "assets/sv-school.png", "04080fd45d794566c874d65a68f8664a": "assets/sv-events.png", "636a28f198a11643353755bfbb957e40": "assets/sv-visa.png"};
   const B = (id) => !id ? '' : (/[./]/.test(id) ? id : (STANDALONE ? (LOCAL[id] || '') : '/_blob/' + encodeURIComponent(id)));
   const img = (k) => B(A[k] || k);
@@ -528,14 +533,15 @@ dl.kv{margin:0;display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:10px
 
   // ---------- admin ----------
   const STATUS = { new: ['New', ''], contacted: ['Contacted', 'warn'], confirmed: ['Confirmed', 'ok'], cancelled: ['Cancelled', 'grey'] };
-  const authed = () => { try { return sessionStorage.getItem('pals_admin') === '1'; } catch (e) { return !!S.authed; } };
+  const authed = () => FRAPPE ? !!S.me : true;
   function vLogin() {
-    return '<section class="wrap" style="min-height:100vh;display:grid;place-items:center;padding:40px 0"><form id="adminLogin" class="panel form" style="width:min(420px,100%)" novalidate><img src="' + img('logo') + '" alt="Pals Travel &amp; Leisure" style="height:36px;width:auto"><h1 style="font-size:28px;margin-top:8px">Admin sign in</h1><p class="note">Manage safaris, the car hire fleet and booking requests.</p><label class="f">Username<input class="in" name="u" autocomplete="username" required></label><label class="f">Password<input class="in" name="p" type="password" autocomplete="current-password" required></label><p class="note" data-err role="alert" style="color:var(--red2);font-weight:600"></p><button class="btn" type="submit" style="width:100%">Sign in' + ARR + '</button><a href="#home" class="note" style="text-align:center">Back to the website</a></form></section>';
+    return '<section class="wrap" style="min-height:100vh;display:grid;place-items:center;padding:40px 0"><form id="adminLogin" class="panel form" style="width:min(420px,100%)" novalidate><img src="' + img('logo') + '" alt="Pals Travel &amp; Leisure" style="height:36px;width:auto"><h1 style="font-size:28px;margin-top:8px">Admin sign in</h1><p class="note">Manage safaris, the car hire fleet and booking requests.</p><label class="f">Email or username<input class="in" name="u" autocomplete="username" required></label><label class="f">Password<input class="in" name="p" type="password" autocomplete="current-password" required></label><p class="note" data-err role="alert" style="color:var(--red2);font-weight:600"></p><button class="btn" type="submit" style="width:100%">Sign in' + ARR + '</button><a href="#home" class="note" style="text-align:center">Back to the website</a></form></section>';
   }
   function vAdmin() {
+    if (FRAPPE && !S.meChecked) return '<p class="center muted" style="padding:160px 0">Checking your sign-in…</p>';
     if (!authed()) return vLogin();
     const tabs = [['overview', 'grid', 'Overview', ''], ['bookings', 'inbox', 'Booking requests', S.bookings.length], ['people', 'users', 'Interested people', people().length], ['tours', 'map', 'Safaris & tours', S.tours.length], ['fleet', 'car', 'Car hire fleet', S.cars.length], ['reports', 'chart', 'Reports', '']];
-    const body = !S.canEdit ? '<div class="panel">' + (S.standalone ? '<h2 style="font-size:22px">Connect the database to manage the site</h2><p class="muted" style="margin-top:8px">This copy is running without a database, so changes can’t be saved and requests are sent by WhatsApp instead. See the README for how to connect one.</p>' : '<h2 style="font-size:22px">This account can’t make changes</h2><p class="muted" style="margin-top:8px">You’re signed in, but saving needs edit access to this site on claude.ai. Ask the owner to give you edit access.</p>') + '</div>' : { overview: aOverview, bookings: aBookings, people: aPeople, tours: () => aItems('tours'), fleet: () => aItems('cars'), reports: aReports }[S.atab]();
+    const body = S.needsImport && S.canEdit ? '<div class="panel"><h2 style="font-size:22px">Load your safaris and vehicles</h2><p class="muted" style="margin-top:8px">The server has no tours or vehicles yet. Copy the ones from the website files into it once, then manage everything here.</p><button class="btn" data-import style="margin-top:16px">Import tours and vehicles' + ARR + '</button></div>' : !S.canEdit ? '<div class="panel">' + (S.standalone ? '<h2 style="font-size:22px">Connect the database to manage the site</h2><p class="muted" style="margin-top:8px">This copy is running without a database, so changes can’t be saved and requests are sent by WhatsApp instead. See the README for how to connect one.</p>' : '<h2 style="font-size:22px">This account can’t make changes</h2><p class="muted" style="margin-top:8px">You’re signed in, but saving needs edit access to this site on claude.ai. Ask the owner to give you edit access.</p>') + '</div>' : { overview: aOverview, bookings: aBookings, people: aPeople, tours: () => aItems('tours'), fleet: () => aItems('cars'), reports: aReports }[S.atab]();
     return '<div style="background:#fff;border-bottom:1px solid var(--line)"><div class="wrap row" style="min-height:68px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px"><div style="display:flex;align-items:center;gap:12px"><img src="' + img('logo') + '" alt="Pals Travel &amp; Leisure" style="height:30px;width:auto"><span class="pill grey">Admin</span></div><div class="row" style="gap:8px"><a class="btn line sm" href="#home">' + ic('eye') + 'View website</a><button class="btn line sm" data-logout>Sign out</button></div></div></div><section class="wrap" style="padding-top:28px"><h1 style="font-size:clamp(30px,4vw,44px)">Dashboard</h1><p class="muted" style="margin-top:6px">Every change here saves instantly and updates the public website.</p></section><div class="wrap admin view"><nav class="side" aria-label="Admin">' + tabs.map((t) => '<button data-atab="' + t[0] + '"' + (S.atab === t[0] ? ' aria-current="page"' : '') + '>' + ic(t[1]) + t[2] + '<span class="count">' + t[3] + '</span></button>').join('') + '</nav><div class="amain">' + body + '</div></div>';
   }
   function people() {
@@ -623,7 +629,7 @@ dl.kv{margin:0;display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:10px
     const col = (h, links) => '<div><h4>' + h + '</h4>' + links.map((l) => '<a href="' + l[1] + '">' + l[0] + '</a>').join('') + '</div>';
     $('#footer').innerHTML = '<div class="fcard"><div class="fnews"><p>Travel deals and new safaris, once a month.</p><form id="newsForm"><input class="in" type="email" required placeholder="Your email address" aria-label="Email address" style="flex:1 1 220px;border-radius:999px;min-height:52px;padding:0 20px"><button class="btn" type="submit">Subscribe</button></form></div>' +
       '<div class="fcols"><div class="brand"><div style="max-width:420px"><img src="' + img('logo') + '" alt="Pals Travel &amp; Leisure" style="height:40px;width:auto;background:#fff;border-radius:8px;padding:2px 4px"><p class="muted" style="margin-top:14px;font-size:15px">Safaris, hotels, flights, car hire and transport, planned from Nairobi since 2010.</p></div><div class="soc"><a href="https://www.facebook.com/palsTravelandLeisurelimited/" aria-label="Facebook">' + ic('fb') + '</a><a href="https://www.instagram.com/palstravelleisure/" aria-label="Instagram">' + ic('ig') + '</a><a href="https://wa.me/254757129599" aria-label="WhatsApp">' + ic('wa') + '</a></div></div>' +
-      col('Explore', [['Safaris &amp; tours', '#safaris'], ['Plan your own trip', '#plan'], ['Car hire', '#cars'], ['School transport', '#school']]) + col('Services', [['Hotels &amp; transfers', '#services'], ['Air ticketing', '#services'], ['Events', '#services'], ['Visa applications', '#services']]) + col('Company', [['About us', '#about'], ['Contact', '#contact'], ['Admin login', '#admin']]) +
+      col('Explore', [['Safaris &amp; tours', '#safaris'], ['Plan your own trip', '#plan'], ['Car hire', '#cars'], ['School transport', '#school']]) + col('Services', [['Hotels &amp; transfers', '#services'], ['Air ticketing', '#services'], ['Events', '#services'], ['Visa applications', '#services']]) + col('Company', [['About us', '#about'], ['Contact', '#contact']]) +
       '<div><h4>Contact</h4><a href="tel:+254757129599">+254 757 129 599</a><a href="tel:+254722331204">+254 722 331 204</a><a href="mailto:info@palstravelleisure.co.ke" style="word-break:break-word">info@palstravelleisure.co.ke</a><p class="muted" style="font-size:14px;margin-top:6px">Mon–Sat, 8:00–18:00</p></div></div>' +
       '<div class="wordwrap" aria-hidden="true"><p class="wordtag">Wake up anywhere</p><p class="wordmark" style="background-image:url(' + img('balloons') + ')">Pals Travel</p><div class="wordline"></div></div><div class="fbottom"><span>© 2026 Pals Travel &amp; Leisure Ltd. All rights reserved.</span><span>Karen, Nandi Rd, Nairobi, Kenya</span></div></div>';
   }
@@ -638,7 +644,7 @@ dl.kv{margin:0;display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:10px
     about: ['About Pals Travel & Leisure | Nairobi Travel Company since 2010', 'Who we are, how we work and why travellers choose us. Tailor-made travel across East Africa since 2010.'],
     contact: ['Contact Pals Travel & Leisure | Nairobi', 'Call or WhatsApp +254 757 129 599, email info@palstravelleisure.co.ke, or send a request for any service.'],
     plan: ['Plan Your Own Safari | Pals Travel & Leisure', 'Tell us your dates, group, style and interests. A travel planner sends you a tailored itinerary and price.'],
-    admin: ['Admin | Pals Travel & Leisure', '']
+    admin2: ['Admin | Pals Travel & Leisure', '']
   };
   function setMeta() {
     let m = META[S.view] || META.home;
@@ -646,7 +652,7 @@ dl.kv{margin:0;display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:10px
     document.title = m[0];
     const d = document.querySelector('meta[name="description"]'); if (d && m[1]) d.setAttribute('content', m[1]);
     const ot = document.querySelector('meta[property="og:title"]'); if (ot) ot.setAttribute('content', m[0]);
-    const r = document.querySelector('meta[name="robots"]'); if (r) r.setAttribute('content', S.view === 'admin' ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
+    const r = document.querySelector('meta[name="robots"]'); if (r) r.setAttribute('content', S.view === 'admin2' ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
   }
   function setTripSchema() {
     const live = S.tours.filter((t) => t.live !== false);
@@ -655,10 +661,10 @@ dl.kv{margin:0;display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:10px
   }
 
   // ---------- render ----------
-  const VIEWS = { home: vHome, safaris: vSafaris, cars: vCars, services: vServices, school: vSchool, about: vAbout, contact: vContact, plan: vPlan, admin: vAdmin };
+  const VIEWS = { home: vHome, safaris: vSafaris, cars: vCars, services: vServices, school: vSchool, about: vAbout, contact: vContact, plan: vPlan, admin2: vAdmin };
   function render() {
     renderChrome();
-    const isAdmin = S.view === 'admin';
+    const isAdmin = S.view === 'admin2';
     $('#navwrap').style.display = isAdmin ? 'none' : '';
     $('#footer').style.display = isAdmin ? 'none' : '';
     document.body.style.background = S.view === 'home' ? 'var(--soft)' : (isAdmin ? 'var(--soft)' : 'var(--bg)');
@@ -702,7 +708,58 @@ dl.kv{margin:0;display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:10px
 
   // ---------- writes ----------
   const col = (kind) => kind === 'tours' ? 'tours' : 'vehicles';
-  async function patch(kind, id, data) { try { await S.db.doc(col(kind) + '/' + id).update(data); toast('Saved'); } catch (e) { toast('Could not save (' + (e.code || 'error') + ')'); } }
+  async function patch(kind, id, data) {
+    try {
+      if (FRAPPE) { const it = await fx('pals_website.api.save_item', { kind: col(kind), name: id, data }); putItem(kind, it); refresh(); }
+      else await S.db.doc(col(kind) + '/' + id).update(data);
+      toast('Saved');
+    } catch (e) { toast(e.server || ('Could not save (' + (e.code || 'error') + ')')); }
+  }
+  function putItem(kind, it) { const list = kind === 'tours' ? S.tours : S.cars; const i = list.findIndex((x) => x.id === it.id); if (i === -1) list.push(it); else list[i] = it; }
+
+  // ---------- Frappe server ----------
+  async function fx(method, args, http) {
+    const get = http === 'GET'; let url = FRAPPE_URL.replace(/\/+$/, '') + '/api/method/' + method;
+    const opt = { method: get ? 'GET' : 'POST', credentials: 'include', headers: { Accept: 'application/json' } };
+    if (get) { if (args) url += '?' + new URLSearchParams(args); }
+    else if (args instanceof FormData) opt.body = args;
+    else { opt.headers['Content-Type'] = 'application/json'; opt.body = JSON.stringify(args || {}); }
+    if (!get && S.csrf) opt.headers['X-Frappe-CSRF-Token'] = S.csrf;
+    const r = await fetch(url, opt); let j = {}; try { j = await r.json(); } catch (er) {}
+    if (!r.ok) {
+      const er = new Error('HTTP ' + r.status); er.code = r.status; er.server = serverMsg(j);
+      if ((r.status === 401 || r.status === 403) && S.me && method !== 'login') { setMe(null); toast('Your session ended. Please sign in again.'); render(); }
+      throw er;
+    }
+    return j.message;
+  }
+  function serverMsg(j) {
+    try { const m = JSON.parse(j._server_messages || '[]').map((x) => { try { return JSON.parse(x).message; } catch (e) { return x; } }).join(' '); if (m) return m.replace(/<[^>]+>/g, ''); } catch (e) {}
+    return j.message && typeof j.message === 'string' ? j.message : '';
+  }
+  function setMe(me) { S.me = me && me.is_admin ? me : null; S.csrf = S.me ? S.me.csrf_token : null; S.canEdit = !!S.me; S.meChecked = true; if (!S.me) S.bookings = []; }
+  async function jsonData() {
+    const [t, v] = await Promise.all([fetch('data/tours.json').then((r) => r.json()), fetch('data/vehicles.json').then((r) => r.json())]);
+    return [t.sort((a, b) => (a.order || 0) - (b.order || 0)), v.sort((a, b) => (a.order || 0) - (b.order || 0))];
+  }
+  async function loadServer() {
+    try {
+      const m = await fx('pals_website.api.get_catalog', null, 'GET'); setMe(m.me); S.serverDown = false;
+      S.needsImport = !m.tours.length && !m.vehicles.length;
+      if (S.needsImport) { try { [S.tours, S.cars] = await jsonData(); } catch (er) { S.tours = []; S.cars = []; } } else { S.tours = m.tours; S.cars = m.vehicles; }
+      if (S.canEdit) await loadRequests();
+    } catch (er) {
+      // Server unreachable: show the website from the data files and send forms by WhatsApp.
+      S.serverDown = true; S.meChecked = true;
+      try { [S.tours, S.cars] = await jsonData(); } catch (e2) { S.offline = true; }
+    }
+    S.ready = true; refresh();
+  }
+  async function loadRequests() { try { S.bookings = await fx('pals_website.api.get_requests', null, 'GET'); } catch (er) {} }
+  function download(name, text) {
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8' })); a.download = name;
+    document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  }
   function parse(field, v) {
     if (field === 'price') return v === '' ? null : Number(v);
     if (field === 'highlights' || field === 'included' || field === 'excluded') return v.split('\n').map((s) => s.trim()).filter(Boolean);
@@ -718,14 +775,15 @@ dl.kv{margin:0;display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:10px
     if (t.dataset.upload && S.assets && t.files && t.files[0]) {
       const [kind, id] = t.dataset.upload.split('|'); toast('Uploading…');
       try { const r = await S.assets.upload(t.files[0]); const list = kind === 'tours' ? S.tours : S.cars; const it = list.find((x) => x.id === id);
-        await patch(kind, id, kind === 'tours' ? { images: [...(it.images || []), r.id] } : { image: r.id, fit: 'contain' }); } catch (err) { toast('Upload failed (' + (err.code || 'error') + ')'); }
+        await patch(kind, id, kind === 'tours' ? { images: [...(it.images || []), r.id] } : { image: r.id, fit: 'contain' }); } catch (err) { toast(err.server || ('Upload failed (' + (err.code || 'error') + ')')); }
     }
   });
   document.addEventListener('click', async (e) => {
     const el = e.target.closest('button, a, [data-close]'); if (!el) return; const d = el.dataset;
     if (el.id === 'burger') { const p = $('#mpanel'); p.classList.toggle('open'); el.setAttribute('aria-expanded', p.classList.contains('open')); el.setAttribute('aria-label', p.classList.contains('open') ? 'Close menu' : 'Open menu'); el.innerHTML = ic(p.classList.contains('open') ? 'x' : 'menu', 2); return; }
     if (d.step) { const inp = el.parentElement.querySelector('input'); const min = Number(inp.min || 0); inp.value = Math.max(min, (Number(inp.value) || 0) + Number(d.step)); inp.dispatchEvent(new Event('input', { bubbles: true })); return; }
-    if ('logout' in d) { try { sessionStorage.removeItem('pals_admin'); } catch (er) {} S.authed = false; location.hash = 'home'; return; }
+    if ('logout' in d) { if (FRAPPE) { try { await fx('logout'); } catch (er) {} setMe(null); } location.hash = 'home'; return; }
+    if ('import' in d && FRAPPE && S.canEdit) { el.disabled = true; toast('Importing…'); try { const [t, v] = await jsonData(); await fx('pals_website.api.import_items', { tours: t, vehicles: v }); toast('Imported'); await loadServer(); } catch (er) { el.disabled = false; toast(er.server || 'Import failed'); } return; }
     if (d.filter) { S.filter = d.filter; render(); }
     if (d.tour) { if (S.view === 'safaris') { S.sub = d.tour; S.sent = null; render(); window.scrollTo(0, 0); } else { S.pendingSub = d.tour; location.hash = 'safaris'; } }
     if (d.car) { S.sub = d.car; S.sent = null; render(); window.scrollTo(0, 0); }
@@ -737,24 +795,42 @@ dl.kv{margin:0;display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:10px
     if (d.bfilter) { S.bfilter = d.bfilter; render(); }
     if (d.booking) { const [owner, id] = d.booking.split('|'); S.drawer = { type: 'booking', owner, id }; render(); }
     if ('closebtn' in d || ('close' in d && e.target === el)) { S.drawer = null; render(); }
-    if (d.status && S.drawer) { const ref = S.db.doc('bookings/' + S.drawer.owner); const snap = await ref.get(); if (snap.exists) { await ref.update({ requests: (snap.data().requests || []).map((r) => r.id === S.drawer.id ? { ...r, status: d.status } : r) }); toast('Status updated'); } }
+    if (d.status && S.drawer && FRAPPE) { try { await fx('pals_website.api.set_request_status', { name: S.drawer.owner, status: d.status }); const r = S.bookings.find((x) => x.owner === S.drawer.owner); if (r) r.status = d.status; toast('Status updated'); render(); } catch (er) { toast(er.server || 'Could not update'); } }
+    else if (d.status && S.drawer) { const ref = S.db.doc('bookings/' + S.drawer.owner); const snap = await ref.get(); if (snap.exists) { await ref.update({ requests: (snap.data().requests || []).map((r) => r.id === S.drawer.id ? { ...r, status: d.status } : r) }); toast('Status updated'); } }
     if (d.live) { const [kind, id] = d.live.split('|'); const it = (kind === 'tours' ? S.tours : S.cars).find((x) => x.id === id); await patch(kind, id, { live: it.live === false }); }
-    if (d.del) { const [kind, id] = d.del.split('|'); if (confirm('Delete this from the website?')) { await S.db.doc(col(kind) + '/' + id).delete(); S.drawer = null; toast('Deleted'); render(); } }
+    if (d.del) { const [kind, id] = d.del.split('|'); if (confirm('Delete this from the website?')) { if (FRAPPE) { try { await fx('pals_website.api.delete_item', { name: id }); } catch (er) { toast(er.server || 'Could not delete'); return; } const list = kind === 'tours' ? S.tours : S.cars; list.splice(list.findIndex((x) => x.id === id), 1); } else await S.db.doc(col(kind) + '/' + id).delete(); S.drawer = null; toast('Deleted'); render(); } }
     if (d.more) { const [kind, id] = d.more.split('|'); S.drawer = { type: 'item', kind, id }; render(); }
     if (d.rmimg) { const [kind, id, i] = d.rmimg.split('|'); const it = (kind === 'tours' ? S.tours : S.cars).find((x) => x.id === id); await patch(kind, id, kind === 'tours' ? { images: (it.images || []).filter((_, j) => j !== Number(i)) } : { image: '' }); }
-    if (d.add) { const kind = d.add; const ref = S.db.collection(col(kind)).doc(); const order = Date.now();
-      await ref.set(kind === 'tours' ? { title: 'New tour', days: '', region: '', category: 'lodge', price: null, currency: 'USD', overview: '', highlights: [], itinerary: [], images: [], live: false, order } : { name: 'New vehicle', type: '', seats: '', use: '', price: null, currency: 'KES', image: '', fit: 'contain', live: false, order });
-      S.drawer = { type: 'item', kind, id: ref.id }; toast('Added, hidden until you make it visible'); render(); }
+    if (d.add) { const kind = d.add; const order = Date.now();
+      const blank = kind === 'tours' ? { title: 'New tour', days: '', region: '', category: 'lodge', price: null, currency: 'USD', overview: '', highlights: [], itinerary: [], images: [], live: false, order } : { name: 'New vehicle', type: '', seats: '', use: '', price: null, currency: 'KES', image: '', fit: 'contain', live: false, order };
+      let newId;
+      if (FRAPPE) { try { const it = await fx('pals_website.api.save_item', { kind: col(kind), data: blank }); putItem(kind, it); newId = it.id; } catch (er) { toast(er.server || 'Could not add'); return; } }
+      else { const ref = S.db.collection(col(kind)).doc(); await ref.set(blank); newId = ref.id; }
+      S.drawer = { type: 'item', kind, id: newId }; toast('Added, hidden until you make it visible'); render(); }
     if ('csv' in d) {
       const keys = ['createdAt', 'status', 'kind', 'itemTitle', 'name', 'phone', 'email', 'country']; Object.values(FORMS).forEach((F) => F.fields.forEach((f) => { if (keys.indexOf(f.k) === -1) keys.push(f.k); }));
       const csv = [keys.join(',')].concat(S.bookings.map((r) => keys.map((k) => '"' + String(Array.isArray(r[k]) ? r[k].join('; ') : (r[k] == null ? '' : r[k])).replace(/"/g, '""') + '"').join(','))).join('\n');
-      const dl = await window.claude.use('downloads'); if (dl) { try { await dl.save({ filename: 'pals-requests.csv', data: csv }); } catch (err) { toast('Download cancelled'); } } else toast('Downloads are not available here');
+      const dl = STANDALONE ? null : await window.claude.use('downloads'); if (STANDALONE) download('pals-requests.csv', csv); else if (dl) { try { await dl.save({ filename: 'pals-requests.csv', data: csv }); } catch (err) { toast('Download cancelled'); } } else toast('Downloads are not available here');
     }
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && S.drawer) { S.drawer = null; render(); } });
   document.addEventListener('submit', async (e) => {
     const f = e.target;
-    if (f.id === 'adminLogin') { e.preventDefault(); const fd = new FormData(f); if (String(fd.get('u')).trim() === 'admin' && String(fd.get('p')) === 'admin') { try { sessionStorage.setItem('pals_admin', '1'); } catch (er) { S.authed = true; } S.atab = 'overview'; render(); } else { f.querySelector('[data-err]').textContent = 'Wrong username or password.'; } return; }
+    if (f.id === 'adminLogin') {
+      e.preventDefault(); const fd = new FormData(f); const err = f.querySelector('[data-err]'); const btn = f.querySelector('button[type="submit"]');
+      if (!FRAPPE) { err.textContent = 'Sign-in needs the server. Set FRAPPE_URL in index.html (see the README).'; return; }
+      btn.disabled = true; err.textContent = '';
+      try {
+        await fx('login', { usr: String(fd.get('u') || '').trim(), pwd: String(fd.get('p') || '') });
+        const me = await fx('pals_website.api.whoami', null, 'GET');
+        if (!me || !me.is_admin) { try { await fx('logout'); } catch (er) {} setMe(null); btn.disabled = false; err.textContent = 'This account is not allowed to manage the website.'; return; }
+        S.atab = 'overview'; await loadServer(); render();
+      } catch (er) {
+        btn.disabled = false;
+        err.textContent = er.code === 401 ? 'Wrong email/username or password.' : er.code === 429 ? 'Too many attempts. Please wait a few minutes and try again.' : !er.code ? 'Cannot reach the server. Check your connection and try again.' : (er.server || 'Sign-in failed (' + er.code + ').');
+      }
+      return;
+    }
     if (f.id === 'newsForm') { e.preventDefault(); toast('Thanks for subscribing'); f.reset(); return; }
     if (!f.dataset.form) return; e.preventDefault();
     const kind = f.dataset.form; const F = FORMS[kind]; const fd = new FormData(f); const err = f.querySelector('[data-err]');
@@ -763,22 +839,33 @@ dl.kv{margin:0;display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:10px
     const itemId = f.dataset.item; const item = itemId ? (kind === 'tour' ? S.tours : S.cars).find((x) => x.id === itemId) : null;
     const req = { id: 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), kind, status: 'new', createdAt: new Date().toISOString(), itemId: itemId || '', itemTitle: item ? (item.title || item.name) : '', price: item && item.price != null ? item.price : null, currency: item ? (item.currency || (kind === 'tour' ? 'USD' : 'KES')) : '' };
     F.fields.concat(CONTACT).forEach((x) => { if (x.type === 'checks') req[x.k] = fd.getAll(x.k).map(String); else { const v = fd.get(x.k); if (v != null && v !== '') req[x.k] = x.type === 'stepper' ? Number(v) : String(v).slice(0, 2000); } });
-    if (S.standalone) {
+    if (S.standalone || S.serverDown) {
       const lines = ['New ' + (KIND_LABEL[kind] || kind) + ' request' + (req.itemTitle ? ': ' + req.itemTitle : '')].concat(F.fields.concat(CONTACT).filter((x) => req[x.k] !== undefined && String(req[x.k]) !== '').map((x) => x.label + ': ' + (Array.isArray(req[x.k]) ? req[x.k].join(', ') : req[x.k])));
       window.open('https://wa.me/254757129599?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
       S.sent = { key: kind + ':' + (itemId || ''), name: req.name }; f.removeAttribute('data-dirty'); render(); return;
     }
     const btn = f.querySelector('button[type="submit"]'); btn.disabled = true; btn.firstChild.textContent = 'Sending… ';
     try {
-      const ref = S.db.doc('bookings/' + S.uid); const snap = await ref.get(); const prev = snap.exists ? (snap.data().requests || []) : [];
-      await ref.set({ requests: prev.concat([req]).slice(-50), updatedAt: req.createdAt });
+      if (FRAPPE) { await fx('pals_website.api.submit_request', { request: req }); if (S.canEdit) loadRequests(); }
+      else {
+        const ref = S.db.doc('bookings/' + S.uid); const snap = await ref.get(); const prev = snap.exists ? (snap.data().requests || []) : [];
+        await ref.set({ requests: prev.concat([req]).slice(-50), updatedAt: req.createdAt });
+      }
       S.sent = { key: kind + ':' + (itemId || ''), name: req.name }; f.removeAttribute('data-dirty'); render();
-    } catch (er) { btn.disabled = false; btn.firstChild.textContent = 'Send request '; err.textContent = 'Could not send (' + (er.code || 'error') + '). Please try again or WhatsApp us.'; }
+    } catch (er) { btn.disabled = false; btn.firstChild.textContent = 'Send request '; err.textContent = er.code === 429 ? 'Too many requests from this connection. Please WhatsApp us on +254 757 129 599.' : 'Could not send (' + (er.code || 'error') + '). Please try again or WhatsApp us.'; }
   });
 
   // ---------- boot ----------
+  if (/\/admin2\/?$/.test(location.pathname) && location.hash !== '#admin2') history.replaceState(null, '', location.pathname.replace(/admin2\/?$/, '') + '#admin2');
   renderFooter(); route();
   (async () => {
+    if (FRAPPE) {
+      S.uid = 'guest';
+      S.assets = { upload: async (file) => { const fd = new FormData(); fd.append('file', file, file.name); const m = await fx('pals_website.api.upload_image', fd); return { id: m.url }; } };
+      await loadServer();
+      setInterval(() => { if (S.canEdit && S.view === 'admin2' && !document.hidden) loadRequests().then(refresh); }, 60000);
+      return;
+    }
     if (STANDALONE) {
       S.standalone = true; S.uid = 'guest';
       try { const [t, v] = await Promise.all([fetch('data/tours.json').then((r) => r.json()), fetch('data/vehicles.json').then((r) => r.json())]); S.tours = t.sort((a, b) => (a.order || 0) - (b.order || 0)); S.cars = v.sort((a, b) => (a.order || 0) - (b.order || 0)); S.ready = true; } catch (er) { S.offline = true; }
