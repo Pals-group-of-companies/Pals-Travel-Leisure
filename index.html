@@ -584,6 +584,107 @@ fieldset.q{border:0}
 .kind[aria-checked="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 .kind[aria-checked="true"] .ic{color:#fff}
 .qother{margin-top:4px}
+
+/* ===== phone polish ===== */
+@media (max-width:640px){
+  .sec{padding:52px 0}
+  .head{margin-bottom:28px}
+  .h2{font-size:clamp(27px,7.6vw,34px);letter-spacing:-.04em}
+  .lead{font-size:16px}
+  .pagehead{padding:28px 0 24px}
+  .pagehead h1{font-size:clamp(34px,10.5vw,46px)}
+  /* home services: compact 2-up tiles */
+  .grid4{grid-template-columns:1fr 1fr;gap:10px}
+  .grid4 .feature{padding:16px 14px;border-radius:20px}
+  .grid4 .feature .itile{--s:52px!important}
+  .grid4 .feature h3{font-size:15px;margin:12px 0 4px;line-height:1.25}
+  .grid4 .feature p:not(:last-child){display:none}
+  .grid4 .feature p:last-child{margin-top:8px!important;font-size:14px}
+  /* destination cards */
+  .dcard{width:62vw}
+  .dtrack{gap:14px;padding:12px 8px 22px}
+  /* confidence + business cards: icon beside text */
+  .conf{gap:10px}
+  .conf .feature,.svc{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:start;text-align:start;padding:18px 16px;border-radius:20px}
+  .conf .feature .tile,.svc .tile{grid-row:1/3;margin:0;width:46px;height:46px;border-radius:14px}
+  .conf .feature h3,.svc h3{margin:2px 0 0;font-size:16px}
+  .conf .feature p,.svc p{font-size:14px;line-height:1.5;margin:0}
+  .svcgrid,.svcgrid.four{gap:10px}
+  /* pinned notes 2-up */
+  .board{padding:24px 14px;border-radius:22px}
+  .pins{grid-template-columns:1fr 1fr;gap:34px 12px}
+  .pnote{padding:28px 12px 14px}
+  .pnote p{font-size:13.5px;line-height:1.45}
+  .pnote .pin{width:28px;height:42px;top:-25px}
+  /* why travellers choose us 2-up */
+  .why3{grid-template-columns:1fr 1fr!important;gap:10px}
+  .why3 .card>div:first-child{aspect-ratio:1/1!important;padding:12px!important}
+  .why3 .cbody{padding:0 12px 14px!important}
+  .why3 h3{font-size:14.5px;line-height:1.25}
+  .why3 p{font-size:13px!important}
+  /* business */
+  .ways{gap:10px}
+  .way{padding:18px 16px;border-radius:20px}
+  .way .n{font-size:30px}
+  .mice2{grid-template-columns:1fr 1fr;gap:10px}
+  .mc{padding:96px 12px 16px;border-radius:20px}
+  .mc .ml{font-size:72px;top:14px}
+  .mc::before{top:88px}
+  .mc h3{font-size:16px}
+  .mc p{font-size:13px}
+  .steps5{gap:8px}
+  .steps5 li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;text-align:start;padding:14px 16px;border-radius:18px}
+  .steps5 p{margin:0;font-size:14px}
+  .steps5 b{width:32px;height:32px;font-size:14px}
+  .progwrap{padding:22px 16px;border-radius:22px}
+  /* contact */
+  .cways{grid-template-columns:1fr 1fr;gap:10px}
+  .cway{padding:18px 10px 16px;border-radius:20px}
+  .cway .tile{width:44px;height:44px;margin-bottom:6px}
+  .cway strong{font-size:13.5px}
+  .cway .cs{font-size:12px}
+  .kinds{gap:6px}
+  .kind{min-height:38px;padding:0 12px;font-size:13px}
+  /* forms */
+  .form{padding:8px;border-radius:18px;gap:8px}
+  .formhead{padding:20px 16px 18px;border-top-width:8px}
+  .qs{gap:8px}
+  .q{padding:16px 14px 18px;gap:10px}
+  .qt{font-size:15px}
+  .q .opts{grid-template-columns:1fr}
+  .q .opt{min-height:38px}
+  .formwrap{margin-top:28px}
+  /* planner */
+  .planner{grid-template-columns:1fr}
+  .planner label,.planner .pfield{margin:3px}
+  .hero4 .lead{font-size:16px}
+}
+@media (max-width:360px){.pins{grid-template-columns:1fr}.cways{grid-template-columns:1fr}}
+
+@media (max-width:640px){
+  .kinds{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;margin:0 -16px;padding:2px 16px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+  .kinds::-webkit-scrollbar{display:none}
+  .kind{flex:0 0 auto;scroll-snap-align:start}
+  .fcols{grid-template-columns:1fr 1fr;gap:24px 16px;padding:24px 18px}
+  .fcols a{padding:4px 0;font-size:14.5px}
+  .wordmark{font-size:clamp(48px,17vw,80px)}
+}
+
+@media (max-width:640px){
+  .hero4{padding:22px 0 40px}
+  .hero4 h1{font-size:clamp(38px,11.6vw,50px);margin-top:18px;line-height:1}
+  .hero4 .lead{margin-top:16px;font-size:15.5px;line-height:1.55}
+  .hero4 .kick{font-size:12.5px;padding:5px 12px 5px 6px}
+  .planner{margin-top:24px;border-radius:22px;padding:6px;gap:0}
+  .planner label,.planner .pfield{padding:10px 14px;margin:3px;border-radius:14px}
+  .planner select,.planner input{font-size:15.5px}
+  .planner .go{min-height:54px;margin:3px}
+  .mpanel a:last-child{background:var(--red);color:#fff!important;border-radius:999px;text-align:center;justify-content:center;min-height:54px;margin-top:10px;border:0}
+}
+@media (min-width:370px) and (max-width:640px){
+  .planner{grid-template-columns:1fr 1fr}
+  .planner label:first-child,.planner .go{grid-column:1/-1}
+}
 </style>
 </head>
 <body>
@@ -973,7 +1074,7 @@ fieldset.q{border:0}
       '<div class="grid4">' + SERVICES.filter((x) => ['plan', 'tour', 'business', 'setup', 'investor', 'teambuild', 'medical', 'diaspora'].indexOf(x.k) !== -1).map((x) => '<button class="feature reveal" data-request="' + x.k + '" style="text-align:start;cursor:pointer;font:inherit;color:inherit">' + itile(x.k) + '<h3>' + esc(x.title) + '</h3><p>' + esc(x.line) + '</p><p style="margin-top:14px;color:var(--red2);font-weight:700;display:flex;align-items:center;gap:6px">Enquire ' + ic('right', 2) + '</p></button>').join('') + '</div><div class="center" style="margin-top:32px"><a class="btn line" href="#services">All services</a></div></div></section>' +
       '<section style="padding:clamp(64px,9vw,100px) 0 clamp(40px,6vw,64px)" aria-label="Destinations"><div class="wrap center"><p class="eyebrow reveal">Where we go</p><h2 class="h2 reveal">Destinations we know by heart</h2><p class="lead reveal" style="margin:14px auto 0;max-width:560px">A few of the places we arrange most often. If you have somewhere else in mind, we will plan that too.</p></div><div class="marquee"><div class="dtrack">' + DEST.map((d, i) => dcard(d, i, false)).join('') + DEST.map((d, i) => dcard(d, i, true)).join('') + '</div></div><div class="center"><a class="btn" href="#plan" data-request="plan">Plan your own trip' + ARR + '</a></div></section>' +
       confidence() +
-      '<section class="sec"><div class="wrap">' + sec('Why Pals', 'Why travellers choose us') + '<div class="grid3" style="grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr))">' + [['3f63504874ef311a2b79c2e6f7647e27', 'Tailor-made, never off-the-shelf', 'Every itinerary is built around your dates, group and budget.'], ['a9a7ef2366fb11198fef51facee0fdba', 'One team for the whole trip', 'Flights, transfers, hotels and safaris, booked and joined up by us.'], ['9631afbc4f04b016f9901fc9da6c008a', 'Our own fleet and drivers', 'Safari vehicles, vans and coasters with our own trained drivers.'], ['1704fce13fcb11624ae026b9462f0239', 'Local roots, worldwide reach', 'Based in Nairobi since 2010, booking stays in 140+ destinations.']].map((w) => '<div class="card reveal"><div style="aspect-ratio:4/3;display:grid;place-items:center;padding:20px"><img src="' + B(w[0]) + '" alt="" style="max-width:72%;max-height:72%;object-fit:contain"></div><div class="cbody" style="padding-top:0"><h3>' + w[1] + '</h3><p class="muted" style="font-size:15px">' + w[2] + '</p></div></div>').join('') + '</div></div></section>' +
+      '<section class="sec"><div class="wrap">' + sec('Why Pals', 'Why travellers choose us') + '<div class="grid3 why3" style="grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr))">' + [['3f63504874ef311a2b79c2e6f7647e27', 'Tailor-made, never off-the-shelf', 'Every itinerary is built around your dates, group and budget.'], ['a9a7ef2366fb11198fef51facee0fdba', 'One team for the whole trip', 'Flights, transfers, hotels and safaris, booked and joined up by us.'], ['9631afbc4f04b016f9901fc9da6c008a', 'Our own fleet and drivers', 'Safari vehicles, vans and coasters with our own trained drivers.'], ['1704fce13fcb11624ae026b9462f0239', 'Local roots, worldwide reach', 'Based in Nairobi since 2010, booking stays in 140+ destinations.']].map((w) => '<div class="card reveal"><div style="aspect-ratio:4/3;display:grid;place-items:center;padding:20px"><img src="' + B(w[0]) + '" alt="" style="max-width:72%;max-height:72%;object-fit:contain"></div><div class="cbody" style="padding-top:0"><h3>' + w[1] + '</h3><p class="muted" style="font-size:15px">' + w[2] + '</p></div></div>').join('') + '</div></div></section>' +
       (top.length ? '<section class="sec soft"><div class="wrap">' + sec('Safaris', 'Ready-made safaris', 'Book one as it is, or ask us to change anything about it.') + '<div class="grid">' + top.map(tourCard).join('') + '</div><div class="center" style="margin-top:32px"><a class="btn" href="#safaris">See all safaris' + ARR + '</a></div></div></section>' : '');
   }
   function tourCard(t) {
@@ -1395,7 +1496,7 @@ fieldset.q{border:0}
     if ('back' in d) { S.sub = null; render(); }
     if ('again' in d) { S.sent = null; render(); }
     if (d.request) { e.preventDefault(); if (d.request === 'tour') { location.hash = 'safaris'; return; } if (d.request === 'car') { location.hash = 'cars'; return; } S.drawer = { type: 'request', kind: d.request }; S.sent = null; render(); }
-    if (d.ckind) { S.contactKind = d.ckind; S.sent = null; render(); }
+    if (d.ckind) { const sx = ($('.kinds') || {}).scrollLeft || 0; S.contactKind = d.ckind; S.sent = null; render(); const kb = $('.kinds'); if (kb) kb.scrollLeft = sx; }
     if (d.atab) { S.atab = d.atab; render(); }
     if (d.bfilter) { S.bfilter = d.bfilter; render(); }
     if (d.booking) { const [owner, id] = d.booking.split('|'); S.drawer = { type: 'booking', owner, id }; render(); }
