@@ -71,3 +71,12 @@ If the repo already has files, run `git pull origin main --allow-unrelated-histo
 - Replace the small photos in `assets/` with full-size originals (keep the same file names).
 - Fill in inclusions, exclusions and booking terms for each safari.
 - Give each page its own address (for example `/safaris`, `/car-hire`) so search engines can list them separately. `sitemap.xml` already uses these addresses.
+
+## November 2026 redesign
+
+- Text-only hero with a trip planner: pick what you are planning, a date and the number of travellers, and the matching enquiry form opens with them filled in.
+- New pages: **Business** (business travel and events, business set-up and appointments, investor site visits) and **Careers** (jobs, and the Pals Ambassadors paid referral programme for students). Old `#diaspora` links open Careers.
+- All enquiry forms open as a centred window.
+- Language switcher for English, Chinese, Russian and Arabic (Arabic switches to right-to-left). Translations are built into `index.html`; names, phone numbers and emails stay as written. The admin dashboard stays in English.
+- On the claude.ai live version, text the admin adds or edits is translated automatically with Claude. On a Frappe server, new tour text shows in English until a translation is added.
+- Partner logos live in `assets/partners/`. All images were recompressed (about 6 MB to 2.6 MB).
