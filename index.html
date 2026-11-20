@@ -766,6 +766,36 @@ fieldset.q{border:0}
 .hlink a .go2 .ic{width:14px;height:14px;color:#fff}
 .hlink a:hover{border-color:var(--red);box-shadow:0 10px 24px -16px rgba(15,45,82,.6)}
 @media (max-width:640px){.hlink a{font-size:13px;padding:8px 10px 8px 14px}}
+
+/* package photos */
+.pkhero{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:12px;margin:24px auto 0;max-width:1000px}
+.pkhero img,.pkscene{width:100%;aspect-ratio:21/8;object-fit:cover;border-radius:24px;display:block;background:#EEF2F7;overflow:hidden}
+.pkhero img:only-child,.pkscene{aspect-ratio:21/6}
+.pkscene svg{width:100%;height:100%;display:block}
+.pkcard{padding:0;overflow:hidden}
+.pkcard>*:not(.pkimg){margin-left:22px;margin-right:22px}
+.pkcard>.pkbtn{margin-bottom:22px}
+.pkimg{aspect-ratio:16/10;background:#EEF2F7;overflow:hidden}
+.pkimg img,.pkimg svg{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.pkcard:hover .pkimg img{transform:scale(1.05)}
+.pkcar{width:56px;height:38px;object-fit:cover;border-radius:8px;flex:0 0 auto}
+@media (max-width:640px){.pkhero{grid-auto-flow:row}.pkhero img,.pkscene,.pkhero img:only-child{aspect-ratio:16/8;border-radius:20px}.pkcard>*:not(.pkimg){margin-left:16px;margin-right:16px}.pkcard>.pkbtn{margin-bottom:16px}}
+/* paper texture for forms */
+:root{--paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .33 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.form{background-color:#EFEBE2;background-image:var(--paper);box-shadow:inset 0 0 0 1px rgba(15,45,82,.06)}
+.drawer.modal .sheet{background-color:#EFEBE2;background-image:var(--paper)}
+.formhead,.q,.qsec{background-color:#FFFDF8;background-image:var(--paper);box-shadow:0 1px 0 rgba(15,45,82,.05),0 8px 20px -16px rgba(15,45,82,.35)}
+.formhead{border-top:10px solid var(--red);position:relative}
+.formhead::after{content:"";position:absolute;left:24px;right:24px;bottom:12px;height:1px;background:repeating-linear-gradient(90deg,rgba(15,45,82,.22) 0 6px,transparent 6px 11px)}
+.formhead .tile,.formhead .itile{background:#F2EEE5}
+.q .in{background:transparent;border-bottom-color:#CFC6B4}
+.q select.in,.q textarea.in{border-color:#D8CFBD;background:#FFFEFA}
+.q textarea.in{background-image:repeating-linear-gradient(transparent 0 27px,rgba(15,45,82,.08) 27px 28px);line-height:28px;padding-top:8px}
+.q .opt:hover{background:#F6F1E6}
+.q .opt:has(input:checked){background:#E8EEF7}
+.qn{color:#8A7F6A}
+.q:focus-within{border-color:rgba(15,45,82,.35);box-shadow:0 0 0 3px rgba(15,45,82,.08),0 8px 20px -16px rgba(15,45,82,.35)}
+.qreq{color:#7A705C}
 </style>
 </head>
 <body>
@@ -1176,22 +1206,27 @@ fieldset.q{border:0}
         h: [['Papillon Lagoon Reef', 5, 'All inclusive', 158125, 105750], ['Diani Reef', 5, 'All inclusive', 290000, 182500], ['Diani Sea Lodge', 5, 'All inclusive', 146000, 104000]] },
       { d: 'Malindi', inc: 'Accommodation on all inclusive (meals served with a soft drink); Ocean Beach and Kilili Baharini on full board (meals served without soft drinks)', t: ['Return SGR tickets to Mombasa, economy class', 3200], exNo: ['Return SGR tickets', 'Nairobi and Mombasa SGR transfers'], exYes: ['Nairobi and Mombasa SGR transfers'],
         h: [['Ocean Beach Resort', 5, 'Full board', 233220, 180435], ['Diamonds Malindi', 5, 'All inclusive', 238500, 159000], ['Kilili Baharini Beach Resort', 4, 'Full board', 230000, 172500]] },
-      { d: 'Naivasha', inc: 'Accommodation on full board (meals served without soft drinks)', t: ['Pick-up and drop-off in a saloon car, minimum 3 guests', 6500], exNo: ['Transport', 'Soft drinks'], exYes: ['Soft drinks'],
+      { d: 'Naivasha', car: 'sclass', inc: 'Accommodation on full board (meals served without soft drinks)', t: ['Pick-up and drop-off in a saloon car, minimum 3 guests', 6500], exNo: ['Transport', 'Soft drinks'], exYes: ['Soft drinks'],
         h: [['Sawela Lodges', 3, 'Full board', 78000, 54000], ['Burch’s Resort', 3, 'Full board', 55500, 42000], ['Lake Naivasha Resort', 3, 'Full board', 57000, 39000]] },
-      { d: 'Maasai Mara', inc: 'Accommodation on full board (meals served without soft drinks)', t: ['Four days’ transport and game drives in a tour van, minimum 7 guests', 13200], exNo: ['Transport and game drives', 'Park fees', 'Soft drinks'], exYes: ['Park fees', 'Soft drinks'],
+      { d: 'Maasai Mara', img: ['tent', 'balloons', 'lion'], car: 'vans', inc: 'Accommodation on full board (meals served without soft drinks)', t: ['Four days’ transport and game drives in a tour van, minimum 7 guests', 13200], exNo: ['Transport and game drives', 'Park fees', 'Soft drinks'], exYes: ['Park fees', 'Soft drinks'],
         h: [['Oldarpoi Mara Camp', 3, 'Full board', 49500, 43800], ['Sentrim Mara Camp', 3, 'Full board', 54000, 51000], ['AA Lodge Mara', 3, 'Full board', 64500, 49200]] }
     ]
   };
+  // Hotel photos: hotel name -> asset id. Add an entry when a photo is uploaded.
+  const PKGIMG = {};
+  const PICO = { Mombasa: 'beach', Diani: 'beach', Malindi: 'beach', Naivasha: 'lake', 'Maasai Mara': 'savanna' };
+  const scene = (k) => { const g = { beach: '<path d="M0 70c40-10 80-10 120 0s80 10 120 0 80-10 120 0v50H0z" fill="#CFE0F2"/><path d="M0 84c40-8 80-8 120 0s80 8 120 0 80-8 120 0v36H0z" fill="#B4CDE7"/><path d="M0 98c60-6 120-6 180 0s120 6 180 0v22H0z" fill="#EADFC8"/><circle cx="292" cy="30" r="14" fill="#F3D9A4"/><path d="M70 98c0-30 4-46 10-58M80 40c-12-4-22 0-28 8M80 40c10-6 22-6 30 2M80 40c-4-10-12-16-22-16M80 40c6-10 16-14 26-12" stroke="#5E7891" stroke-width="3" fill="none" stroke-linecap="round"/>', lake: '<path d="M0 62l60-28 50 22 70-36 80 40 50-18 50 22v48H0z" fill="#C9D6E3"/><path d="M0 82h360v38H0z" fill="#B4CDE7"/><path d="M30 92h60M150 100h80M260 90h50" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/><circle cx="300" cy="28" r="12" fill="#F3D9A4"/>', savanna: '<path d="M0 82c80-12 160-12 240-4s100 4 120 0v42H0z" fill="#E6D8B8"/><path d="M60 82V60M40 60h40c-6-8-14-12-20-12s-14 4-20 12z" stroke="#7A6A48" stroke-width="3" fill="#9BA77A"/><circle cx="290" cy="34" r="16" fill="#F1C98A"/>' }[k] || ''; return '<svg viewBox="0 0 360 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="360" height="120" fill="#EEF2F7"/>' + g + '</svg>'; };
   const kes = (n) => 'KES ' + Number(n).toLocaleString('en-US');
   const pkgFrom = (p) => Math.min.apply(null, p.h.map((x) => x[4]));
   function packagesHTML() {
     const i = Math.max(0, PKG.list.findIndex((p) => p.d === S.pkg)); const p = PKG.list[i]; const wt = !!S.pkgT;
     return '<section class="pkgs" id="packages"><div class="pkhead reveal"><span class="pkbadge">' + ic('calendar', 2) + '<span translate="no">' + PKG.dates + '</span></span><h2 class="h2">' + PKG.title + '</h2><p class="lead">Beach, lake and safari stays for the holidays. Prices are per person, for single rooms or twin sharing.</p></div>' +
       '<div class="pktabs" role="tablist">' + PKG.list.map((x) => '<button role="tab" aria-selected="' + (x === p) + '" data-pkg="' + esc(x.d) + '"><b>' + esc(x.d) + '</b><small><span>From</span> <span translate="no">' + kes(pkgFrom(x)) + '</span></small></button>').join('') + '</div>' +
+      '<div class="pkhero reveal">' + (p.img ? p.img.slice(0, 2).map((k) => '<img src="' + img(k) + '" alt="' + esc(p.d) + '" loading="lazy">').join('') : '<div class="pkscene">' + scene(PICO[p.d]) + '</div>') + '</div>' +
       '<div class="pkswitch" role="group" aria-label="Transport"><button data-pkgt="0" aria-pressed="' + !wt + '">Without transport</button><button data-pkgt="1" aria-pressed="' + wt + '">With transport</button></div>' +
-      '<div class="pkgrid">' + p.h.map((h) => { const add = wt ? p.t[1] : 0; return '<article class="pkcard reveal"><div class="pktop"><span class="pkdest">' + esc(p.d) + '</span><span class="pkboard">' + esc(h[2]) + '</span></div><h3 translate="no">' + esc(h[0]) + '</h3><p class="pkmin">' + ic('moon', 2) + '<span>Minimum stay</span> <b>' + h[1] + '</b> <span>nights</span></p>' +
+      '<div class="pkgrid">' + p.h.map((h, hi) => { const add = wt ? p.t[1] : 0; return '<article class="pkcard reveal"><div class="pkimg">' + (PKGIMG[h[0]] ? '<img src="' + B(PKGIMG[h[0]]) + '" alt="' + esc(h[0]) + '" loading="lazy">' : (p.img ? '<img src="' + img(p.img[hi % p.img.length]) + '" alt="' + esc(p.d) + '" loading="lazy">' : scene(PICO[p.d]))) + '</div><div class="pktop"><span class="pkdest">' + esc(p.d) + '</span><span class="pkboard">' + esc(h[2]) + '</span></div><h3 translate="no">' + esc(h[0]) + '</h3><p class="pkmin">' + ic('moon', 2) + '<span>Minimum stay</span> <b>' + h[1] + '</b> <span>nights</span></p>' +
         '<div class="pkprice"><div><small>Twin sharing</small><strong>' + kes(h[4] + add) + '</strong><span>per person</span></div><div><small>Single room</small><strong>' + kes(h[3] + add) + '</strong><span>per person</span></div></div>' +
-        (wt ? '<p class="pkadd">' + ic('plus', 2.2) + '<span>' + esc(p.t[0]) + '</span> <b>' + kes(p.t[1]) + '</b></p>' : '') +
+        (wt ? '<p class="pkadd">' + (p.car ? '<img class="pkcar" src="' + img(p.car) + '" alt="" loading="lazy">' : ic('plus', 2.2)) + '<span>' + esc(p.t[0]) + '</span> <b>' + kes(p.t[1]) + '</b></p>' : '') +
         '<button class="btn pkbtn" data-book-pkg="' + esc(p.d) + '|' + esc(h[0]) + '">Book this stay' + ARR + '</button></article>'; }).join('') + '</div>' +
       '<div class="pknotes reveal"><div><h4>' + ic('check', 2.4) + 'Included</h4><ul><li>' + esc(p.inc) + '</li>' + (wt ? '<li>' + esc(p.t[0]) + '</li>' : '') + '</ul></div><div><h4>' + ic('x', 2.4) + 'Not included</h4><ul>' + (wt ? p.exYes : p.exNo).map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul></div></div>' +
       '<p class="note center" style="margin-top:14px">Prices are subject to availability at the time of booking. We confirm every detail with you before anything is booked.</p></section>';
