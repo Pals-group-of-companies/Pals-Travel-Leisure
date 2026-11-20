@@ -37,11 +37,13 @@ The site picks one of three modes automatically:
 - stores the safaris, the car hire fleet, photos and every booking request.
 - shows changes the admin makes on the website straight away.
 
-Setup steps are in [`frappe-app/README.md`](frappe-app/README.md). If the server is unreachable, visitors still see the tours from `data/*.json` and forms open WhatsApp.
+Setup steps are in [`frappe-app/README.md`](frappe-app/README.md). If the server is unreachable, visitors still see the tours from `data/*.json` and forms open an email to the right inbox, with WhatsApp as a backup.
 
 **Without a server (`FRAPPE_URL` left empty).**
 - Tours and vehicles come from `data/tours.json` and `data/vehicles.json`.
-- Forms open WhatsApp with the visitor's answers filled in, addressed to +254 757 129 599.
+- Without the server, forms open an email with the visitor's answers: booking forms to reservations@palstravelleisure.co.ke, and general enquiries, careers and Pals Ambassadors to info@palstravelleisure.co.ke. A button also sends the same message on WhatsApp to +254 722 331 204.
+- Every request carries a `sendTo` field with the same address, so the Frappe server can route it.
+- The festive season holiday packages (prices in KES) are set in `PKG` inside `index.html`.
 - The admin can't sign in.
 
 **On claude.ai.** Data is stored in the artifact's database. Editing needs edit access to the artifact.
