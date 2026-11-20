@@ -30,7 +30,7 @@
         "title": "Return to Nairobi"
       }
     ],
-    "live": true,
+    "live": false,
     "order": 3,
     "overview": "Big elephant herds against the snows of Kilimanjaro. Amboseli makes a perfect start or end to any Kenya safari.",
     "price": null,
@@ -69,7 +69,7 @@
         "title": "Return to Nairobi"
       }
     ],
-    "live": true,
+    "live": false,
     "order": 6,
     "overview": "Private camping in the Maasai Mara, famous for its abundant wildlife. Plenty of time in the reserve, at a slower pace and a lower cost than a lodge.",
     "price": null,
@@ -119,7 +119,7 @@
         "title": "Return to Nairobi"
       }
     ],
-    "live": true,
+    "live": false,
     "order": 7,
     "overview": "Kenya’s most attractive parks in one journey, starting in Amboseli with views of Kilimanjaro and finishing in the Maasai Mara.",
     "price": null,
@@ -168,7 +168,7 @@
         "title": "Return to Nairobi"
       }
     ],
-    "live": true,
+    "live": false,
     "order": 5,
     "overview": "Three classic parks in one trip: straight to the Maasai Mara, then the flamingo shores of Lake Nakuru, and finally Amboseli under Kilimanjaro.",
     "price": null,
@@ -223,7 +223,7 @@
         "title": "Return to Nairobi"
       }
     ],
-    "live": true,
+    "live": false,
     "order": 8,
     "overview": "Lodges and luxury tented camps across the best of Kenya, from the dry north to the Mara and Amboseli.",
     "price": null,
@@ -263,7 +263,7 @@
         "title": "Return to Nairobi"
       }
     ],
-    "live": true,
+    "live": false,
     "order": 2,
     "overview": "A carefully paced trip into Kenya’s best-known reserve. You stay at Sentinel Mara Camp and spend your days on game drives across the open plains, home to big cats and huge herds.",
     "price": null,
@@ -303,7 +303,7 @@
         "title": "Giraffe Centre"
       }
     ],
-    "live": true,
+    "live": false,
     "order": 1,
     "overview": "A full day around Nairobi: a game drive in Nairobi National Park with the city skyline behind, the baby elephants at the elephant orphanage, then face to face with Rothschild giraffes at the Giraffe Centre.",
     "price": null,
@@ -342,7 +342,7 @@
         "title": "Return to Nairobi"
       }
     ],
-    "live": true,
+    "live": false,
     "order": 4,
     "overview": "An action-packed wildlife and cultural safari in Kenya’s dry north, home to species you won’t see further south.",
     "price": null,
