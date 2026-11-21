@@ -82,3 +82,11 @@ If the repo already has files, run `git pull origin main --allow-unrelated-histo
 - Language switcher for English, Chinese, Russian and Arabic (Arabic switches to right-to-left). Translations are built into `index.html`; names, phone numbers and emails stay as written. The admin dashboard stays in English.
 - On the claude.ai live version, text the admin adds or edits is translated automatically with Claude. On a Frappe server, new tour text shows in English until a translation is added.
 - Partner logos live in `assets/partners/`. All images were recompressed (about 6 MB to 2.6 MB).
+
+## Languages, currency, legal and consent (November 2026)
+- **Languages:** English plus Kiswahili, French, Spanish, German, Italian, Portuguese, Chinese, Russian and Arabic. Translations live in `i18n/<lang>.json` and load only when a visitor picks that language (or their browser asks for it). Rebuild them with `tr/build.py`. New safaris added by an admin are machine-translated into all nine languages automatically.
+- **Currency:** prices are set in KES. The site guesses the visitor's currency from their time zone and converts at live rates from open.er-api.com (cached 12 hours), with built-in fallback rates. Visitors can change currency in the language menu.
+- **Package add-ons:** optional extras and their per-person prices are in `data/addons.json` (public site) and editable in Admin > Add-ons & prices (database mode).
+- **Legal pages:** `#legal/privacy`, `#legal/terms`, `#legal/cookies`, `#legal/bookings`, `#legal/accessibility` (also reachable at `/legal/...`). Have a Kenyan advocate review them before relying on them.
+- **Cookie consent:** only strictly necessary browser storage is used by default. Google Maps on hotel pages loads only after consent. Fonts are self-hosted in `assets/fonts` (no Google Fonts request).
+- **Clean URLs:** `vercel.json` serves `/safaris`, `/car-hire`, `/stay/<hotel>`, `/legal/<page>` etc. from `index.html`, and sets long cache headers for `assets/`.

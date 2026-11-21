@@ -1,0 +1,15 @@
+{
+  "note": "Package add-on prices per person in KES. null = price on request. Edit here or in Admin > Add-ons & prices.",
+  "prices": {
+    "Return SGR tickets": 3200,
+    "Nairobi and Mombasa SGR transfers": null,
+    "Transport": 6500,
+    "Transport and game drives": 13200,
+    "Park fees": null,
+    "Soft drinks": null,
+    "Airport transfers": null,
+    "Extra nights": null,
+    "Excursions and activities": null,
+    "Travel insurance": null
+  }
+}
