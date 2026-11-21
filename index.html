@@ -1116,6 +1116,15 @@ body.langload #app{opacity:.55;transition:opacity .2s}
 .amain .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
 .amain table input.in{min-height:44px}
 @media (max-width:860px){.wrap.admin{grid-template-columns:1fr}.side{position:static;display:flex;flex-direction:row;overflow-x:auto;gap:6px;padding:6px;scrollbar-width:none}.side button{flex:0 0 auto;width:auto;white-space:nowrap;min-height:42px}}
+
+/* add-on rows: plus badge, name, price, no overlap */
+.srules ul.addons,.pknotes ul.addons{gap:0}
+.addons li{position:relative;padding:11px 0 11px 30px!important;align-items:center;color:var(--ink)!important}
+.addons li::before{content:""!important;position:absolute;inset-inline-start:0;top:50%!important;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;background:var(--tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230F2D52' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center/11px no-repeat!important}
+[dir="rtl"] .addons li{padding:11px 30px 11px 0!important}
+.addons li>span{flex:1;min-width:0}
+.addons b{text-align:end}
+@media (max-width:640px){.addons li{flex-wrap:wrap;gap:2px 10px}.addons b{margin-inline-start:auto}}
 </style>
 </head>
 <body>
@@ -1679,7 +1688,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
           '<div class="pkswitch" role="group" aria-label="Transport" style="margin:16px 0 0"><button data-pkgt="0" aria-pressed="' + !wt + '">Without transport</button><button data-pkgt="1" aria-pressed="' + wt + '">With transport</button></div>' +
           (wt ? '<p class="pkadd" style="margin-top:12px">' + ic('plus', 2.2) + '<span>' + esc(p.t[0]) + '</span> <b>' + kes(p.t[1]) + '</b></p>' : '') + '</div>' +
         '<h2 class="sh">Overview</h2><p class="sp">' + esc(DDESC[p.d] || '') + '</p><p class="sp">' + T('A festive season stay on') + ' ' + esc(h[2].toLowerCase()) + ', ' + T('with a minimum stay of') + ' ' + h[1] + ' ' + T('nights') + '. ' + T('Book it as it is, or ask us to add transport, extra nights or activities.') + '</p>' +
-        '<h2 class="sh">Stay details</h2><div class="sfeat">' + feats.map((f) => '<div><span class="sfi">' + ic(f[0], 1.9) + '</span><span><b>' + T(f[1]) + '</b><small>' + esc(f[2]) + '</small></span></div>').join('') + '</div>' +
+        '<h2 class="sh">About this stay</h2><div class="sfeat">' + feats.map((f) => '<div><span class="sfi">' + ic(f[0], 1.9) + '</span><span><b>' + T(f[1]) + '</b><small>' + esc(f[2]) + '</small></span></div>').join('') + '</div>' +
         '<h2 class="sh">Booking terms</h2><div class="srules"><div><h3>Included</h3><ul><li>' + esc(p.inc) + '</li>' + (wt ? '<li>' + esc(p.t[0]) + '</li>' : '') + '</ul></div><div><h3>Add-ons we can arrange</h3><p class="addnote">Not part of the package price. Tick any of them when you book and we add them for you.</p>' + addonsHTML(p, wt) + '</div></div>' +
         '<p class="note" style="margin-top:14px">Prices are subject to availability at the time of booking. We confirm every detail with you before anything is booked.</p>' +
         '<h2 class="sh">Location</h2>' + stayMap(h[0], p.d) +
