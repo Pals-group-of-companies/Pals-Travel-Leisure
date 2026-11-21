@@ -1143,6 +1143,28 @@ body.langload #app{opacity:.55;transition:opacity .2s}
 .drawer.modal .sheet::-webkit-scrollbar-thumb{background:rgba(15,45,82,.34);border-radius:999px;border:3px solid transparent;background-clip:padding-box}
 .drawer.modal .sheet::-webkit-scrollbar-thumb:hover{background:rgba(15,45,82,.6);background-clip:padding-box}
 .drawer.modal .sheet::-webkit-scrollbar-corner{background:transparent}
+
+/* ===== form modal v2: X straddles the edge, inner scroller, whitish paper ===== */
+.drawer.modal .sheet{position:relative;overflow:visible!important;display:flex;flex-direction:column;padding:0!important;background-color:var(--bg)!important;background-image:var(--grain)!important;max-height:min(90vh,100%)}
+.drawer.modal .sbody{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:34px clamp(20px,4vw,44px) 34px;border-radius:inherit;scrollbar-width:thin;scrollbar-color:rgba(15,45,82,.35) transparent}
+.drawer.modal .sbody>.form,.drawer.modal .sbody>.success{margin-top:0}
+.drawer.modal .sbody::-webkit-scrollbar{width:12px;background:transparent}
+.drawer.modal .sbody::-webkit-scrollbar-button,.drawer.modal .sbody::-webkit-scrollbar-button:single-button{display:none;width:0;height:0;background:none}
+.drawer.modal .sbody::-webkit-scrollbar-track{background:transparent;border:0;box-shadow:none;margin:30px 0}
+.drawer.modal .sbody::-webkit-scrollbar-thumb{background:rgba(15,45,82,.32);border-radius:999px;border:4px solid transparent;background-clip:padding-box;min-height:40px}
+.drawer.modal .sbody::-webkit-scrollbar-thumb:hover{background:rgba(15,45,82,.55);background-clip:padding-box}
+.drawer.modal .sbody::-webkit-scrollbar-corner{background:transparent}
+.drawer.modal .xclose{position:absolute;z-index:8;top:-21px;right:-21px;width:42px;height:42px;background:#fff}
+[dir="rtl"] .drawer.modal .xclose{right:auto;left:-21px}
+/* question cards stand out on the whitish paper */
+.drawer.modal .q{background:#fff!important;border:1px solid var(--line)!important}
+.drawer.modal .formhead{background-color:#fff!important}
+@media (max-width:640px){
+  .drawer.modal .sheet{max-height:calc(100% - 34px)}
+  .drawer.modal .sbody{padding:30px 16px calc(28px + env(safe-area-inset-bottom,0px))}
+  .drawer.modal .xclose{top:-20px;right:16px;width:40px;height:40px}
+  [dir="rtl"] .drawer.modal .xclose{left:16px;right:auto}
+}
 </style>
 </head>
 <body>
@@ -2099,7 +2121,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     renderConsent(); tr($('#navwrap')); tr($('#app')); tr($('#layer')); tr($('#consent'));
     if (S.goPkg && $('#packages')) { S.goPkg = false; setTimeout(() => { const el = $('#packages'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); }
   }
-  function requestSheet() { const k = S.drawer.kind; return '<div class="drawer modal" data-close><div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(FORMS[k].title) + '"><div class="row" style="margin-bottom:16px"><span class="meta">' + esc(FORMS[k].label) + '</span><button class="xclose" data-closebtn aria-label="Close" title="Close">' + ic('x', 2.2) + '</button></div>' + formHTML(k, null) + '</div></div>'; }
+  function requestSheet() { const k = S.drawer.kind; return '<div class="drawer modal" data-close><div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(FORMS[k].title) + '"><button class="xclose" data-closebtn aria-label="Close" title="Close">' + ic('x', 2.2) + '</button><div class="sbody">' + formHTML(k, null) + '</div></div></div>'; }
   function busy() {
     const a = document.activeElement;
     if (a && a.matches && a.matches('input,textarea,select')) return true;
