@@ -3,6 +3,7 @@
 Public (no login):
   get_catalog      tours and vehicles shown on the website
   submit_request   a visitor's booking / enquiry form
+  log_client_error a JavaScript error from a visitor's browser (rate-limited)
 
 Website admins only (role "Pals Website Manager" or "System Manager"):
   get_requests, set_request_status, save_item, delete_item,
@@ -134,6 +135,14 @@ def submit_request(request):
 	)
 	doc.insert(ignore_permissions=True)
 	return {"name": doc.name}
+
+
+@frappe.whitelist(allow_guest=True, methods=["POST"])
+@rate_limit(limit=30, seconds=60 * 60)
+def log_client_error(message, page=None):
+	"""A JavaScript error from a visitor's browser, so website problems show up in Frappe's Error Log."""
+	frappe.log_error(title="Website error", message=f"{_text(page, 300)}\n{_text(message, 500)}")
+	return {"ok": True}
 
 
 # ---------- admin ----------
