@@ -1170,6 +1170,27 @@ body.langload #app{opacity:.55;transition:opacity .2s}
   .drawer.modal .xclose{top:-12px;right:18px;width:40px;height:40px}
   [dir="rtl"] .drawer.modal .xclose{left:16px;right:auto}
 }
+
+/* children's ages */
+.kidages:empty{display:none}
+.kidages{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.kidh{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.kidgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.kid{display:grid;gap:5px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.kid select.in{min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#fff;font:inherit;font-size:15px;color:var(--ink)}
+.kid select.in:focus{outline:2px solid var(--red);outline-offset:1px}
+@media (max-width:640px){.kidgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.kidyn{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.kidq{width:100%;font-size:14px;color:var(--muted);margin:0 0 2px}
+.kidopt{position:relative;display:inline-flex;cursor:pointer}
+.kidopt input{position:absolute;opacity:0;width:1px;height:1px}
+.kidopt span{display:inline-flex;align-items:center;justify-content:center;min-width:88px;min-height:44px;padding:0 20px;border:1px solid var(--line);border-radius:999px;background:#fff;font-weight:700;font-size:15px;color:var(--ink);transition:background .2s,border-color .2s,color .2s}
+.kidopt:hover span{border-color:#C9D2DE}
+.kidopt input:checked+span{background:var(--red);border-color:var(--red);color:#fff}
+.kidopt input:focus-visible+span{outline:3px solid var(--red);outline-offset:2px}
+.kidmore{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)}
+.kidmore .kidages{border-top:0;padding-top:0}
 </style>
 </head>
 <body>
@@ -1534,6 +1555,19 @@ body.langload #app{opacity:.55;transition:opacity .2s}
   })();
   const KIND_LABEL = Object.fromEntries(Object.entries(FORMS).map(([k, v]) => [k, v.label]));
 
+  // Ages for each child, shown as soon as a form has 1 or more children.
+  const KID_MAX = 12;
+  function kidAgesHTML(n, prev, amin, amax) {
+    n = Math.max(0, Math.min(KID_MAX, n | 0)); if (!n) return ''; amin = amin || 0; amax = amax || 17;
+    const opts = (v) => '<option value="">' + T('Age') + '</option>' + (amin === 0 ? '<option value="Under 1"' + (v === 'Under 1' ? ' selected' : '') + '>' + T('Under 1') + '</option>' : '') + Array.from({ length: amax - Math.max(1, amin) + 1 }, (_, k) => k + Math.max(1, amin)).map((a) => '<option value="' + a + '"' + (String(a) === v ? ' selected' : '') + '>' + a + '</option>').join('');
+    return '<p class="kidh">' + T('How old are the children?') + ' <span class="qr" aria-hidden="true">*</span></p><div class="kidgrid">' + Array.from({ length: n }, (_, k) => '<label class="kid"><span>' + T('Child') + ' ' + (k + 1) + '</span><select class="in" name="childAge" required aria-label="' + T('Age of child') + ' ' + (k + 1) + '">' + opts(prev[k] || '') + '</select></label>').join('') + '</div>';
+  }
+  function syncKidAges(inp) {
+    const box = inp.closest('.q') && inp.closest('.q').querySelector('[data-kidages]'); if (!box) return;
+    const prev = [...box.querySelectorAll('select')].map((x) => x.value); const n = inp.disabled ? 0 : (Number(inp.value) || 0);
+    if (box.querySelectorAll('select').length === Math.min(KID_MAX, n)) return;
+    box.innerHTML = kidAgesHTML(n, prev, Number(box.dataset.amin || 0), Number(box.dataset.amax || 17));
+  }
   function field(f, n) {
     const id = 'f_' + f.k + '_' + Math.random().toString(36).slice(2, 6);
     const req = f.req ? ' required' : '';
@@ -1542,7 +1576,11 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     let c;
     if (f.type === 'textarea') c = '<textarea class="in" id="' + id + '" maxlength="4000" name="' + f.k + '" placeholder="' + esc(f.ph || 'Enter your answer') + '"' + req + '></textarea>';
     else if (f.type === 'select') c = '<select class="in" id="' + id + '" name="' + f.k + '"' + req + (f.options.indexOf('Other') !== -1 ? ' data-othersel="' + f.k + '"' : '') + '>' + f.options.map((o) => '<option>' + esc(o) + '</option>').join('') + '</select>' + (f.options.indexOf('Other') !== -1 ? '<input class="in qother" name="' + f.k + '_other" placeholder="Please specify" hidden>' : '');
-    else if (f.type === 'stepper') c = '<span class="stepper"><button type="button" data-step="-' + (f.step || 1) + '" aria-label="Decrease ' + esc(f.label) + '">' + ic('minus', 2) + '</button><input id="' + id + '" type="number" name="' + f.k + '" value="' + (f.val || 0) + '" min="' + (f.min || 0) + '" inputmode="numeric"><button type="button" data-step="' + (f.step || 1) + '" aria-label="Increase ' + esc(f.label) + '">' + ic('plus', 2) + '</button></span>';
+    else if (f.type === 'stepper') c = '<span class="stepper"><button type="button" data-step="-' + (f.step || 1) + '" aria-label="Decrease ' + esc(f.label) + '">' + ic('minus', 2) + '</button><input id="' + id + '" type="number" name="' + f.k + '" value="' + (f.val || 0) + '" min="' + (f.min || 0) + '" inputmode="numeric"><button type="button" data-step="' + (f.step || 1) + '" aria-label="Increase ' + esc(f.label) + '">' + ic('plus', 2) + '</button></span>' + (f.k === 'children' ? (() => { const r = /2–11/.test(f.label) ? [2, 11] : /12/.test(f.label) ? [0, 11] : [0, 17]; return '<div class="kidages" data-kidages data-amin="' + r[0] + '" data-amax="' + r[1] + '" aria-live="polite">' + kidAgesHTML(Number(f.val || 0), [], r[0], r[1]) + '</div>'; })() : '');
+    if (f.type === 'stepper' && f.k === 'children' && !f.min) {
+      c = c.replace('name="children" value="' + (f.val || 0) + '" min="0"', 'name="children" value="1" min="1" disabled').replace('data-kidages data-amin', 'data-kidages data-off="1" data-amin');
+      c = '<div class="kidyn" role="radiogroup" aria-label="' + T('Are children travelling?') + '"><p class="kidq">' + T('Are children travelling?') + '</p><label class="kidopt"><input type="radio" name="kids_yn" value="no"><span>' + T('No') + '</span></label><label class="kidopt"><input type="radio" name="kids_yn" value="yes"><span>' + T('Yes') + '</span></label></div><div class="kidmore" hidden><p class="kidh">' + T('How many children?') + '</p>' + c + '</div>';
+    }
     else if (f.type === 'radio' || f.type === 'checks') {
       const t = f.type === 'radio' ? 'radio' : 'checkbox';
       return '<fieldset class="q wide">' + qt('legend') + '<div class="opts">' + f.options.map((o) => '<label class="opt"><input type="' + t + '" name="' + f.k + '" value="' + esc(o) + '"' + (f.val === o ? ' checked' : '') + (o === 'Other' ? ' data-other="' + f.k + '"' : '') + '><span>' + esc(o) + '</span></label>').join('') + '</div>' + (f.options.indexOf('Other') !== -1 ? '<input class="in qother" name="' + f.k + '_other" placeholder="Please specify" hidden>' : '') + '</fieldset>';
@@ -1899,7 +1937,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
   }
   function bookingSheet(r) {
     const F = FORMS[r.kind] || { fields: [] };
-    const rows = [['Service', KIND_LABEL[r.kind] || r.kind], ['For', r.itemTitle], ['Quoted price', r.price != null ? money(r.price, r.currency) : '']].concat(F.fields.map((f) => [f.label, r[f.k]])).concat(CONTACT.map((f) => [f.label, r[f.k]])).concat([['Received', new Date(r.createdAt).toLocaleString('en-GB')]]);
+    const rows = [['Service', KIND_LABEL[r.kind] || r.kind], ['For', r.itemTitle], ['Quoted price', r.price != null ? money(r.price, r.currency) : '']].concat(F.fields.map((f) => [f.label, r[f.k]])).concat([['Children’s ages', r.childAges]]).concat(CONTACT.map((f) => [f.label, r[f.k]])).concat([['Received', new Date(r.createdAt).toLocaleString('en-GB')]]);
     const ph = String(r.phone || '').replace(/[^0-9]/g, '');
     return '<div class="drawer" data-close><div class="sheet" role="dialog" aria-modal="true" aria-label="Request details"><div class="row"><h2 style="font-size:24px">' + esc(r.name || 'Request') + '</h2><button class="btn line sm" data-closebtn>' + ic('x', 2) + 'Close</button></div>' +
       '<div class="ctas" style="justify-content:flex-start;margin:16px 0">' + (r.phone ? '<a class="btn sm" href="tel:' + esc(r.phone) + '">' + ic('phone') + 'Call</a><a class="btn line sm" href="https://wa.me/' + esc(ph) + '">' + ic('wa') + 'WhatsApp</a>' : '') + (r.email ? '<a class="btn line sm" href="mailto:' + esc(r.email) + '">' + ic('mail') + 'Email</a>' : '') + '</div>' +
@@ -2258,6 +2296,13 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     if (when) { const d = sh.querySelector('input[type="date"]'); if (d) d.value = when; }
     const n = parseInt(pax, 10); const st = sh.querySelector('.stepper input'); if (st && n) st.value = n;
   }, true);
+  document.addEventListener('input', (e) => { const t = e.target; if (t && t.name === 'children' && t.closest('form[data-form]')) syncKidAges(t); });
+  document.addEventListener('change', (e) => {
+    const t = e.target; if (!t || t.name !== 'kids_yn') return; const q = t.closest('.q'); if (!q) return;
+    const more = q.querySelector('.kidmore'), inp = q.querySelector('input[name="children"]'); const yes = t.value === 'yes';
+    more.hidden = !yes; inp.disabled = !yes; q.querySelectorAll('.stepper button').forEach((b) => { b.disabled = !yes; });
+    if (yes) { if (!(Number(inp.value) > 0)) inp.value = 1; syncKidAges(inp); } else { const box = q.querySelector('[data-kidages]'); if (box) box.innerHTML = ''; }
+  });
   document.addEventListener('change', (e) => {
     const t = e.target; const fs = t.closest && t.closest('.q'); if (!fs) return;
     const box = fs.querySelector('.qother'); if (!box) return;
@@ -2347,6 +2392,8 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     if (String(fd.get('_honey') || '') || (Date.now() - Number(f.dataset.t || 0)) < 2500) { S.sent = { key: kind + ':' + (f.dataset.item || ''), to: '' }; render(); return; }
     if (f.dataset.busy) return;
     const missing = F.fields.concat(CONTACT).filter((x) => x.req && !String(fd.get(x.k) || '').trim());
+    const ageSel = [...f.querySelectorAll('select[name="childAge"]')];
+    if (!missing.length && ageSel.some((x) => !x.value)) { err.textContent = T('Please choose the age of each child.'); ageSel.find((x) => !x.value).focus(); return; }
     const em0 = String(fd.get('email') || '').trim();
     if (!missing.length && em0 && !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(em0)) { err.textContent = T('Please enter a valid email address'); const fe = f.querySelector('[name="email"]'); if (fe) fe.focus(); return; }
     if (!missing.length && !fd.get('_agree')) { err.textContent = T('Please tick the box to agree to the Privacy Policy, so we can reply to you.'); const fa = f.querySelector('[name="_agree"]'); if (fa) fa.focus(); return; }
@@ -2355,6 +2402,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     const itemId = f.dataset.item; const item = itemId ? (kind === 'tour' ? S.tours : S.cars).find((x) => x.id === itemId) : null;
     const req = { id: 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), kind, status: 'new', createdAt: new Date().toISOString(), itemId: itemId || '', itemTitle: item ? (item.title || item.name) : '', price: item && item.price != null ? item.price : null, currency: item ? (item.currency || (kind === 'tour' ? 'USD' : 'KES')) : '' };
     F.fields.concat(CONTACT).forEach((x) => { const o = String(fd.get(x.k + '_other') || '').trim().slice(0, 300); if (x.type === 'checks') { req[x.k] = fd.getAll(x.k).map(String).map((v) => v === 'Other' && o ? 'Other: ' + o : v); return; } if ((x.type === 'radio' || x.type === 'select') && fd.get(x.k) === 'Other' && o) { req[x.k] = 'Other: ' + o; return; } else { const v = fd.get(x.k); if (v != null && v !== '') req[x.k] = x.type === 'stepper' ? Number(v) : String(v).slice(0, 2000); } });
+    const ages = fd.getAll('childAge').map(String).filter(Boolean); if (ages.length) req.childAges = ages.map((a, k) => 'Child ' + (k + 1) + ': ' + (a === 'Under 1' ? 'under 1' : a + (a === '1' ? ' year' : ' years'))).join(', ');
     if (req.email) req.email = req.email.trim().replace(/@(.*)$/, (m, d) => '@' + d.toLowerCase());
     if (req.name) req.name = req.name.trim().replace(/\s+/g, ' ');
     req.consent = 'Agreed to Privacy Policy (' + new Date().toISOString() + ')'; req.marketing = fd.get('_news') ? 'Yes' : 'No';
@@ -2362,12 +2410,13 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     const GEN = ['general', 'careers', 'link']; req.sendTo = GEN.indexOf(kind) !== -1 ? 'info@palstravelleisure.co.ke' : 'reservations@palstravelleisure.co.ke';
     if (S.standalone || S.serverDown) {
       const lines = ['New ' + (KIND_LABEL[kind] || kind) + ' request' + (req.itemTitle ? ': ' + req.itemTitle : '')].concat(F.fields.concat(CONTACT).filter((x) => req[x.k] !== undefined && String(req[x.k]) !== '').map((x) => x.label + ': ' + (Array.isArray(req[x.k]) ? req[x.k].join(', ') : req[x.k])));
+      if (req.childAges) lines.push('Children’s ages: ' + req.childAges);
       const body = lines.join('\n');
       const btn0 = f.querySelector('button[type="submit"]'); if (btn0) { btn0.disabled = true; btn0.firstChild.textContent = T('Sending…') + ' '; }
       const payload = { _subject: lines[0] + (req.name ? ' — ' + req.name : ''), _template: 'table', _captcha: 'false', _honey: String(fd.get('_honey') || '') };
       if (req.email) payload._replyto = req.email;
       F.fields.concat(CONTACT).forEach((x) => { if (req[x.k] !== undefined && String(req[x.k]) !== '') payload[x.label] = Array.isArray(req[x.k]) ? req[x.k].join(', ') : String(req[x.k]); });
-      if (req.itemTitle) payload['Item'] = req.itemTitle; payload['Page'] = location.href; payload['Reference'] = req.id; payload['Consent'] = req.consent; payload['Email offers'] = req.marketing; payload['Language'] = LANG; if (CUR !== 'KES') payload['Currency shown'] = CUR;
+      if (req.itemTitle) payload['Item'] = req.itemTitle; payload['Page'] = location.href; payload['Reference'] = req.id; if (req.childAges) payload['Children’s ages'] = req.childAges; payload['Consent'] = req.consent; payload['Email offers'] = req.marketing; payload['Language'] = LANG; if (CUR !== 'KES') payload['Currency shown'] = CUR;
       let ok = false;
       try {
         const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 15000);
