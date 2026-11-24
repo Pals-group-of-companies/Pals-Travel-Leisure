@@ -7,7 +7,15 @@ Public (no login):
 
 Website admins only (role "Pals Website Manager" or "System Manager"):
   get_requests, set_request_status, save_item, delete_item,
-  import_items, upload_image
+  import_items, upload_image, save_addons
+
+Timed safaris: a tour may carry "validFrom" and/or "validUntil" (YYYY-MM-DD,
+Nairobi time, inclusive). Visitors only receive tours that are on sale now;
+admins receive everything.
+
+Translations: if site_config has "anthropic_api_key", every saved tour is
+translated in the background into the website's nine other languages and the
+result is stored in the tour's "tr" field, which the website uses directly.
 
 Admins sign in with Frappe's own /api/method/login, so passwords are checked
 and stored (hashed) by Frappe, and failed attempts are throttled by Frappe.
@@ -15,6 +23,8 @@ and stored (hashed) by Frappe, and failed attempts are throttled by Frappe.
 
 import json
 import os
+from datetime import datetime, time
+from zoneinfo import ZoneInfo
 
 import frappe
 from frappe import _
@@ -25,7 +35,10 @@ ITEM = "Pals Website Item"
 REQUEST = "Pals Booking Request"
 KINDS = ("tours", "vehicles")
 STATUSES = ("new", "contacted", "confirmed", "cancelled")
-MAX_JSON = 60_000  # characters
+MAX_JSON = 120_000  # characters (room for translations)
+TZ = ZoneInfo("Africa/Nairobi")
+LANGS = {"sw": "Swahili", "fr": "French", "es": "Spanish", "de": "German", "it": "Italian", "pt": "Portuguese (Portugal)", "zh": "Simplified Chinese", "ru": "Russian", "ar": "Modern Standard Arabic"}
+ADDONS_KEY = "pals_website_addons"
 MAX_IMAGE = 10 * 1024 * 1024  # bytes
 IMAGE_TYPES = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 
@@ -78,6 +91,32 @@ def _item_out(doc):
 	return data
 
 
+def _day(value):
+	try:
+		return datetime.strptime(str(value)[:10], "%Y-%m-%d").date()
+	except (TypeError, ValueError):
+		return None
+
+
+def on_sale(data, now=None):
+	"""True if a tour is inside its validFrom / validUntil window (Nairobi time, both days inclusive)."""
+	now = now or datetime.now(TZ)
+	start, end = _day(data.get("validFrom")), _day(data.get("validUntil"))
+	if start and now < datetime.combine(start, time.min, TZ):
+		return False
+	if end and now > datetime.combine(end, time.max, TZ):
+		return False
+	return True
+
+
+def _addons():
+	try:
+		value = json.loads(frappe.db.get_default(ADDONS_KEY) or "{}")
+	except ValueError:
+		value = {}
+	return value if isinstance(value, dict) else {}
+
+
 def _me():
 	user = frappe.session.user
 	admin = is_admin(user)
@@ -101,10 +140,14 @@ def get_catalog():
 		order_by="sort_order asc, creation asc",
 		ignore_permissions=True,
 	)
-	out = {"tours": [], "vehicles": [], "me": _me()}
+	out = {"tours": [], "vehicles": [], "me": _me(), "addons": _addons()}
+	now = datetime.now(TZ)
 	for row in rows:
 		if row.kind in KINDS:
-			out[row.kind].append(_item_out(row))
+			item = _item_out(row)
+			if row.kind == "tours" and not admin and not on_sale(item, now):
+				continue
+			out[row.kind].append(item)
 	return out
 
 
@@ -204,7 +247,83 @@ def save_item(kind, data, name=None):
 	if len(doc.data) > MAX_JSON:
 		frappe.throw(_("This item is too large."))
 	doc.save(ignore_permissions=True)
+	if kind == "tours" and frappe.conf.get("anthropic_api_key") and not changes.get("tr"):
+		frappe.enqueue("pals_website.api.translate_item", name=doc.name, queue="short", enqueue_after_commit=True)
 	return _item_out(doc)
+
+
+@frappe.whitelist(methods=["POST"])
+def save_addons(prices):
+	"""Package add-on prices per person in KES. A null price shows "Price on request"."""
+	_require_admin()
+	prices = _dict(prices, "prices")
+	clean = {}
+	for key, value in list(prices.items())[:60]:
+		key = _text(key, 80)
+		if value in (None, ""):
+			clean[key] = None
+			continue
+		try:
+			clean[key] = max(0, round(float(value)))
+		except (TypeError, ValueError):
+			frappe.throw(_("Prices must be numbers."))
+	frappe.db.set_default(ADDONS_KEY, json.dumps(clean))
+	return {"ok": True, "prices": clean}
+
+
+def _tour_strings(data):
+	out = [data.get("title"), data.get("days"), data.get("region"), data.get("overview"), data.get("terms")]
+	for key in ("highlights", "included", "excluded"):
+		out += list(data.get(key) or [])
+	for day in data.get("itinerary") or []:
+		if isinstance(day, dict):
+			out += [day.get("d"), day.get("title"), day.get("text")]
+	seen, strings = set(), []
+	for value in out:
+		value = (value or "").strip() if isinstance(value, str) else ""
+		if value and value not in seen:
+			seen.add(value)
+			strings.append(value)
+	return strings[:120]
+
+
+def translate_item(name):
+	"""Background job: translate a tour's text into the website's other languages with Claude."""
+	import requests
+
+	key = frappe.conf.get("anthropic_api_key")
+	if not key:
+		return
+	doc = frappe.get_doc(ITEM, name)
+	data = _load(doc.data)
+	strings = _tour_strings(data)
+	if not strings:
+		return
+	prompt = (
+		"You translate website text for Pals Travel & Leisure, a safari and travel company in Nairobi, Kenya. "
+		"Translate each English string into " + ", ".join(f"{v} ({k})" for k, v in LANGS.items()) + ". "
+		"Keep place names, hotel names, prices and numbers as they are. Use warm, natural, plain wording that a native speaker would write. "
+		"Reply with JSON only, in the form {\"sw\": {\"<english>\": \"<translation>\"}, \"fr\": {...}, ...}, using every language code above.\n\n"
+		+ json.dumps(strings, ensure_ascii=False)
+	)
+	resp = requests.post(
+		"https://api.anthropic.com/v1/messages",
+		headers={"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"},
+		json={"model": frappe.conf.get("anthropic_model") or "claude-haiku-5-5", "max_tokens": 16000, "messages": [{"role": "user", "content": prompt}]},
+		timeout=180,
+	)
+	resp.raise_for_status()
+	text = "".join(part.get("text", "") for part in resp.json().get("content", []) if part.get("type") == "text")
+	text = text[text.find("{"): text.rfind("}") + 1]
+	result = json.loads(text)
+	tr = {}
+	for code in LANGS:
+		block = result.get(code) or {}
+		tr[code] = {k: str(v) for k, v in block.items() if k in strings and isinstance(v, (str, int, float))}
+	data = _load(frappe.db.get_value(ITEM, name, "data"))  # re-read in case the admin edited meanwhile
+	data["tr"] = tr
+	frappe.db.set_value(ITEM, name, "data", json.dumps(data, default=str, ensure_ascii=False))
+	frappe.db.commit()
 
 
 @frappe.whitelist(methods=["POST"])

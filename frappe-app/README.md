@@ -9,7 +9,25 @@ This small Frappe app is the website's server. It:
 
 It works on Frappe v14 and v15.
 
-## 1. Install the app on your Frappe server
+## On Frappe Cloud (palsgroup.frappe.cloud)
+
+Frappe Cloud only installs custom apps on a **private bench** (shared plans can't run custom apps or server scripts). If the site is on a shared plan, move it to a private bench first (Frappe Cloud dashboard → Site → Move to a private bench).
+
+1. **Put the app in its own GitHub repository.** Frappe Cloud needs the app at the root of a repo. Create e.g. `Pals-group-of-companies/pals_website` and copy the contents of `frappe-app/pals_website/` into it (so `pyproject.toml` is at the top).
+2. **Add it to the bench.** Frappe Cloud → Benches → your bench → Apps → Add App → *Add from GitHub* → pick the repo, branch `main`. Deploy the bench.
+3. **Install it on the site.** Sites → palsgroup.frappe.cloud → Apps → Install App → `pals_website`.
+4. **Give the website its own admin address on your domain.** Sites → palsgroup.frappe.cloud → Domains → Add domain → `admin.palstravelleisure.co.ke`, then add the CNAME record Frappe Cloud shows you at your DNS provider. The sign-in cookie only works when the website and Frappe share the same main domain, so the website itself must be live on `palstravelleisure.co.ke` (not only on `vercel.app`).
+5. **Site config** (Sites → palsgroup.frappe.cloud → Site Config → Add config):
+   - `allow_cors` = `["https://palstravelleisure.co.ke", "https://www.palstravelleisure.co.ke"]`
+   - optional `anthropic_api_key` = your Claude API key, to translate new safaris automatically into the nine other languages (optional `anthropic_model`, default `claude-haiku-5-5`).
+6. **Create the admin user** as in step 3 below, then set `FRAPPE_URL = 'https://admin.palstravelleisure.co.ke'` in `index.html` (step 4 below).
+
+## Timed safaris and add-on prices
+
+- In the website dashboard each safari has **Dates on sale** (Show from / Show until). Frappe stops sending a safari to visitors after its last day (Nairobi time) and before its first day; the website also hides it on its own. Admins still see every safari.
+- **Add-ons & prices** in the dashboard are saved in Frappe (`save_addons`) and sent to visitors with the catalogue.
+
+## 1. Install the app on your Frappe server (self-hosted bench)
 
 From your bench folder (replace `erp.palstravelleisure.co.ke` with your site name):
 
@@ -84,3 +102,5 @@ All methods are in `pals_website/api.py` and are called as `/api/method/pals_web
 | `delete_item` (POST) | admin | Delete a tour or vehicle |
 | `import_items` (POST) | admin | One-time copy of the JSON data files |
 | `upload_image` (POST) | admin | Upload a JPG/PNG/WebP/GIF up to 10 MB |
+| `save_addons` (POST) | admin | Package add-on prices per person in KES (`null` = price on request) |
+| `translate_item` (background job) | system | Translates a saved safari into the other nine languages when `anthropic_api_key` is set |
