@@ -104,3 +104,14 @@ All methods are in `pals_website/api.py` and are called as `/api/method/pals_web
 | `upload_image` (POST) | admin | Upload a JPG/PNG/WebP/GIF up to 10 MB |
 | `save_addons` (POST) | admin | Package add-on prices per person in KES (`null` = price on request) |
 | `translate_item` (background job) | system | Translates a saved safari into the other nine languages when `anthropic_api_key` is set |
+
+## Holiday packages from the admin (no code changes)
+
+Once the site is connected (`FRAPPE_URL` set), open **Admin → Holiday packages**:
+
+1. Click **Copy the current packages here** once. The packages that are built into the site (Kenya, Dubai, Malaysia, Thailand and Singapore) are saved as `Pals Website Item` records with kind `packages`.
+2. Use **Add a package** or **Edit** to set the destination, country, currency (KES or USD), nights, meal plan, what's included, what's not included (these become add-ons), optional transport, hotels with sharing and single prices, photos, and the **Show from** and **Last day on sale** dates.
+3. A package appears on the website on its first day and hides itself after its last day (Nairobi time). Guests never receive ended packages from `get_catalog`.
+4. If `anthropic_api_key` is set in `site_config.json`, the package text is translated into the site's other languages in the background, just like safaris.
+
+**Analytics:** Admin → Reports shows requests by month, by service, the most requested trips and the confirmed value, and lets you download a CSV. In Frappe desk, **Pals Booking Request** has list, report and group-by views for deeper analysis. For visitor numbers, turn on **Vercel Web Analytics** for the project. It needs no cookies and no code changes.

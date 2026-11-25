@@ -33,7 +33,7 @@ from frappe.rate_limiter import rate_limit
 ROLE = "Pals Website Manager"
 ITEM = "Pals Website Item"
 REQUEST = "Pals Booking Request"
-KINDS = ("tours", "vehicles")
+KINDS = ("tours", "vehicles", "packages")
 STATUSES = ("new", "contacted", "confirmed", "cancelled")
 MAX_JSON = 120_000  # characters (room for translations)
 TZ = ZoneInfo("Africa/Nairobi")
@@ -101,7 +101,8 @@ def _day(value):
 def on_sale(data, now=None):
 	"""True if a tour is inside its validFrom / validUntil window (Nairobi time, both days inclusive)."""
 	now = now or datetime.now(TZ)
-	start, end = _day(data.get("validFrom")), _day(data.get("validUntil"))
+	start = _day(data.get("validFrom") or data.get("from"))
+	end = _day(data.get("validUntil") or data.get("until"))
 	if start and now < datetime.combine(start, time.min, TZ):
 		return False
 	if end and now > datetime.combine(end, time.max, TZ):
@@ -140,12 +141,12 @@ def get_catalog():
 		order_by="sort_order asc, creation asc",
 		ignore_permissions=True,
 	)
-	out = {"tours": [], "vehicles": [], "me": _me(), "addons": _addons()}
+	out = {"tours": [], "vehicles": [], "packages": [], "me": _me(), "addons": _addons()}
 	now = datetime.now(TZ)
 	for row in rows:
 		if row.kind in KINDS:
 			item = _item_out(row)
-			if row.kind == "tours" and not admin and not on_sale(item, now):
+			if row.kind in ("tours", "packages") and not admin and not on_sale(item, now):
 				continue
 			out[row.kind].append(item)
 	return out
@@ -242,12 +243,12 @@ def save_item(kind, data, name=None):
 			doc.sort_order = float(merged.pop("order") or 0)
 		except (TypeError, ValueError):
 			doc.sort_order = 0
-	doc.title = _text(merged.get("title") or merged.get("name"))
+	doc.title = _text(merged.get("title") or merged.get("name") or merged.get("d"))
 	doc.data = json.dumps(merged, default=str)
 	if len(doc.data) > MAX_JSON:
 		frappe.throw(_("This item is too large."))
 	doc.save(ignore_permissions=True)
-	if kind == "tours" and frappe.conf.get("anthropic_api_key") and not changes.get("tr"):
+	if kind in ("tours", "packages") and frappe.conf.get("anthropic_api_key") and not changes.get("tr"):
 		frappe.enqueue("pals_website.api.translate_item", name=doc.name, queue="short", enqueue_after_commit=True)
 	return _item_out(doc)
 
@@ -274,7 +275,13 @@ def save_addons(prices):
 def _tour_strings(data):
 	out = [data.get("title"), data.get("days"), data.get("region"), data.get("overview"), data.get("terms")]
 	for key in ("highlights", "included", "excluded"):
-		out += list(data.get(key) or [])
+		value = data.get(key) or []
+		out += value.split("\n") if isinstance(value, str) else list(value)
+	# holiday packages
+	out += [data.get("d"), data.get("country"), data.get("about"), data.get("board"), data.get("tName")]
+	for hotel in data.get("hotels") or []:
+		if isinstance(hotel, dict):
+			out.append(hotel.get("board"))
 	for day in data.get("itinerary") or []:
 		if isinstance(day, dict):
 			out += [day.get("d"), day.get("title"), day.get("text")]
