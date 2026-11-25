@@ -1546,6 +1546,33 @@ body.langload #app{opacity:.55;transition:opacity .2s}
   }
   const I18N = /*I18N*/{}/*END*/;
   const norm = (t) => t.replace(/\s+/g, ' ').trim();
+  const I18N_V = '37a08173';
+  // ---------- automatic translation of new text ----------
+  // Anything on the site that has no translation yet is translated once by the website's own /api/tr service,
+  // shown straight away, remembered on this device, and cached worldwide so every later visitor gets it instantly.
+  const AUTO_TR = /(^|\.)palstravelleisure\.(co\.ke|vercel\.app)$/.test(location.hostname);
+  const autoCache = (l) => { try { return JSON.parse(localStorage.getItem('pals_auto_' + l) || '{}'); } catch (e) { return {}; } };
+  const trSeen = {}; let trQ = new Set(), trTimer = 0, trVals = { l: '', n: -1, set: null };
+  function trMiss(k) {
+    if (!AUTO_TR || LANG === 'en' || !k || k.length < 2 || k.length > 280 || !/[A-Za-z]{2}/.test(k) || /^[\w.+-]+@[\w.-]+$|^https?:|^[+\d\s()-]+$/.test(k)) return;
+    if (/^(Pals Travel( & Leisure)?|Facebook|Instagram|WhatsApp|TikTok|LinkedIn|YouTube|M-Pesa|Visa|Mastercard)$/.test(k)) return;
+    const D = I18N[LANG]; if (!D) return;
+    const n = Object.keys(D).length; if (trVals.l !== LANG || trVals.n !== n) { const v = Object.values(D); trVals = { l: LANG, n, set: new Set(v), all: '\n' + v.join('\n') + '\n' }; }
+    const core = k.replace(/^[\s,.;:·–-]+|[\s,.;:·–-]+$/g, '');
+    if (trVals.set.has(k) || (core.length > 1 && trVals.all.includes(core)) || trSeen[LANG + '|' + k]) return;
+    trQ.add(k); clearTimeout(trTimer); trTimer = setTimeout(trFlush, 350);
+  }
+  async function trFlush() {
+    const l = LANG, list = [...trQ].slice(0, 60); trQ = new Set(); if (!list.length || l === 'en') return;
+    list.forEach((k) => { trSeen[l + '|' + k] = 1; });
+    const got = {}; let i = 0;
+    const work = async () => { while (i < list.length) { const k = list[i++]; try { const r = await fetch('/api/tr?l=' + l + '&q=' + encodeURIComponent(k)); if (r.ok) { const j = await r.json(); if (j && j.t) got[k] = j.t; } } catch (e) {} } };
+    await Promise.all([work(), work(), work(), work()]);
+    if (!Object.keys(got).length || l !== LANG) return;
+    Object.assign(I18N[l], got);
+    try { localStorage.setItem('pals_auto_' + l, JSON.stringify(Object.assign(autoCache(l), got))); } catch (e) {}
+    ['#navwrap', '#app', '#layer', '#footer', '#consent', '#suggest'].forEach((q) => tr($(q)));
+  }
   const PATS = ['View {x}', 'Decrease {x}', 'Increase {x}', 'Best for: {x}'];
   function look(D, k) {
     if (!D || !k) return null;
@@ -1570,6 +1597,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
       const o = n.__o; const k = norm(o);
       if (!k) continue;
       const t = D && look(D, k);
+      if (D && !t) trMiss(k);
       n.nodeValue = t ? (o.match(/^\s*/)[0] + t + o.match(/\s*$/)[0]) : o;
     }
     root.querySelectorAll('[placeholder],[aria-label],[alt],[title]').forEach((el) => {
@@ -1578,7 +1606,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
       ['placeholder', 'aria-label', 'alt', 'title'].forEach((a) => {
         if (!el.hasAttribute(a)) return;
         if (el.__oa[a] === undefined) el.__oa[a] = el.getAttribute(a);
-        const o = el.__oa[a]; const t = D && look(D, norm(o));
+        const o = el.__oa[a]; const t = D && look(D, norm(o)); if (D && !t && a !== 'title') trMiss(norm(o));
         el.setAttribute(a, t || o);
       });
     });
@@ -1588,7 +1616,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
   const LANGP = {};
   function loadLang(l) {
     if (l === 'en' || (I18N[l] && Object.keys(I18N[l]).length)) return Promise.resolve();
-    if (!LANGP[l]) LANGP[l] = fetch('i18n/' + l + '.json', { cache: 'force-cache' }).then((r) => r.ok ? r.json() : {}).then((d) => { I18N[l] = d || {}; }).catch(() => { I18N[l] = {}; delete LANGP[l]; });
+    if (!LANGP[l]) LANGP[l] = fetch('i18n/' + l + '.json?v=' + I18N_V).then((r) => r.ok ? r.json() : {}).then((d) => { I18N[l] = Object.assign(d || {}, autoCache(l)); }).catch(() => { I18N[l] = autoCache(l); delete LANGP[l]; });
     return LANGP[l];
   }
   async function setLang(l) { $('#langmenu').classList.remove('open'); document.body.classList.add('langload'); await loadLang(l); document.body.classList.remove('langload'); LANG = l; try { localStorage.setItem('pals_lang', l); } catch (e) {} applyLangAttrs(); renderFooter(); render(); tr($('#footer')); }
@@ -1826,7 +1854,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
   const PARTNERS = [['3de5c7699ef17779b50af9fae9dcc3f5', 'Old Mutual'], ['a6d1cf14526a3e18d7a4dba677840036', 'Makini Schools'], ['3f6d6b313731e058164a7f3f39aaea40', 'Maris'], ['5f2d8385687ca3659e0e59fb24769109', 'The Monarch Insurance'], ['03ea22f619f76ef597bc94c99cb212f2', 'Gallant Branding International'], ['5369f02e9fad710802431e15a15f843b', 'Brandables International'], ['237da0ac481088685067c90e14c57101', 'Koala Education Consultants'], ['0985379121c1f4292d09631b698425d3', 'Uniconnect'], ['48884cef44761850c531435d928ba612', 'Ministry of Health'], ['9079ceb2b5b223da8f053c679e0935bc', 'Office of the Registrar of Political Parties'], ['713a3b4cff135a57d0a8c6015e148224', 'The Karen Hospital'], ['fcc9d74eeed25a79943ead217f30068f', 'Dhow Partners'], ['7cf5a66d95dd674a6bf2aebbc09872bb', 'Nikko Homecare'], ['6278e948e564eb1015286f990c30cec4', 'Pals Academy'], ['ba38600684c163d3adc08e1a1ed68e6e', 'Light International School'], ['8530c8ec3845ad4b9bb7fdd367c51391', 'Riara School'], ['b8be6d28392221c99284ea8de982738e', 'Anatolia Academy'], ['e91cb1ec090ab91850a71494cce19501', 'Loreto Convent Msongari'], ['09bcdd34154f1be8aa5f564f36ff03a8', 'Chai DT Sacco'], ['a38d8f87565f6a2e8856677d0ea05d7e', 'Kenya Dental Association'], ['7e0953b64bd9cb4f0c6639fd216a2237', 'Mayfair Insurance'], ['b96b64bc0d4d7cda000fcc4effef35ca', 'Liberty'], ['d12327d9b3a61f103faa4193544fced9', 'Tradco Services Limited'], ['670d4defd02761738dc1924e5ad1be24', 'Options Education Agency'], ['d19c0614349588c9b1217e5ffe99ad9c', 'Kenya Healthcare Federation'], ['94171de675b3fa13356ef1a692c24b68', 'St Mary’s School Nairobi'], ['09702a18d55199b9bc0e6a2f6d0f1aff', 'Laiser Hill Academy'], ['a835190d58f435a6c4b4247af6a126f4', 'Shah Lalji Nangpar Academy'], ['5248f45481c30e203a0fbfab9dfc93fa', 'AAR Insurance'], ['aee34f266c69fa847f56e065228f434f', 'MUA Insurance'], ['6ccad9a631fd53dfc30bd5ecd7aaeffe', 'Logos Christian School'], ['be45e0a85c03cf596c7d1293014ac71a', 'Uniserv']];
   const ptile = (p, dup) => '<div class="ptile"' + (dup ? ' aria-hidden="true"' : '') + '>' + (p[0] ? '<img src="' + B(p[0]) + '" alt="' + (dup ? '' : esc(p[1])) + '" loading="lazy">' : '<span translate="no">' + esc(p[1]) + '</span>') + '</div>';
   const ptext = (p, dup) => '<div class="ptile txt"' + (dup ? ' aria-hidden="true"' : '') + '><span translate="no">' + esc(p[1]) + '</span></div>';
-  const partnersBand = (label, text) => '<section class="pband" aria-label="Partners and clients"><p class="reveal">' + (label || 'Some of our partners and clients') + '</p><div class="marquee"><div class="ptrack' + (text ? ' txt' : '') + '">' + PARTNERS.map((p) => (text ? ptext : ptile)(p, false)).join('') + PARTNERS.map((p) => (text ? ptext : ptile)(p, true)).join('') + '</div></div></section>';
+  const partnersBand = (label, text) => '<section class="pband" aria-label="Partners and clients"><p class="reveal">' + (label || 'Some of our partners and clients') + '</p><div class="marquee" translate="no"><div class="ptrack' + (text ? ' txt' : '') + '">' + PARTNERS.map((p) => (text ? ptext : ptile)(p, false)).join('') + PARTNERS.map((p) => (text ? ptext : ptile)(p, true)).join('') + '</div></div></section>';
   const DEST = [['3f4e7766076242fd629076ea6d082fcd', 'Maasai Mara', 'Kenya', 'The Great Migration and big cats', 'Maasai Mara'], ['fe4c4816095610a17628dda24e6c767a', 'Diani', 'Kenya', 'White sand on the south coast', 'Diani'], ['56bd59c15735f20de1e9086ae84d4278', 'Mombasa', 'Kenya', 'Old Town, sandbanks and sea', 'Mombasa'], ['06f21bc277f57b4319d9d0edb6ec265b', 'Malindi', 'Kenya', 'Quiet beaches and coral reefs', 'Malindi'], ['bc4941a7763b5a865b1d93678e2cc972', 'Lake Naivasha', 'Kenya', 'Flamingos, boats and lakeside lodges', 'Naivasha'], ['ee38b8d2f40bacecada09eddec455042', 'Mara camps', 'Maasai Mara', 'Sunsets over the savannah', 'Maasai Mara']];
   const dcard = (d, i, dup) => { const pk = PKG_ON && d[4] && PKG.list.find((x) => x.d === d[4]); return '<button class="dcard" ' + (pk ? 'data-pkgdest="' + esc(d[4]) + '"' : 'data-request="plan"') + (dup ? ' aria-hidden="true" tabindex="-1"' : '') + ' style="--i:' + i + '"><div class="dimg"><img src="' + (/^[0-9a-f]{32}$/.test(d[0]) ? B(d[0]) : img(d[0])) + '" alt="' + (dup ? '' : esc(d[1])) + '" loading="lazy" decoding="async">' + (pk ? '<span class="dtag">' + T('Festive package') + '</span>' : '') + '</div><div class="dmeta"><b>' + esc(d[1]) + '</b><i>' + esc(d[2]) + '</i></div><p class="dsub">' + esc(d[3]) + '</p>' + (pk ? '<p class="dfrom"><span>From</span> <strong translate="no">' + kes(pkgFrom(pk)) + '</strong></p>' : '<p class="dfrom"><span>Plan this trip</span> ' + ic('right', 2.2) + '</p>') + '</button>'; };
   const PINC = [['#E61E28', '#8E0E14'], ['#F7C613', '#A97E00'], ['#2F5BEA', '#132C8C'], ['#26C24A', '#0D7426'], ['#F4F4F4', '#B9BBBE'], ['#BFE3F2', '#7FA9BC']];

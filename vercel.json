@@ -2,7 +2,7 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/((?!assets/|data/|i18n/|admin2|llms\\.txt|robots\\.txt|sitemap\\.xml|favicon).*)",
+      "source": "/((?!api/|assets/|data/|i18n/|admin2|llms\\.txt|robots\\.txt|sitemap\\.xml|favicon).*)",
       "destination": "/index.html"
     }
   ],
