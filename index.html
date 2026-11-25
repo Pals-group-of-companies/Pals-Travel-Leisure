@@ -1375,36 +1375,6 @@ body.langload #app{opacity:.55;transition:opacity .2s}
 .mc.mc2:hover .mci{background:#0F2D52;border-color:#0F2D52}
 .mc.mc2:hover .mci .ic{color:#fff}
 @media (max-width:640px){.mc.mc2{padding:20px 18px}.mci{width:48px;height:48px;border-radius:14px;margin-bottom:14px}.mcn{top:20px;right:18px}}
-/* ===== forms in steps ===== */
-.qprog{display:flex;align-items:center;gap:8px;margin:4px 0 14px;padding:0 2px}
-.qprog i{flex:1;height:2px;border-radius:2px;background:var(--line)}
-.qpd{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:600;white-space:nowrap}
-.qpd b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);background:#fff;font-size:12.5px;color:var(--muted)}
-.qpd em{font-style:normal}
-.qpd.on b{background:#0F2D52;border-color:#0F2D52;color:#fff}
-.qpd.now{color:var(--ink)}
-@media (max-width:640px){.qpd em{display:none}.qpd.now em{display:inline}}
-.qstepn{font-size:12px!important;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 4px!important}
-.qstep[hidden]{display:none!important}
-.qstep{animation:qin .35s cubic-bezier(.2,.8,.2,1)}
-@keyframes qin{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
-.qnav{display:flex!important;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.qnav .btn:only-child{margin-left:auto}
-.qnav .btn{min-width:0!important;flex:0 1 auto}
-.qnav .btn:not(.line){min-width:min(220px,100%)!important}
-/* tappable answers */
-.qchips .opts{display:flex!important;flex-wrap:wrap;gap:8px!important}
-.qchips .opt{border:1.5px solid var(--line)!important;background:#fff!important;border-radius:999px!important;min-height:44px!important;padding:0 18px!important;font-weight:600!important;font-size:14.5px!important;gap:0!important;transition:background .2s,border-color .2s,color .2s}
-.qchips .opt input{position:absolute!important;opacity:0!important;pointer-events:none!important;width:1px!important;height:1px!important}
-.qchips .opt:hover{border-color:#9AA8B8!important}
-.qchips .opt:has(input:checked){background:#0F2D52!important;border-color:#0F2D52!important;color:#fff!important}
-.qchips .opt:has(input:focus-visible){outline:3px solid #1F4E8C;outline-offset:2px}
-@media (max-width:640px){.qchips .opt{flex:1 1 calc(50% - 8px);justify-content:center;padding:0 12px!important;text-align:center}}
-@media (prefers-reduced-motion:reduce){.qstep{animation:none}}
-
-.qchips .qother{margin-top:10px;border:1.5px solid #0F2D52!important;border-radius:14px!important;padding:12px 14px!important;background:#fff}
-.qchips .opt:has(input[value="Other"]){border-style:dashed!important}
-.qchips .opt:has(input[value="Other"]:checked){border-style:solid!important}
 </style>
 </head>
 <body>
@@ -1791,8 +1761,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     const qt = (tag, extra) => '<' + tag + ' class="qt"' + (extra || '') + '><span class="qn">' + n + '.</span><span>' + esc(f.label) + '</span>' + (f.req ? '<span class="qr" aria-hidden="true">*</span>' : '') + '</' + tag + '>';
     let c;
     if (f.type === 'textarea') c = '<textarea class="in" id="' + id + '" maxlength="4000" name="' + f.k + '" placeholder="' + esc(f.ph || 'Enter your answer') + '"' + req + '></textarea>';
-    else if (f.type === 'select' && f.options.length <= 12 && !f.keepSelect) return field(Object.assign({}, f, { type: 'radio', chips: true, options: f.options.indexOf('Other') !== -1 || f.options.length <= 3 || f.noOther ? f.options : f.options.concat(['Other']) }), n);
-    else if (f.type === 'select') c = '<select class="in" id="' + id + '" name="' + f.k + '"' + req + (f.options.indexOf('Other') !== -1 ? ' data-othersel="' + f.k + '"' : '') + '><option value="" selected disabled>' + T('Choose…') + '</option>' + f.options.map((o) => '<option>' + esc(o) + '</option>').join('') + '</select>' + (f.options.indexOf('Other') !== -1 ? '<input class="in qother" name="' + f.k + '_other" placeholder="Please specify" hidden>' : '');
+    else if (f.type === 'select') c = '<select class="in" id="' + id + '" name="' + f.k + '"' + req + (f.options.indexOf('Other') !== -1 ? ' data-othersel="' + f.k + '"' : '') + '>' + f.options.map((o) => '<option>' + esc(o) + '</option>').join('') + '</select>' + (f.options.indexOf('Other') !== -1 ? '<input class="in qother" name="' + f.k + '_other" placeholder="Please specify" hidden>' : '');
     else if (f.type === 'stepper') c = '<span class="stepper"><button type="button" data-step="-' + (f.step || 1) + '" aria-label="Decrease ' + esc(f.label) + '">' + ic('minus', 2) + '</button><input id="' + id + '" type="number" name="' + f.k + '" value="' + (f.val || 0) + '" min="' + (f.min || 0) + '" inputmode="numeric"><button type="button" data-step="' + (f.step || 1) + '" aria-label="Increase ' + esc(f.label) + '">' + ic('plus', 2) + '</button></span>' + (f.k === 'children' ? (() => { const r = /2–11/.test(f.label) ? [2, 11] : /12/.test(f.label) ? [0, 11] : [0, 17]; return '<div class="kidages" data-kidages data-amin="' + r[0] + '" data-amax="' + r[1] + '" aria-live="polite">' + kidAgesHTML(Number(f.val || 0), [], r[0], r[1]) + '</div>'; })() : '');
     if (f.type === 'stepper' && f.k === 'children' && !f.min) {
       c = c.replace('name="children" value="' + (f.val || 0) + '" min="0"', 'name="children" value="1" min="1" disabled').replace('data-kidages data-amin', 'data-kidages data-off="1" data-amin');
@@ -1800,7 +1769,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     }
     if (f.type === 'radio' || f.type === 'checks') {
       const t = f.type === 'radio' ? 'radio' : 'checkbox';
-      return '<fieldset class="q wide' + (f.chips || f.type === 'radio' ? ' qchips' : '') + '"' + (f.req ? ' data-req="' + f.k + '"' : '') + '>' + qt('legend') + '<div class="opts">' + f.options.map((o) => '<label class="opt"><input type="' + t + '" name="' + f.k + '" value="' + esc(o) + '"' + (f.val === o ? ' checked' : '') + (o === 'Other' ? ' data-other="' + f.k + '"' : '') + '><span>' + esc(o) + '</span></label>').join('') + '</div>' + (f.options.indexOf('Other') !== -1 ? '<input class="in qother" name="' + f.k + '_other" placeholder="Please specify" hidden>' : '') + '</fieldset>';
+      return '<fieldset class="q wide">' + qt('legend') + '<div class="opts">' + f.options.map((o) => '<label class="opt"><input type="' + t + '" name="' + f.k + '" value="' + esc(o) + '"' + (f.val === o ? ' checked' : '') + (o === 'Other' ? ' data-other="' + f.k + '"' : '') + '><span>' + esc(o) + '</span></label>').join('') + '</div>' + (f.options.indexOf('Other') !== -1 ? '<input class="in qother" name="' + f.k + '_other" placeholder="Please specify" hidden>' : '') + '</fieldset>';
     } else if (!c) c = '<input class="in" id="' + id + '" maxlength="' + (f.type === 'url' ? 300 : 200) + '" type="' + f.type + '" name="' + f.k + '" placeholder="' + esc(f.ph || (f.type === 'date' ? '' : 'Enter your answer')) + '"' + (f.auto ? ' autocomplete="' + f.auto + '"' : '') + (f.dmin ? ' min="' + f.dmin + '"' : '') + (f.dmax ? ' max="' + f.dmax + '"' : '') + req + '>';
     return '<div class="q' + (wide ? ' wide' : '') + '">' + qt('label', ' for="' + id + '"') + c + '</div>';
   }
@@ -1812,101 +1781,14 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     return '<form class="form" data-form="' + kind + '" data-item="' + esc(item ? item.id : '') + '" data-t="' + Date.now() + '" novalidate><input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none">' +
       '<div class="formhead">' + (SVI[kind] ? itile(kind, 64) : tile(F.icon)) + '<div><h3>' + esc(title) + '</h3><p class="note">' + (item ? esc(item.title || item.name) + ' · ' : '') + (kind === 'general' ? 'We read every message and reply within one working day.' : kind === 'link' ? 'Joining is free. We will call you within a few working days.' : kind === 'careers' ? 'We read every application and reply to those shortlisted.' : 'There is no charge to enquire. We confirm every detail with you before anything is booked.') + '</p></div></div>' +
       (F.warn ? '<p class="pill warn" style="white-space:normal;padding:10px 12px;min-height:0;line-height:1.45">' + esc(F.warn) + '</p>' : '') +
-      qStepsOpen(F) +
+      '<p class="qreq"><span class="qr">*</span> Required</p>' +
+      '<div class="qs">' + F.fields.map((f, i) => field(f, i + 1)).join('') + '</div>' +
+      '<div class="qsec"><h4>Your details</h4><p>So we can reply to you. We use them only for your enquiry and never sell them.</p></div><div class="qs">' + CONTACT.map((f, i) => field(f, F.fields.length + i + 1)).join('') + '</div>' +
       '<div class="qconsent"><label class="opt"><input type="checkbox" name="_agree" value="yes"><span><span>I agree that Pals Travel &amp; Leisure may use these details to reply to my enquiry, as described in the</span> <a href="#legal/privacy" target="_blank" rel="noopener">Privacy Policy</a>.<span class="qr" aria-hidden="true">*</span></span></label>' +
       '<label class="opt"><input type="checkbox" name="_news" value="yes"><span>Send me occasional travel offers by email. I can unsubscribe at any time.</span></label></div>' +
       '<p class="note" data-err style="color:var(--red2);font-weight:600" role="alert"></p>' +
-      '<div class="qsubmit qnav">' + (qSteps(F).length > 1 ? '<button class="btn line" type="button" data-qback>' + T('Back') + '</button>' : '') + '<button class="btn" type="submit">Send enquiry' + ARR + '</button></div></section></div></form>';
+      '<div class="qsubmit"><button class="btn" type="submit">Send enquiry' + ARR + '</button></div></form>';
   }
-  // Steps: 1) quick choices  2) anything else (free text)  3) contact details and send.
-
-  // ---------- easy forms: choose, don't type ----------
-  // Questions that used to need typing now offer choices (with "Other" for anything else).
-  const CHOICE = {
-    destinations: ['Maasai Mara', 'Kenyan coast', 'Naivasha & Nakuru', 'Amboseli & Tsavo', 'Tanzania & Zanzibar', 'Uganda & Rwanda', 'Dubai', 'Not sure yet'],
-    pickupLoc: ['JKIA airport', 'Wilson airport', 'Nairobi hotel', 'Nairobi CBD', 'Westlands', 'Mombasa'],
-    dropoffLoc: ['Same as pick-up', 'JKIA airport', 'Wilson airport', 'Nairobi hotel', 'Mombasa'],
-    from: ['Nairobi (NBO)', 'Mombasa (MBA)', 'Kisumu (KIS)', 'Eldoret (EDL)'],
-    to: ['Mombasa', 'Dubai', 'London', 'Johannesburg', 'Kigali', 'Entebbe', 'Dar es Salaam', 'Mumbai', 'Guangzhou'],
-    airline: ['Any airline', 'Kenya Airways', 'Emirates', 'Qatar Airways', 'Ethiopian', 'Turkish Airlines', 'Jambojet'],
-    city: ['Nairobi', 'Mombasa', 'Diani', 'Kisumu', 'Naivasha', 'Maasai Mara', 'Dubai', 'Kampala', 'Kigali'],
-    nationality: ['Kenyan', 'Ugandan', 'Tanzanian', 'Rwandan', 'Nigerian', 'Indian', 'British', 'American'],
-    location: ['Nairobi', 'Naivasha', 'Nanyuki', 'Maasai Mara', 'Mombasa', 'Diani'],
-    area: ['Karen', 'Langata', 'Westlands', 'Kileleshwa', 'Lavington', 'Kilimani', 'Runda', 'Ngong Road', 'South B / South C', 'Rongai', 'Kitengela'],
-    sector: ['Agro-processing', 'Manufacturing', 'Logistics', 'Real estate', 'Energy', 'Technology', 'Tourism', 'Healthcare'],
-    specialty: ['General check-up', 'Heart care', 'Bones & joints', 'Cancer care', 'Fertility', 'Kidney care', 'Eye care', 'Not sure yet'],
-    destination: ['United Kingdom', 'United States', 'Canada', 'United Arab Emirates', 'Germany', 'Australia', 'Qatar', 'Saudi Arabia']
-  };
-  const BUDGET = { 'Budget per night (optional)': ['Under USD 100', 'USD 100–200', 'USD 200–400', 'Over USD 400'], 'Budget (optional)': ['Under KES 500,000', 'KES 500,000–1M', 'KES 1M–3M', 'Over KES 3M'], 'Budget per person (optional)': ['Under USD 1,000', 'USD 1,000–2,500', 'USD 2,500–5,000', 'Over USD 5,000'] };
-  const SCHOOL_CHOICES = ['Riara School', 'Light International School', 'Anatolia Academy', 'Loreto Convent Msongari', 'Makini Schools', 'Pals Academy'];
-  Object.keys(FORMS).forEach((kind) => {
-    FORMS[kind].fields = FORMS[kind].fields.map((f) => {
-      if (f.type !== 'text') return f;
-      let o = CHOICE[f.k] || BUDGET[f.label] || (kind === 'school' && f.k === 'school' ? SCHOOL_CHOICES : null);
-      if (kind === 'teambuild' && f.k === 'budget') o = ['Under KES 10,000', 'KES 10,000–25,000', 'KES 25,000–50,000', 'Over KES 50,000'];
-      return o ? Object.assign({}, f, { type: 'select', options: o.concat(['Other']), ph: undefined }) : f;
-    });
-  });
-  function qSteps(F) {
-    const typed = (f) => f.type === 'text' || f.type === 'url' || f.type === 'email' || f.type === 'tel';
-    const mine = F.fields.filter((f) => typed(f) && f.req);                       // e.g. company name: asked with contact details
-    const pick = F.fields.filter((f) => f.type !== 'textarea' && !typed(f));
-    const more = F.fields.filter((f) => f.type === 'textarea' || (typed(f) && !f.req));
-    const st = [];
-    if (pick.length) st.push({ t: T('Your trip'), h: T('Just tap your answers.'), f: pick });
-    if (more.length) st.push({ t: pick.length ? T('Anything else?') : T('Your message'), h: pick.length ? T('Optional. You can skip this step.') : '', f: more });
-    st.push({ t: T('Your details'), h: T('So we can reply to you. We use them only for your enquiry and never sell them.'), f: mine.concat(CONTACT), last: true });
-    return st;
-  }
-  function qStepsOpen(F) {
-    const st = qSteps(F); let n = 0;
-    const bar = '<div class="qprog" aria-hidden="true">' + st.map((x, i) => '<span class="qpd' + (i ? '' : ' on') + '"><b>' + (i + 1) + '</b><em>' + esc(x.t) + '</em></span>').join('<i></i>') + '</div>';
-    return '<div class="qsteps" data-qtotal="' + st.length + '">' + bar + st.map((x, i) => '<section class="qstep" data-qs="' + i + '" data-keys="' + x.f.map((f) => f.k).join(',') + '"' + (i ? ' hidden' : '') + ' aria-label="' + esc(T('Step') + ' ' + (i + 1) + ' / ' + st.length + ': ' + x.t) + '">' +
-      '<div class="qsec"><p class="qstepn">' + T('Step') + ' ' + (i + 1) + ' ' + T('of') + ' ' + st.length + '</p><h4>' + esc(x.t) + '</h4>' + (x.h ? '<p>' + esc(x.h) + '</p>' : '') + '</div>' +
-      '<div class="qs">' + x.f.map((f) => field(f, ++n)).join('') + '</div>' +
-      (x.last ? '' : '<p class="note" data-qerr style="color:var(--red2);font-weight:600" role="alert"></p><div class="qsubmit qnav">' + (i ? '<button class="btn line" type="button" data-qback>' + T('Back') + '</button>' : '') + '<button class="btn" type="button" data-qnext>' + T('Next') + ARR + '</button></div></section>')).join('');
-  }
-  function qGo(form, to) {
-    const all = [...form.querySelectorAll('.qstep')]; if (!all.length) return;
-    to = Math.max(0, Math.min(all.length - 1, to));
-    all.forEach((x, i) => { x.hidden = i !== to; });
-    form.querySelectorAll('.qpd').forEach((x, i) => { x.classList.toggle('on', i <= to); x.classList.toggle('now', i === to); });
-    const first = all[to].querySelector('input:not([type=hidden]):not([disabled]),select,textarea');
-    const mark = form.querySelector('.qprog') || form; let sp = form.parentElement;
-    while (sp && sp !== document.body && !(sp.scrollHeight > sp.clientHeight + 4 && /auto|scroll/.test(getComputedStyle(sp).overflowY))) sp = sp.parentElement;
-    if (sp && sp !== document.body) sp.scrollTop += mark.getBoundingClientRect().top - sp.getBoundingClientRect().top - 16;
-    else { const y = mark.getBoundingClientRect().top + window.scrollY - 110; if (Math.abs(y - window.scrollY) > 40) window.scrollTo({ top: y, behavior: 'smooth' }); }
-    if (first && window.matchMedia('(pointer:fine)').matches) setTimeout(() => first.focus({ preventScroll: true }), 250);
-  }
-  const qNow = (form) => [...form.querySelectorAll('.qstep')].findIndex((x) => !x.hidden);
-  function qCheck(form, i) {
-    const step = form.querySelectorAll('.qstep')[i]; const F = FORMS[form.dataset.form]; const fd = new FormData(form);
-    const keys = (step.dataset.keys || '').split(','); const err = step.querySelector('[data-qerr]');
-    const miss = F.fields.concat(CONTACT).filter((x) => keys.indexOf(x.k) !== -1 && x.req && !String(fd.get(x.k) || '').trim());
-    const oth = F.fields.filter((x) => keys.indexOf(x.k) !== -1 && fd.getAll(x.k).indexOf('Other') !== -1 && !String(fd.get(x.k + '_other') || '').trim());
-    const ages = [...step.querySelectorAll('select[name="childAge"]')].filter((x) => !x.value);
-    if (miss.length) { if (err) err.textContent = T('Please choose:') + ' ' + miss.map((x) => T(x.label)).join(', '); const el = step.querySelector('[name="' + miss[0].k + '"]'); el && el.focus(); return false; }
-    if (oth.length) { if (err) err.textContent = T('Please write your answer for “Other”.'); const el = step.querySelector('[name="' + oth[0].k + '_other"]'); el && el.focus(); return false; }
-    if (ages.length) { if (err) err.textContent = T('Please choose the age of each child.'); ages[0].focus(); return false; }
-    if (err) err.textContent = ''; return true;
-  }
-  document.addEventListener('click', (e) => {
-    const b = e.target.closest('[data-qnext],[data-qback]'); if (!b) return;
-    const form = b.closest('form[data-form]'); if (!form) return; const i = qNow(form);
-    if (b.hasAttribute('data-qback')) { qGo(form, i - 1); return; }
-    if (qCheck(form, i)) qGo(form, i + 1);
-  });
-  // Enter inside an earlier step moves on instead of sending.
-  document.addEventListener('submit', (e) => {
-    const form = e.target; if (!form.dataset || !form.dataset.form) return;
-    const all = form.querySelectorAll('.qstep'); const i = qNow(form);
-    if (all.length && i < all.length - 1) { e.preventDefault(); e.stopImmediatePropagation(); if (qCheck(form, i)) qGo(form, i + 1); }
-  }, true);
-  // Choosing an answer on a single-choice question jumps gently to the next question.
-  document.addEventListener('change', (e) => {
-    const t = e.target; if (!t || t.type !== 'radio' || !t.closest('.qchips') || t.value === 'Other') return;
-    const q = t.closest('.q'); let nx = q.nextElementSibling; if (nx && nx.getBoundingClientRect().top > window.innerHeight - 80) try { nx.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (er) {}
-  });
 
   // ---------- shared bits ----------
   const sec = (eyebrow, title, lead) => '<div class="head reveal">' + (eyebrow ? '<p class="eyebrow">' + eyebrow + '</p>' : '') + '<h2 class="h2">' + title + '</h2>' + (lead ? '<p class="lead">' + lead + '</p>' : '') + '</div>';
@@ -2934,7 +2816,6 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     if (!missing.length && em0 && !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(em0)) { err.textContent = T('Please enter a valid email address'); const fe = f.querySelector('[name="email"]'); if (fe) fe.focus(); return; }
     if (!missing.length && !fd.get('_agree')) { err.textContent = T('Please tick the box to agree to the Privacy Policy, so we can reply to you.'); const fa = f.querySelector('[name="_agree"]'); if (fa) fa.focus(); return; }
     if (!missing.length && !rateOk()) { err.textContent = T('You have sent several enquiries in a short time. Please wait a few minutes, or contact us on WhatsApp.'); return; }
-    if (missing.length) { const st = [...f.querySelectorAll('.qstep')].findIndex((x) => (x.dataset.keys || '').split(',').indexOf(missing[0].k) !== -1); if (st >= 0 && st !== qNow(f)) qGo(f, st); }
     if (missing.length) { err.textContent = T('Please fill in:') + ' ' + missing.map((x) => T(x.label)).join(LANG === 'zh' ? '、' : LANG === 'ar' ? '، ' : ', '); const first = f.querySelector('[name="' + missing[0].k + '"]'); if (first) first.focus(); return; }
     const itemId = f.dataset.item; const item = itemId ? (kind === 'tour' ? S.tours : S.cars).find((x) => x.id === itemId) : null;
     const req = { id: 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), kind, status: 'new', createdAt: new Date().toISOString(), itemId: itemId || '', itemTitle: item ? (item.title || item.name) : '', price: item && item.price != null ? item.price : null, currency: item ? (item.currency || (kind === 'tour' ? 'USD' : 'KES')) : '' };
