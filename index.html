@@ -1361,6 +1361,9 @@ body.langload #app{opacity:.55;transition:opacity .2s}
 .hchips a{padding:10px 16px;border-radius:999px;font-size:13.5px}
 .hchips a::before{content:"";width:6px;height:6px;border-radius:50%;background:#0F2D52;flex:0 0 auto}
 .hchips a:hover::before{background:#E61E28}
+
+.flag{width:21px;height:14px;border-radius:3px;flex:0 0 auto;box-shadow:0 0 0 1px rgba(20,22,24,.14);vertical-align:-2px;overflow:hidden}
+.dpk .flag{width:24px;height:16px}
 </style>
 </head>
 <body>
@@ -1953,11 +1956,20 @@ body.langload #app{opacity:.55;transition:opacity .2s}
   const pincs = (q) => [].concat(q.inc);
   const ptrans = (q, wt) => !!(wt && q.t);
   const pwhere = (q) => q.country ? (q.country === q.d ? q.d : q.d + ', ' + q.country) : q.d + ', Kenya';
+  // Small country flags (drawn, so they look the same on every phone and computer).
+  const FLAGS = {
+    Kenya: '<path fill="#000" d="M0 0h30v6H0z"/><path fill="#fff" d="M0 6h30v1.2H0zM0 12.8h30V14H0z"/><path fill="#BB0000" d="M0 7.2h30v5.6H0z"/><path fill="#006600" d="M0 14h30v6H0z"/><ellipse cx="15" cy="10" rx="3.1" ry="6.2" fill="#000"/><ellipse cx="15" cy="10" rx="1.9" ry="5.2" fill="#BB0000"/><path fill="#fff" d="M14.6 6.5h.8v7h-.8z"/>',
+    'United Arab Emirates': '<path fill="#00732F" d="M0 0h30v6.7H0z"/><path fill="#fff" d="M0 6.7h30v6.6H0z"/><path fill="#000" d="M0 13.3h30V20H0z"/><path fill="#FF0000" d="M0 0h7.5v20H0z"/>',
+    Malaysia: '<path fill="#fff" d="M0 0h30v20H0z"/><path fill="#CC0001" d="M0 0h30v1.43H0zM0 2.86h30v1.43H0zM0 5.71h30v1.43H0zM0 8.57h30v1.43H0zM0 11.43h30v1.43H0zM0 14.29h30v1.43H0zM0 17.14h30v1.43H0z"/><path fill="#010066" d="M0 0h15v11.43H0z"/><circle cx="6" cy="5.7" r="3.6" fill="#FC0"/><circle cx="7.1" cy="5.7" r="3" fill="#010066"/><path fill="#FC0" d="M11 3.2l.7 1.9 2-.3-1.4 1.4 1.4 1.4-2-.3-.7 1.9-.7-1.9-2 .3 1.4-1.4-1.4-1.4 2 .3z"/>',
+    Thailand: '<path fill="#A51931" d="M0 0h30v20H0z"/><path fill="#F4F5F8" d="M0 3.33h30v13.34H0z"/><path fill="#2D2A4A" d="M0 6.67h30v6.66H0z"/>',
+    Singapore: '<path fill="#EF3340" d="M0 0h30v10H0z"/><path fill="#fff" d="M0 10h30v10H0z"/><circle cx="6.4" cy="5" r="3.4" fill="#fff"/><circle cx="7.6" cy="5" r="3.1" fill="#EF3340"/><g fill="#fff"><circle cx="10.6" cy="2.8" r=".6"/><circle cx="12.4" cy="4.1" r=".6"/><circle cx="11.7" cy="6.2" r=".6"/><circle cx="9.5" cy="6.2" r=".6"/><circle cx="8.8" cy="4.1" r=".6"/></g>'
+  };
+  const flag = (q, fb) => { const c = q.country || 'Kenya'; return FLAGS[c] ? '<svg class="flag" viewBox="0 0 30 20" role="img" aria-label="' + esc(T(c)) + '"><title>' + esc(c) + '</title>' + FLAGS[c] + '</svg>' : ic(fb, 2); };
   function destPanel(p, wt) {
     const from = pkgFrom(p) + (ptrans(p, wt) ? p.t[1] : 0);
     const ims = (PKGHERO[p.d] || []).map(B).concat(p.img ? p.img.map(img) : []).concat([].concat.apply([], p.h.map((h) => (PKGIMG[h[0]] || []).slice(0, 1).map(B)))).slice(0, 3);
     const facts = [['moon', Math.min.apply(null, p.h.map((h) => h[1])) + ' ' + T('nights')], ['bed', p.h[0][2]], [p.intl ? 'plane' : 'route', p.intl ? T('Flights not included') : p.t ? T('Transport available') : ''], ['users', p.h.length + ' ' + T('hotels to choose from')]].filter((f) => f[1]);
-    return '<div class="dpanel reveal"><div class="dptext"><p class="dpk">' + ic(p.intl ? 'globe' : 'pin', 2) + '<span>' + esc(p.country || 'Kenya') + '</span></p>' +
+    return '<div class="dpanel reveal"><div class="dptext"><p class="dpk">' + flag(p, p.intl ? 'globe' : 'pin') + '<span>' + esc(p.country || 'Kenya') + '</span></p>' +
       '<h3 translate="no">' + esc(T(p.d)) + '</h3><p class="dpd">' + esc(DDESC[p.d] || '') + '</p>' +
       '<ul class="dpf">' + facts.map((f) => '<li>' + ic(f[0], 2) + '<span>' + esc(f[1]) + '</span></li>').join('') + '</ul>' +
       '<div class="dpfoot"><p><small>' + T('From') + '</small><strong translate="no">' + pprice(p, from) + '</strong><span>' + T('per person sharing') + '</span>' + pconv(p, from) + '</p>' +
@@ -1976,7 +1988,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
       return '<article class="pkcard reveal"><div class="pkimg"><a class="pkhit" href="#stay/' + slug(h[0]) + '" aria-label="' + esc(h[0]) + '"></a>' +
         (ims.length ? ims.map((id, n) => '<img' + (n ? '' : ' class="on"') + ' src="' + B(id) + '" alt="' + esc(h[0]) + '" loading="lazy">').join('') + (ims.length > 1 ? '<button class="pknext" data-pknext aria-label="Next photo">' + ic('right', 2.4) + '</button><span class="pkdots">' + ims.map((_, n) => '<i' + (n ? '' : ' class="on"') + '></i>').join('') + '</span>' : '') : (LAND[q.d] ? landScene(q.d) : scene(PICO[q.d]))) +
         '<span class="pkboard">' + esc(h[2]) + '</span></div>' +
-        '<div class="pkbody"><p class="pkdest">' + ic(q.intl ? 'plane' : 'pin', 2) + '<span>' + esc(q.d) + '</span><span class="sep">·</span><span>' + h[1] + '</span> <span>nights</span></p>' +
+        '<div class="pkbody"><p class="pkdest">' + flag(q, q.intl ? 'plane' : 'pin') + '<span>' + esc(q.d) + '</span><span class="sep">·</span><span>' + h[1] + '</span> <span>nights</span></p>' +
         '<h3 translate="no"><a href="#stay/' + slug(h[0]) + '">' + esc(h[0]) + '</a></h3>' +
         '<p class="pkend">' + ic('calendar', 2) + '<span>' + T('Book by') + '</span> <b translate="no">' + fmtDay(pkUntil(q)) + '</b></p>' +
         '<div class="pkfoot"><p class="pkfrom"><small>From</small> <strong translate="no">' + pprice(q, h[4] + add) + '</strong> <span>per person sharing</span>' + pconv(q, h[4] + add) + '</p>' +
@@ -2036,7 +2048,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     return '<section class="wrap stay"><p class="crumb"><a href="#home">Home</a> / <a href="#safaris">Holidays &amp; safaris</a> / <span translate="no">' + esc(h[0]) + '</span></p>' +
       '<div class="sgal reveal"><div class="sthumbs">' + ims.slice(0, 4).map((u) => '<button class="sth' + (u === main ? ' on' : '') + '" data-stayimg="' + esc(u) + '" aria-label="' + esc(h[0]) + ' – photo"><img src="' + u + '" alt="" loading="lazy" decoding="async"></button>').join('') + '</div><div class="smain">' + (main ? '<img src="' + main + '" alt="' + esc(h[0]) + '" decoding="async">' : LAND[p.d] ? landScene(p.d) : scene(PICO[p.d])) + '</div></div>' +
       '<div class="scols"><div class="sleft">' +
-        '<div class="sinfo reveal"><div class="sirow"><h1 translate="no">' + esc(h[0]) + '</h1><span class="sbadge">' + esc(h[2]) + '</span></div><p class="sloc">' + ic('pin', 2) + '<span>' + esc(pwhere(p)) + '</span></p>' +
+        '<div class="sinfo reveal"><div class="sirow"><h1 translate="no">' + esc(h[0]) + '</h1><span class="sbadge">' + esc(h[2]) + '</span></div><p class="sloc">' + flag(p, 'pin') + '<span>' + esc(pwhere(p)) + '</span></p>' +
           '<div class="sprice"><div><small>Twin sharing</small><strong translate="no">' + pprice(p, h[4] + add) + '</strong><span>per person</span>' + pconv(p, h[4] + add) + '</div><div><small>Single room</small><strong translate="no">' + (h[3] == null ? T('On request') : pprice(p, h[3] + add)) + '</strong><span>per person</span>' + (h[3] == null ? '' : pconv(p, h[3] + add)) + '</div></div>' +
           (p.t ? '<div class="pkswitch" role="group" aria-label="Transport" style="margin:16px 0 0"><button data-pkgt="0" aria-pressed="' + !wt + '">Without transport</button><button data-pkgt="1" aria-pressed="' + wt + '">With transport</button></div>' : '<p class="pkintl" style="margin:16px 0 0;justify-content:flex-start">' + ic('plane', 2) + '<span>' + T('Flights are not included. We can book them for you from Nairobi.') + '</span></p>') +
           (wt ? '<p class="pkadd" style="margin-top:12px">' + ic('plus', 2.2) + '<span>' + esc(p.t[0]) + '</span> <b>' + kes(p.t[1]) + '</b></p>' : '') + '</div>' +
