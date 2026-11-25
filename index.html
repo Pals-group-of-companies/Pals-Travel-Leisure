@@ -1197,6 +1197,155 @@ body.langload #app{opacity:.55;transition:opacity .2s}
 .vchip b{font-weight:800}
 .vchip.soon{background:#FDECEC;color:#9B1C22}.vchip.soon .ic{color:#9B1C22}
 .vchip.big{font-size:14px;padding:8px 14px 8px 12px}
+
+/* ===== hero photo fan: places, fleet, school vans ===== */
+.hfan{display:flex;justify-content:center;align-items:flex-end;margin:64px auto 6px;max-width:1120px;padding:0 10px}
+.hf{--r:0deg;--y:0px;position:relative;width:196px;flex:0 0 auto;margin:0 -12px;transform:translateY(var(--y)) rotate(var(--r));transition:transform .55s cubic-bezier(.2,.8,.2,1);text-decoration:none;color:inherit;z-index:1;animation:fanin .9s cubic-bezier(.2,.8,.2,1) both}
+.hf0{--r:-9deg;--y:34px;animation-delay:.05s}.hf1{--r:-4.5deg;--y:10px;z-index:2;animation-delay:.12s}.hf2{--r:0deg;--y:-8px;width:244px;z-index:3;animation-delay:.2s}.hf3{--r:4.5deg;--y:10px;z-index:2;animation-delay:.28s}.hf4{--r:9deg;--y:34px;animation-delay:.36s}
+@keyframes fanin{from{opacity:0;transform:translateY(70px) rotate(0deg) scale(.92)}}
+.hfimg{display:block;aspect-ratio:3/4;border-radius:24px;overflow:hidden;background:#E9EDF1;border:6px solid #fff;box-shadow:0 34px 60px -32px rgba(15,45,82,.6),0 2px 8px rgba(15,45,82,.08)}
+.hfimg img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.hfcap{display:block;text-align:center;margin-top:14px;font-weight:800;font-size:14.5px;letter-spacing:-.01em;color:var(--ink);line-height:1.25}
+.hfcap small{display:block;font-weight:500;font-size:12.5px;color:var(--muted);margin-top:3px}
+.hf:hover,.hf:focus-visible{transform:translateY(calc(var(--y) - 16px)) rotate(0deg) scale(1.04);z-index:6}
+.hf:hover .hfimg img{transform:scale(1.07)}
+.hf:focus-visible{outline:none}.hf:focus-visible .hfimg{outline:3px solid var(--red);outline-offset:3px}
+.hf2 .hfimg{border-width:7px}
+.hf2::before{content:"";position:absolute;left:50%;top:-14px;transform:translateX(-50%);width:44px;height:8px;border-radius:99px;background:var(--red);opacity:.9}
+@media (max-width:1100px){.hf{width:164px;margin:0 -10px}.hf2{width:206px}}
+@media (max-width:820px){.hf{width:130px;margin:0 -8px}.hf2{width:166px}.hfcap{font-size:13px}.hfcap small{display:none}}
+@media (max-width:640px){
+  .hfan{justify-content:flex-start;align-items:stretch;overflow-x:auto;scroll-snap-type:x mandatory;margin:34px -16px 0;padding:14px 16px 18px;gap:12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .hfan::-webkit-scrollbar{display:none}
+  .hf,.hf2{width:58vw;max-width:230px;margin:0;transform:none!important;scroll-snap-align:center;animation:none}
+  .hf2::before{top:-10px}
+  .hf2{order:-1}.hf3{order:-1}
+  .hfcap small{display:block}
+}
+@media (prefers-reduced-motion:reduce){.hf{animation:none;transition:none}.hfimg img{transition:none}}
+
+.hfan{margin:52px auto 4px}
+.hf{margin:0 -4px}
+.hf0{--r:-6deg;--y:30px}.hf1{--r:-3deg;--y:8px}.hf3{--r:3deg;--y:8px}.hf4{--r:6deg;--y:30px}
+.hfcap{transform:rotate(calc(var(--r) * -1))}
+@media (min-width:641px){.hero4{padding-top:clamp(48px,6vw,84px)}}
+@media (max-width:1100px){.hf{margin:0 -3px}}
+@media (max-width:820px){.hf{margin:0 -2px}}
+@media (max-width:640px){.hf,.hf2{margin:0}.hfcap{transform:none}}
+
+/* ===== hero: split layout with picture board ===== */
+.hfan{display:none!important}
+.hsplit .hgrid{display:grid;grid-template-columns:1fr;justify-items:center}
+.hsplit .htx{display:contents}
+.hsplit .hart{order:2}
+.hsplit .htx>.lead{order:3}.hsplit .htx>.hmcta{order:4}.hsplit .htx>.kick{order:0}.hsplit .htx>h1{order:1}
+.hart{position:relative;width:100%;max-width:560px;margin:26px auto 0;display:grid;grid-template-columns:1fr 1.18fr;grid-template-rows:1fr 1fr .95fr;gap:12px;aspect-ratio:1/1.02}
+.hb{position:relative;overflow:hidden;border-radius:24px;background:#E9EDF1;box-shadow:0 18px 40px -26px rgba(15,45,82,.55)}
+.hb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hb-tile{grid-column:1;grid-row:1;background:#0F2D52;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:18px 18px 16px;text-align:start;overflow:hidden}
+.hb-tile::before{content:"";position:absolute;right:-30%;top:-40%;width:90%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.14);box-shadow:0 0 0 22px rgba(255,255,255,.03)}
+.hb-tile::after{content:"";position:absolute;left:18px;top:18px;width:9px;height:9px;border-radius:50%;background:#E61E28}
+.hbk{font-size:12.5px;font-weight:600;opacity:.75}
+.hb-tile b{font-size:clamp(34px,4.2vw,52px);letter-spacing:-.05em;line-height:1;margin:4px 0 6px;font-weight:800}
+.hbs{font-size:12.5px;opacity:.75;line-height:1.35}
+.hb-tall{grid-column:2;grid-row:1/3}
+.hb-tall img{object-position:62% 50%}
+.hb-sq{grid-column:1;grid-row:2;overflow:visible}
+.hb-sq img{border-radius:24px}
+.hb-fade img{opacity:0;animation:hbfade 15s infinite}
+.hb-fade img:nth-of-type(1){opacity:1;animation-delay:0s}.hb-fade img:nth-of-type(2){animation-delay:5s}.hb-fade img:nth-of-type(3){animation-delay:10s}
+@keyframes hbfade{0%{opacity:0}5%{opacity:1}33%{opacity:1}38%{opacity:0}100%{opacity:0}}
+.hb-wide{grid-column:1/3;grid-row:3}
+.hb-wide img{object-position:50% 58%}
+.hring{position:absolute;right:-6px;top:-6px;transform:translate(50%,-50%) rotate(0);width:92px;height:92px;border-radius:50%;background:#0F2D52;color:#fff;display:grid;place-items:center;z-index:3;box-shadow:0 0 0 6px var(--bg,#F7F6F2),0 14px 30px -14px rgba(15,45,82,.7);text-decoration:none}
+.hring>svg{position:absolute;inset:0;width:100%;height:100%;animation:hspin 18s linear infinite}
+.hring text{fill:#fff;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.hring span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#E61E28;transition:transform .3s}
+.hring span .ic{width:16px;height:16px;color:#fff}
+.hring:hover span{transform:rotate(-45deg)}
+@keyframes hspin{to{transform:rotate(360deg)}}
+.hchips{list-style:none;margin:0;padding:0;position:absolute;right:-26px;top:50%;display:grid;gap:10px;z-index:2}
+.hchips li{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 14px 10px 10px;font-size:13.5px;font-weight:700;color:var(--ink);box-shadow:0 14px 30px -18px rgba(15,45,82,.55);white-space:nowrap}
+.hchips li .ic{width:30px;height:30px;padding:7px;border-radius:10px;background:#0F2D52;color:#fff;flex:0 0 auto}
+.hchips li:nth-child(2){transform:translateX(-18px)}
+@media (max-width:1023px){.hchips{display:none}}
+@media (max-width:640px){.hart{gap:8px;margin-top:20px;aspect-ratio:1/1.08}.hb{border-radius:18px}.hb-sq img{border-radius:18px}.hb-tile{padding:14px 12px 12px}.hb-tile::after{left:12px;top:12px}.hbk,.hbs{font-size:11px}.hring{width:66px;height:66px;box-shadow:0 0 0 4px var(--bg,#F7F6F2)}.hring text{font-size:12.5px}.hring span{width:24px;height:24px}.hring span .ic{width:13px;height:13px}.hb-tile b{font-size:34px}.hbs{display:none}}
+@media (min-width:1024px){
+ .hsplit{text-align:start;padding-top:clamp(40px,4.5vw,64px)!important}
+ .hsplit .hgrid{grid-template-columns:1.02fr 1fr;column-gap:clamp(40px,5vw,80px);align-items:center;justify-items:stretch}
+ .hsplit .htx{display:block;grid-column:1;grid-row:1}
+ .hsplit .hart{grid-column:2;grid-row:1;margin:0;max-width:540px;justify-self:end;margin-right:28px}
+ .hsplit h1{font-size:clamp(56px,5.6vw,88px)!important;margin:24px 0 0!important;max-width:none}
+ .hsplit .lead{margin:22px 0 0!important;max-width:500px}
+ .hsplit .hmcta{display:flex!important;gap:10px;margin:30px 0 0!important;max-width:none}
+ .hsplit .planner{margin-top:clamp(40px,4vw,56px)}
+}
+@media (prefers-reduced-motion:reduce){.hb-fade img{animation:none}.hb-fade img:not(:first-of-type){display:none}.hring svg{animation:none}}
+
+/* ===== international packages ===== */
+.pkintl{display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;color:var(--muted);margin:6px 0 18px}
+.pkintl .ic{width:18px;height:18px;color:var(--ink)}
+.pkconv{display:block;font-style:normal;font-size:12px;color:var(--muted);margin-top:2px;font-weight:500}
+
+/* ===== language / currency suggestion ===== */
+#suggest.sug{position:fixed;left:0;right:0;top:92px;z-index:85;display:flex;justify-content:center;pointer-events:none;padding:0 12px;animation:sugin .45s cubic-bezier(.2,.8,.2,1)}
+.sugbox{pointer-events:auto;position:relative;display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px 46px 10px 10px;box-shadow:0 18px 44px -20px rgba(15,45,82,.5);max-width:640px}
+.sugi{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:var(--tint,#EEF2F7);flex:0 0 auto}
+.sugi .ic{width:18px;height:18px;color:#141618}
+.sugbox p{font-size:14.5px;font-weight:600;color:var(--ink);margin:0}
+.sugb{display:flex;gap:6px;flex:0 0 auto}
+.sugb .btn{min-height:38px;padding:0 14px;font-size:13.5px}
+.sugx{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;color:var(--muted)}
+.sugx:hover{background:var(--soft,#F1F2F4);color:var(--ink)}
+.sugx .ic{width:15px;height:15px}
+[dir="rtl"] .sugbox{padding:10px 10px 10px 46px}[dir="rtl"] .sugx{right:auto;left:8px}
+@keyframes sugin{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@media (max-width:640px){#suggest.sug{top:84px}.sugbox{flex-wrap:wrap;gap:10px;padding:12px 44px 12px 12px}.sugbox p{flex:1 1 0;min-width:0;font-size:14px}.sugb{width:100%}.sugb .btn{flex:1}}
+@media (prefers-reduced-motion:reduce){#suggest.sug{animation:none}}
+
+/* ===== photo pills in text ===== */
+.ppill{position:relative;display:inline-block;width:2.05em;height:.92em;border-radius:999px;overflow:hidden;vertical-align:-.06em;margin:0 .06em;background:#E9EDF1;box-shadow:0 .1em .3em -.1em rgba(15,45,82,.45),inset 0 0 0 .04em #fff;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.ppill img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ppill:hover{width:2.5em}
+.pp3 img{opacity:0;animation:hbfade 12s infinite}
+.pp3 img:nth-child(1){opacity:1}.pp3 img:nth-child(2){animation-delay:4s}.pp3 img:nth-child(3){animation-delay:8s}
+.hero4 h1.hh1 span b{font-weight:inherit}
+.hero4 h1.hh1 .ppill{margin-inline-end:.18em;-webkit-text-fill-color:initial}
+.hstate{padding:clamp(56px,8vw,110px) 0}
+.hst{max-width:1040px;margin:0 auto;text-align:center;font-size:clamp(26px,3.4vw,46px);line-height:1.32;letter-spacing:-.035em;font-weight:700;color:var(--ink)}
+.hst .ppill{height:.9em;width:1.9em}
+@media (max-width:640px){.hst{font-size:24px;line-height:1.4}}
+@media (prefers-reduced-motion:reduce){.pp3 img{animation:none}.pp3 img:not(:first-child){display:none}}
+
+.hero4 h1.hh1>span{background:none;-webkit-text-fill-color:currentColor;color:#0F2D52}
+.hero4 h1.hh1>span>b{background:linear-gradient(92deg,#0F2D52 0%,#1F4E8C 55%,#0F2D52 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero4 h1 .ppill{display:inline-block;background:#E9EDF1;-webkit-background-clip:border-box;background-clip:border-box;color:inherit}
+
+.hero4 h1.hh1 .nowrap{white-space:nowrap;background:none;-webkit-text-fill-color:currentColor;display:inline}
+@media (min-width:1024px){.hsplit h1.hh1{font-size:clamp(52px,4.9vw,78px)!important}}
+
+/* ===== chosen destination panel ===== */
+.dpanel{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(18px,3vw,36px);align-items:stretch;background:#fff;border:1px solid var(--line);border-radius:28px;padding:clamp(14px,2vw,18px);margin:4px 0 28px;box-shadow:0 24px 60px -40px rgba(15,45,82,.45);text-align:start}
+.dptext{display:flex;flex-direction:column;padding:clamp(10px,2vw,22px)}
+.dpk{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dpk .ic{width:16px;height:16px;color:#141618}
+.dptext h3{font-size:clamp(34px,4.2vw,56px);letter-spacing:-.05em;line-height:1;margin:10px 0 12px;font-weight:800;color:#0F2D52}
+.dpd{font-size:16px;line-height:1.65;color:#44484D;max-width:46ch}
+.dpf{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.dpf li{display:inline-flex;align-items:center;gap:7px;padding:7px 12px 7px 9px;border-radius:999px;background:var(--soft,#F4F5F6);font-size:13.5px;font-weight:600;color:var(--ink)}
+.dpf .ic{width:16px;height:16px;color:#141618}
+.dpfoot{margin-top:auto;padding-top:22px;display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.dpfoot p{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px}
+.dpfoot small{font-size:13px;color:var(--muted)}
+.dpfoot strong{font-size:30px;letter-spacing:-.04em;color:#0F2D52}
+.dpfoot span{font-size:13px;color:var(--muted)}
+.dpfoot .pkconv{flex-basis:100%;margin:0}
+.dpart{position:relative;border-radius:20px;overflow:hidden;min-height:300px;background:#E9EDF1;display:grid;gap:8px}
+.dpart.two{grid-template-columns:1.4fr 1fr;background:none}
+.dpart img{width:100%;height:100%;object-fit:cover;border-radius:20px;display:block}
+.dpart svg{position:absolute;inset:0;width:100%;height:100%}
+@media (max-width:820px){.dpanel{grid-template-columns:1fr}.dpart{min-height:220px;order:-1}.dpart.two{grid-template-columns:1fr 1fr}.dptext{padding:6px 6px 8px}}
+@media (max-width:640px){.dpanel{border-radius:22px;padding:10px}.dpart{min-height:190px;border-radius:16px}.dpart img{border-radius:16px}.dpfoot .btn{width:100%;justify-content:center}}
 </style>
 </head>
 <body>
@@ -1218,18 +1367,19 @@ body.langload #app{opacity:.55;transition:opacity .2s}
 <main id="app"></main>
 <footer class="footer" id="footer"></footer>
 <div id="consent" aria-live="polite"></div>
+<div id="suggest" aria-live="polite"></div>
 <div id="layer"></div>
 <script>
 (() => {
   // ---------- assets (ids in this artifact) ----------
-  const A = { horses:'bfeb49846d90ce925fdba95289374071', ilmap:'3f63504874ef311a2b79c2e6f7647e27', ilpuzzle:'a9a7ef2366fb11198fef51facee0fdba', ilglobe:'1704fce13fcb11624ae026b9462f0239', logo:'51a167d775e24fea8980ff0569e85ee9', jet:'388cd6dbac4ad51274390ba866d70495', ticket:'03ce19a68d9b4d692b7f0f86634c2640', passport:'0ae5214a43e9fc973e0bf468799b6b55', sign:'104fff94993f8a64ef8a87d10efe43fe', roadtrip:'5b86ea1bb198372d3ec184228126c9d3', liberty:'b96b64bc0d4d7cda000fcc4effef35ca', aar:'5248f45481c30e203a0fbfab9dfc93fa', uniserv:'be45e0a85c03cf596c7d1293014ac71a', light:'ba38600684c163d3adc08e1a1ed68e6e', balloons:'8d0a6c0fa593a0e1ff2ba0b3d66af8e5', eleph:'ce1beb06230a827c3fd2cf21ef60ddef', lion:'920e7bfd1cd5fc3efc8808a44bf94589', nakuru:'c1613f035608aef0a49eb52f5cb5b57e', giraffes:'28f5c37804dda436a9546247332865dc', tent:'da4c0fede6598934b3e39cf3f683a85f', deck:'07824e41a6f25e1576ff958ec6b2ff9d', vans:'f103c9a85620842f7023c06823aac314', ngoro:'3221ce3a2df5bb8db49b622f952a1a6d', cruisers:'54c22e0eb5ed8ff10b9d3bc71f343cf7', lc:'2845d834b759b49c71836fc172000c17', sclass:'88d3c9322fa3849c254332da2ab0d10f', hiace:'b5f32457dd2c4658bd022c65a61f024e', bus:'6bff8a534a80f050239607bf4b668d1c', coasters:'a51cb30a33f17cb860b7e4d56b517e74' };
+  const A = { heroCoast:'bbd77a043585130f7766a04e69a29d6e', heroMara:'928e636cd6db510a8f0f3802eff06bd4', heroVans:'b2b554d8530890a0914c69f1b6773c81', heroFleet:'4de83eeb4739aed3e2e49e7f0a877851', heroLake:'9dc12d986eccb72ffae8cd3647be3bcb', heroWide:'06c62b597e09f385092c7d027ffd09a1', heroSq:'c3a7304bdc271c47ce9c97ca6aacabb5', heroPals:'5308150dd62ef97b71a5319fb1a8b927', horses:'bfeb49846d90ce925fdba95289374071', ilmap:'3f63504874ef311a2b79c2e6f7647e27', ilpuzzle:'a9a7ef2366fb11198fef51facee0fdba', ilglobe:'1704fce13fcb11624ae026b9462f0239', logo:'51a167d775e24fea8980ff0569e85ee9', jet:'388cd6dbac4ad51274390ba866d70495', ticket:'03ce19a68d9b4d692b7f0f86634c2640', passport:'0ae5214a43e9fc973e0bf468799b6b55', sign:'104fff94993f8a64ef8a87d10efe43fe', roadtrip:'5b86ea1bb198372d3ec184228126c9d3', liberty:'b96b64bc0d4d7cda000fcc4effef35ca', aar:'5248f45481c30e203a0fbfab9dfc93fa', uniserv:'be45e0a85c03cf596c7d1293014ac71a', light:'ba38600684c163d3adc08e1a1ed68e6e', balloons:'8d0a6c0fa593a0e1ff2ba0b3d66af8e5', eleph:'ce1beb06230a827c3fd2cf21ef60ddef', lion:'920e7bfd1cd5fc3efc8808a44bf94589', nakuru:'c1613f035608aef0a49eb52f5cb5b57e', giraffes:'28f5c37804dda436a9546247332865dc', tent:'da4c0fede6598934b3e39cf3f683a85f', deck:'07824e41a6f25e1576ff958ec6b2ff9d', vans:'f103c9a85620842f7023c06823aac314', ngoro:'3221ce3a2df5bb8db49b622f952a1a6d', cruisers:'54c22e0eb5ed8ff10b9d3bc71f343cf7', lc:'2845d834b759b49c71836fc172000c17', sclass:'88d3c9322fa3849c254332da2ab0d10f', hiace:'b5f32457dd2c4658bd022c65a61f024e', bus:'6bff8a534a80f050239607bf4b668d1c', coasters:'a51cb30a33f17cb860b7e4d56b517e74' };
   // ---------- server ----------
   // Address of the Frappe/ERPNext site that runs the "pals_website" app (see frappe-app/README.md),
   // for example 'https://erp.palstravelleisure.co.ke'. Leave empty to run without a server.
   const FRAPPE_URL = '';
   const STANDALONE = !(window.claude && window.claude.use);
   const FRAPPE = STANDALONE && !!FRAPPE_URL;
-  const LOCAL = {"3f4e7766076242fd629076ea6d082fcd": "assets/pkg/aa-lodge-1.webp", "7a79e69d15c46c7f39206f8d7b8da362": "assets/pkg/aa-lodge-2.webp", "0dcf938fcd1b5c1ea409d3dc8645c27b": "assets/pkg/sentrim-1.webp", "8ee28efb9b1417763e6e12b2c933d94f": "assets/pkg/sentrim-2.webp", "ee38b8d2f40bacecada09eddec455042": "assets/pkg/oldarpoi-1.jpg", "0c0d47b74a9a3aa43b23fea1d18af87e": "assets/pkg/oldarpoi-2.webp", "4555dc61310d5535f6e3ab1ec5699ca5": "assets/pkg/lake-naivasha-1.webp", "51f08dc4f8916ecdd6550b6b2a6bbc8c": "assets/pkg/lake-naivasha-2.webp", "67aa5b3b38b5f239790e2c2f5361bd16": "assets/pkg/burchs-1.jpg", "11b611bc2d9dac8462974df06f00567f": "assets/pkg/burchs-2.jpg", "83de0b61c0db81eed3f2354e36b93dad": "assets/pkg/sawela-1.webp", "bf5c6665860c073518deb92c7f2e8a61": "assets/pkg/sawela-2.jpg", "bc4941a7763b5a865b1d93678e2cc972": "assets/pkg/naivasha-1.webp", "be56223fa91f43e1d6b403084dd6cd1e": "assets/pkg/naivasha-2.webp", "fd53fe4b5b0fd04e2552f145e2726400": "assets/pkg/kilili-1.jpg", "7193c80556e6fbc5c933bd0d5e89b937": "assets/pkg/kilili-2.webp", "70707a49ea39d0176b035ca14668b8e9": "assets/pkg/kilili-3.jpg", "971f6ac58035eace57e0d08f0c711d4c": "assets/pkg/diamonds-1.jpg", "f09a90316fbe3a08b025284c7e1f7e09": "assets/pkg/diamonds-2.jpg", "8f19312553b0703af8d38f6b6d68a470": "assets/pkg/diamonds-3.jpg", "06f21bc277f57b4319d9d0edb6ec265b": "assets/pkg/malindi-2.webp", "2dbb5c6ba7b14df098eb4bd4e7cd1349": "assets/pkg/ocean-beach-1.jpg", "e3fd50c2d863c072fb3c7f7c77767345": "assets/pkg/ocean-beach-2.jpg", "952be51baa5617ee852a4aa4a1998256": "assets/pkg/malindi-1.webp", "ce185ac86ed263af1a1a6a1af100b308": "assets/pkg/diani-sea-lodge-1.jpg", "57171336726dca2ea13e8e91ec3adb55": "assets/pkg/diani-sea-lodge-2.webp", "77aca7606b34fcc50ba6e5b499ca6b5d": "assets/pkg/diani-reef-1.jpg", "ef0bb5511ac0d8e9adec47390e0116da": "assets/pkg/diani-reef-2.jpg", "999cf5d2905babee610f49f19fd787c9": "assets/pkg/papillon-1.jpg", "489fea1639d778eb8f2afc20fa11e7db": "assets/pkg/papillon-2.jpg", "fe4c4816095610a17628dda24e6c767a": "assets/pkg/diani-1.webp", "25ce0e6cdf38a305f5d6ed8b4c82a41c": "assets/pkg/diani-2.jpg", "7ecc0a8111fdf198387d0c7086e7bc86": "assets/pkg/sun-n-sand-1.webp", "0a9c930ca92dfb958f9eac3dee5a078c": "assets/pkg/sun-n-sand-2.jpg", "b3d1a7791a5df0e11c66df419eef0c0c": "assets/pkg/sun-n-sand-3.webp", "e7893b022b2f0b561604ae137a62700f": "assets/pkg/travellers-beach-1.jpg", "5e23c2199a898d4c1db3b6bd9f76bb1d": "assets/pkg/travellers-beach-2.webp", "b10e18331e4089e030017cbc6e945095": "assets/pkg/mombasa-continental-1.jpg", "d171d6ef39fbc5ccbdfa19abbf15c23a": "assets/pkg/mombasa-continental-2.jpg", "6479069b6ea8036858667a0360c40110": "assets/pkg/mombasa-city.jpg", "56bd59c15735f20de1e9086ae84d4278": "assets/pkg/coast-sandbank.webp", "a26b59a197094920aa4cfee3267d0fdf": "assets/partners/old-mutual.png", "b06ede2f961bc987ce3a11aafdd3f284": "assets/partners/makini.png", "b6c706811e8415c5b825c4276b0d494a": "assets/partners/maris.webp", "0077f7d82420e131ab46789c42c5600b": "assets/partners/monarch.png", "a548271d8e04497e1cf343a998715f5f": "assets/partners/gallant.webp", "c9f0d2349324aa749a620ad3c0aa8680": "assets/partners/brandables.png", "0d95c64abe994a6b6994883d64255eb7": "assets/partners/koala.webp", "2c9052c0b96cd5c20815da66e3633ee5": "assets/partners/uniconnect.webp", "30eb3347d04aa810397002a6c442d4b8": "assets/partners/orpp.webp", "58de7385ad68423a03845cc885ba3499": "assets/partners/nikko.webp", "2a744e095b1db7ea74c9b9fa4f5c3311": "assets/partners/pals-academy.webp", "83d52fea1972b1961ddaf58c7e97e79a": "assets/partners/dhow.webp", "3d9a696ffbc721f0f66409bcd7a57302": "assets/partners/moh.webp", "6040257f7435fe2619d4762cb330f320": "assets/partners/karen-hospital.png", "78714ce89bfe5c0b0e628a4dc1ff54b5": "assets/partners/chai-sacco.webp", "7f609a653a93be5d5d05a10bac70abd1": "assets/partners/kda.png", "72dc685cb3348910c7d51573c28d1e2e": "assets/partners/mayfair.png", "14e1c8756458dedb36a37d3a7f95e165": "assets/partners/tradco.webp", "194f109779b2bd32047c8d61d0c17bd2": "assets/partners/options.webp", "9d5884c5ab00f343a0ab0721a98f8651": "assets/partners/khf.webp", "1c4264876369c44424beebb7b2b4b3de": "assets/partners/laiser-hill.webp", "049c099d7d4f3db60bc99bf200c6d723": "assets/partners/slna.png", "253baf6c28b13a74115deeb8cd5db6d4": "assets/partners/mua.webp", "1fc6ff0adff8baa61f017a9742fbc8d0": "assets/partners/riara.webp", "bfeb49846d90ce925fdba95289374071": "assets/hero-horses.jpg", "4eab3b873b6c8f9fc4207a49c061698c": "assets/sch-stmarys.webp", "8f733cb04aaeaf6deff9f98827d22842": "assets/sch-loreto.webp", "721f2f8e246750ac5c712f209ab657da": "assets/sch-logos.webp", "3b9424fb4927e89170bebc38183aa7d2": "assets/sch-anatolia.webp", "a14ff1a992e4a29662d280e674b3163d": "assets/sch-van-side.jpg", "332ba26dca24a1d4398caafc97964a8a": "assets/sch-vans-front.jpg", "dd70692bb9d163626f5cbd2328e40b56": "assets/sch-vans-rear.jpg", "d8e7662cd0add212bd1cb3fe91132262": "assets/sch-vans-rear2.jpg", "51a167d775e24fea8980ff0569e85ee9": "assets/pals-logo.png", "388cd6dbac4ad51274390ba866d70495": "assets/jet.webp", "03ce19a68d9b4d692b7f0f86634c2640": "assets/ticket.webp", "0ae5214a43e9fc973e0bf468799b6b55": "assets/passport.webp", "104fff94993f8a64ef8a87d10efe43fe": "assets/sign.webp", "5b86ea1bb198372d3ec184228126c9d3": "assets/roadtrip.webp", "b0ea4e43f4153956056a58998f187d94": "assets/liberty.webp", "f9956e8352f88b2c51bc6fbeb9dd3e36": "assets/aar.webp", "e13a52906ba069b4123b6f1a962f63ce": "assets/uniserv.png", "2d7898838a5bd30da671b2230007be62": "assets/light.webp", "8d0a6c0fa593a0e1ff2ba0b3d66af8e5": "assets/p-balloons.webp", "ce1beb06230a827c3fd2cf21ef60ddef": "assets/p-elephants.webp", "920e7bfd1cd5fc3efc8808a44bf94589": "assets/p-lion.webp", "c1613f035608aef0a49eb52f5cb5b57e": "assets/p-nakuru.webp", "28f5c37804dda436a9546247332865dc": "assets/p-giraffes.webp", "da4c0fede6598934b3e39cf3f683a85f": "assets/p-tent.webp", "07824e41a6f25e1576ff958ec6b2ff9d": "assets/p-deck.webp", "f103c9a85620842f7023c06823aac314": "assets/p-vans.webp", "3221ce3a2df5bb8db49b622f952a1a6d": "assets/p-ngorongoro.webp", "54c22e0eb5ed8ff10b9d3bc71f343cf7": "assets/p-cruisers.webp", "2845d834b759b49c71836fc172000c17": "assets/v-landcruiser.webp", "88d3c9322fa3849c254332da2ab0d10f": "assets/v-sclass.webp", "b5f32457dd2c4658bd022c65a61f024e": "assets/v-hiace.webp", "6bff8a534a80f050239607bf4b668d1c": "assets/v-bus.webp", "a51cb30a33f17cb860b7e4d56b517e74": "assets/p-coasters.webp", "3f63504874ef311a2b79c2e6f7647e27": "assets/il-map.webp", "a9a7ef2366fb11198fef51facee0fdba": "assets/il-puzzle.png", "9e154b1e459bf74fa6f74cdcf8a4a8d5": "assets/il-cars.webp", "1704fce13fcb11624ae026b9462f0239": "assets/il-globe.webp", "3120c8e78de2749e10839a76797a26b7": "assets/ic-price.png", "9631afbc4f04b016f9901fc9da6c008a": "assets/ic-fleet.png", "63e36f5a4d5e66a9cf57d4e0b028b607": "assets/ic-driver.png", "352d0bae77470eea0e08a88c28d6532b": "assets/ic-support.png", "e25709202807f1e0bafc2cdcc36d1191": "assets/sv-tours.png", "2ab954e52e320a58b52ee0e8090aa469": "assets/sv-hotel.png", "19ebf925168b9c899e3d72d08e5b654b": "assets/sv-flight.png", "3d4451248de707f57545e40b4259d761": "assets/sv-car.png", "5b4ef31847ec48e6ed2b70b739fb68c3": "assets/sv-school.png", "c0a330f14f7b695de1abfa83224be4eb": "assets/sv-events.png", "075532f6634bc4137eea18b9fb7f561e": "assets/sv-visa.png", "3de5c7699ef17779b50af9fae9dcc3f5": "assets/logos/old-mutual.png", "a6d1cf14526a3e18d7a4dba677840036": "assets/logos/makini-schools.webp", "3f6d6b313731e058164a7f3f39aaea40": "assets/logos/maris.png", "5f2d8385687ca3659e0e59fb24769109": "assets/logos/the-monarch-insurance.png", "03ea22f619f76ef597bc94c99cb212f2": "assets/logos/gallant-branding-international.png", "5369f02e9fad710802431e15a15f843b": "assets/logos/brandables-international.webp", "237da0ac481088685067c90e14c57101": "assets/logos/koala-education-consultants.png", "0985379121c1f4292d09631b698425d3": "assets/logos/uniconnect.png", "48884cef44761850c531435d928ba612": "assets/logos/ministry-of-health.png", "9079ceb2b5b223da8f053c679e0935bc": "assets/logos/office-of-the-registrar-of-political-parties.png", "713a3b4cff135a57d0a8c6015e148224": "assets/logos/the-karen-hospital.png", "fcc9d74eeed25a79943ead217f30068f": "assets/logos/dhow-partners.png", "7cf5a66d95dd674a6bf2aebbc09872bb": "assets/logos/nikko-homecare.png", "6278e948e564eb1015286f990c30cec4": "assets/logos/pals-academy.png", "ba38600684c163d3adc08e1a1ed68e6e": "assets/logos/light-international-school.png", "8530c8ec3845ad4b9bb7fdd367c51391": "assets/logos/riara-school.png", "b8be6d28392221c99284ea8de982738e": "assets/logos/anatolia-academy.png", "e91cb1ec090ab91850a71494cce19501": "assets/logos/loreto-convent-msongari.png", "09bcdd34154f1be8aa5f564f36ff03a8": "assets/logos/chai-dt-sacco.png", "a38d8f87565f6a2e8856677d0ea05d7e": "assets/logos/kenya-dental-association.png", "7e0953b64bd9cb4f0c6639fd216a2237": "assets/logos/mayfair-insurance.webp", "b96b64bc0d4d7cda000fcc4effef35ca": "assets/logos/liberty.png", "d12327d9b3a61f103faa4193544fced9": "assets/logos/tradco-services-limited.png", "670d4defd02761738dc1924e5ad1be24": "assets/logos/options-education-agency.png", "d19c0614349588c9b1217e5ffe99ad9c": "assets/logos/kenya-healthcare-federation.png", "94171de675b3fa13356ef1a692c24b68": "assets/logos/st-mary-s-school-nairobi.png", "09702a18d55199b9bc0e6a2f6d0f1aff": "assets/logos/laiser-hill-academy.png", "a835190d58f435a6c4b4247af6a126f4": "assets/logos/shah-lalji-nangpar-academy.webp", "5248f45481c30e203a0fbfab9dfc93fa": "assets/logos/aar-insurance.png", "aee34f266c69fa847f56e065228f434f": "assets/logos/mua-insurance.png", "6ccad9a631fd53dfc30bd5ecd7aaeffe": "assets/logos/logos-christian-school.png", "be45e0a85c03cf596c7d1293014ac71a": "assets/logos/uniserv.webp"};
+  const LOCAL = {"3f4e7766076242fd629076ea6d082fcd": "assets/pkg/aa-lodge-1.webp", "7a79e69d15c46c7f39206f8d7b8da362": "assets/pkg/aa-lodge-2.webp", "0dcf938fcd1b5c1ea409d3dc8645c27b": "assets/pkg/sentrim-1.webp", "8ee28efb9b1417763e6e12b2c933d94f": "assets/pkg/sentrim-2.webp", "ee38b8d2f40bacecada09eddec455042": "assets/pkg/oldarpoi-1.jpg", "0c0d47b74a9a3aa43b23fea1d18af87e": "assets/pkg/oldarpoi-2.webp", "4555dc61310d5535f6e3ab1ec5699ca5": "assets/pkg/lake-naivasha-1.webp", "51f08dc4f8916ecdd6550b6b2a6bbc8c": "assets/pkg/lake-naivasha-2.webp", "67aa5b3b38b5f239790e2c2f5361bd16": "assets/pkg/burchs-1.jpg", "11b611bc2d9dac8462974df06f00567f": "assets/pkg/burchs-2.jpg", "83de0b61c0db81eed3f2354e36b93dad": "assets/pkg/sawela-1.webp", "bf5c6665860c073518deb92c7f2e8a61": "assets/pkg/sawela-2.jpg", "bc4941a7763b5a865b1d93678e2cc972": "assets/pkg/naivasha-1.webp", "be56223fa91f43e1d6b403084dd6cd1e": "assets/pkg/naivasha-2.webp", "fd53fe4b5b0fd04e2552f145e2726400": "assets/pkg/kilili-1.jpg", "7193c80556e6fbc5c933bd0d5e89b937": "assets/pkg/kilili-2.webp", "70707a49ea39d0176b035ca14668b8e9": "assets/pkg/kilili-3.jpg", "971f6ac58035eace57e0d08f0c711d4c": "assets/pkg/diamonds-1.jpg", "f09a90316fbe3a08b025284c7e1f7e09": "assets/pkg/diamonds-2.jpg", "8f19312553b0703af8d38f6b6d68a470": "assets/pkg/diamonds-3.jpg", "06f21bc277f57b4319d9d0edb6ec265b": "assets/pkg/malindi-2.webp", "2dbb5c6ba7b14df098eb4bd4e7cd1349": "assets/pkg/ocean-beach-1.jpg", "e3fd50c2d863c072fb3c7f7c77767345": "assets/pkg/ocean-beach-2.jpg", "952be51baa5617ee852a4aa4a1998256": "assets/pkg/malindi-1.webp", "ce185ac86ed263af1a1a6a1af100b308": "assets/pkg/diani-sea-lodge-1.jpg", "57171336726dca2ea13e8e91ec3adb55": "assets/pkg/diani-sea-lodge-2.webp", "77aca7606b34fcc50ba6e5b499ca6b5d": "assets/pkg/diani-reef-1.jpg", "ef0bb5511ac0d8e9adec47390e0116da": "assets/pkg/diani-reef-2.jpg", "999cf5d2905babee610f49f19fd787c9": "assets/pkg/papillon-1.jpg", "489fea1639d778eb8f2afc20fa11e7db": "assets/pkg/papillon-2.jpg", "fe4c4816095610a17628dda24e6c767a": "assets/pkg/diani-1.webp", "25ce0e6cdf38a305f5d6ed8b4c82a41c": "assets/pkg/diani-2.jpg", "7ecc0a8111fdf198387d0c7086e7bc86": "assets/pkg/sun-n-sand-1.webp", "0a9c930ca92dfb958f9eac3dee5a078c": "assets/pkg/sun-n-sand-2.jpg", "b3d1a7791a5df0e11c66df419eef0c0c": "assets/pkg/sun-n-sand-3.webp", "e7893b022b2f0b561604ae137a62700f": "assets/pkg/travellers-beach-1.jpg", "5e23c2199a898d4c1db3b6bd9f76bb1d": "assets/pkg/travellers-beach-2.webp", "b10e18331e4089e030017cbc6e945095": "assets/pkg/mombasa-continental-1.jpg", "d171d6ef39fbc5ccbdfa19abbf15c23a": "assets/pkg/mombasa-continental-2.jpg", "6479069b6ea8036858667a0360c40110": "assets/pkg/mombasa-city.jpg", "56bd59c15735f20de1e9086ae84d4278": "assets/pkg/coast-sandbank.webp", "a26b59a197094920aa4cfee3267d0fdf": "assets/partners/old-mutual.png", "b06ede2f961bc987ce3a11aafdd3f284": "assets/partners/makini.png", "b6c706811e8415c5b825c4276b0d494a": "assets/partners/maris.webp", "0077f7d82420e131ab46789c42c5600b": "assets/partners/monarch.png", "a548271d8e04497e1cf343a998715f5f": "assets/partners/gallant.webp", "c9f0d2349324aa749a620ad3c0aa8680": "assets/partners/brandables.png", "0d95c64abe994a6b6994883d64255eb7": "assets/partners/koala.webp", "2c9052c0b96cd5c20815da66e3633ee5": "assets/partners/uniconnect.webp", "30eb3347d04aa810397002a6c442d4b8": "assets/partners/orpp.webp", "58de7385ad68423a03845cc885ba3499": "assets/partners/nikko.webp", "2a744e095b1db7ea74c9b9fa4f5c3311": "assets/partners/pals-academy.webp", "83d52fea1972b1961ddaf58c7e97e79a": "assets/partners/dhow.webp", "3d9a696ffbc721f0f66409bcd7a57302": "assets/partners/moh.webp", "6040257f7435fe2619d4762cb330f320": "assets/partners/karen-hospital.png", "78714ce89bfe5c0b0e628a4dc1ff54b5": "assets/partners/chai-sacco.webp", "7f609a653a93be5d5d05a10bac70abd1": "assets/partners/kda.png", "72dc685cb3348910c7d51573c28d1e2e": "assets/partners/mayfair.png", "14e1c8756458dedb36a37d3a7f95e165": "assets/partners/tradco.webp", "194f109779b2bd32047c8d61d0c17bd2": "assets/partners/options.webp", "9d5884c5ab00f343a0ab0721a98f8651": "assets/partners/khf.webp", "1c4264876369c44424beebb7b2b4b3de": "assets/partners/laiser-hill.webp", "049c099d7d4f3db60bc99bf200c6d723": "assets/partners/slna.png", "253baf6c28b13a74115deeb8cd5db6d4": "assets/partners/mua.webp", "1fc6ff0adff8baa61f017a9742fbc8d0": "assets/partners/riara.webp", "bfeb49846d90ce925fdba95289374071": "assets/hero-horses.jpg", "4eab3b873b6c8f9fc4207a49c061698c": "assets/sch-stmarys.webp", "8f733cb04aaeaf6deff9f98827d22842": "assets/sch-loreto.webp", "721f2f8e246750ac5c712f209ab657da": "assets/sch-logos.webp", "3b9424fb4927e89170bebc38183aa7d2": "assets/sch-anatolia.webp", "a14ff1a992e4a29662d280e674b3163d": "assets/sch-van-side.jpg", "332ba26dca24a1d4398caafc97964a8a": "assets/sch-vans-front.jpg", "dd70692bb9d163626f5cbd2328e40b56": "assets/sch-vans-rear.jpg", "d8e7662cd0add212bd1cb3fe91132262": "assets/sch-vans-rear2.jpg", "51a167d775e24fea8980ff0569e85ee9": "assets/pals-logo.png", "388cd6dbac4ad51274390ba866d70495": "assets/jet.webp", "03ce19a68d9b4d692b7f0f86634c2640": "assets/ticket.webp", "0ae5214a43e9fc973e0bf468799b6b55": "assets/passport.webp", "104fff94993f8a64ef8a87d10efe43fe": "assets/sign.webp", "5b86ea1bb198372d3ec184228126c9d3": "assets/roadtrip.webp", "b0ea4e43f4153956056a58998f187d94": "assets/liberty.webp", "f9956e8352f88b2c51bc6fbeb9dd3e36": "assets/aar.webp", "e13a52906ba069b4123b6f1a962f63ce": "assets/uniserv.png", "2d7898838a5bd30da671b2230007be62": "assets/light.webp", "8d0a6c0fa593a0e1ff2ba0b3d66af8e5": "assets/p-balloons.webp", "ce1beb06230a827c3fd2cf21ef60ddef": "assets/p-elephants.webp", "920e7bfd1cd5fc3efc8808a44bf94589": "assets/p-lion.webp", "c1613f035608aef0a49eb52f5cb5b57e": "assets/p-nakuru.webp", "28f5c37804dda436a9546247332865dc": "assets/p-giraffes.webp", "da4c0fede6598934b3e39cf3f683a85f": "assets/p-tent.webp", "07824e41a6f25e1576ff958ec6b2ff9d": "assets/p-deck.webp", "f103c9a85620842f7023c06823aac314": "assets/p-vans.webp", "3221ce3a2df5bb8db49b622f952a1a6d": "assets/p-ngorongoro.webp", "54c22e0eb5ed8ff10b9d3bc71f343cf7": "assets/p-cruisers.webp", "2845d834b759b49c71836fc172000c17": "assets/v-landcruiser.webp", "88d3c9322fa3849c254332da2ab0d10f": "assets/v-sclass.webp", "b5f32457dd2c4658bd022c65a61f024e": "assets/v-hiace.webp", "6bff8a534a80f050239607bf4b668d1c": "assets/v-bus.webp", "a51cb30a33f17cb860b7e4d56b517e74": "assets/p-coasters.webp", "3f63504874ef311a2b79c2e6f7647e27": "assets/il-map.webp", "a9a7ef2366fb11198fef51facee0fdba": "assets/il-puzzle.png", "9e154b1e459bf74fa6f74cdcf8a4a8d5": "assets/il-cars.webp", "1704fce13fcb11624ae026b9462f0239": "assets/il-globe.webp", "3120c8e78de2749e10839a76797a26b7": "assets/ic-price.png", "9631afbc4f04b016f9901fc9da6c008a": "assets/ic-fleet.png", "63e36f5a4d5e66a9cf57d4e0b028b607": "assets/ic-driver.png", "352d0bae77470eea0e08a88c28d6532b": "assets/ic-support.png", "e25709202807f1e0bafc2cdcc36d1191": "assets/sv-tours.png", "2ab954e52e320a58b52ee0e8090aa469": "assets/sv-hotel.png", "19ebf925168b9c899e3d72d08e5b654b": "assets/sv-flight.png", "3d4451248de707f57545e40b4259d761": "assets/sv-car.png", "5b4ef31847ec48e6ed2b70b739fb68c3": "assets/sv-school.png", "c0a330f14f7b695de1abfa83224be4eb": "assets/sv-events.png", "075532f6634bc4137eea18b9fb7f561e": "assets/sv-visa.png", "3de5c7699ef17779b50af9fae9dcc3f5": "assets/logos/old-mutual.png", "a6d1cf14526a3e18d7a4dba677840036": "assets/logos/makini-schools.webp", "3f6d6b313731e058164a7f3f39aaea40": "assets/logos/maris.png", "5f2d8385687ca3659e0e59fb24769109": "assets/logos/the-monarch-insurance.png", "03ea22f619f76ef597bc94c99cb212f2": "assets/logos/gallant-branding-international.png", "5369f02e9fad710802431e15a15f843b": "assets/logos/brandables-international.webp", "237da0ac481088685067c90e14c57101": "assets/logos/koala-education-consultants.png", "0985379121c1f4292d09631b698425d3": "assets/logos/uniconnect.png", "48884cef44761850c531435d928ba612": "assets/logos/ministry-of-health.png", "9079ceb2b5b223da8f053c679e0935bc": "assets/logos/office-of-the-registrar-of-political-parties.png", "713a3b4cff135a57d0a8c6015e148224": "assets/logos/the-karen-hospital.png", "fcc9d74eeed25a79943ead217f30068f": "assets/logos/dhow-partners.png", "7cf5a66d95dd674a6bf2aebbc09872bb": "assets/logos/nikko-homecare.png", "6278e948e564eb1015286f990c30cec4": "assets/logos/pals-academy.png", "ba38600684c163d3adc08e1a1ed68e6e": "assets/logos/light-international-school.png", "8530c8ec3845ad4b9bb7fdd367c51391": "assets/logos/riara-school.png", "b8be6d28392221c99284ea8de982738e": "assets/logos/anatolia-academy.png", "e91cb1ec090ab91850a71494cce19501": "assets/logos/loreto-convent-msongari.png", "09bcdd34154f1be8aa5f564f36ff03a8": "assets/logos/chai-dt-sacco.png", "a38d8f87565f6a2e8856677d0ea05d7e": "assets/logos/kenya-dental-association.png", "7e0953b64bd9cb4f0c6639fd216a2237": "assets/logos/mayfair-insurance.webp", "b96b64bc0d4d7cda000fcc4effef35ca": "assets/logos/liberty.png", "d12327d9b3a61f103faa4193544fced9": "assets/logos/tradco-services-limited.png", "670d4defd02761738dc1924e5ad1be24": "assets/logos/options-education-agency.png", "d19c0614349588c9b1217e5ffe99ad9c": "assets/logos/kenya-healthcare-federation.png", "94171de675b3fa13356ef1a692c24b68": "assets/logos/st-mary-s-school-nairobi.png", "09702a18d55199b9bc0e6a2f6d0f1aff": "assets/logos/laiser-hill-academy.png", "a835190d58f435a6c4b4247af6a126f4": "assets/logos/shah-lalji-nangpar-academy.webp", "5248f45481c30e203a0fbfab9dfc93fa": "assets/logos/aar-insurance.png", "aee34f266c69fa847f56e065228f434f": "assets/logos/mua-insurance.png", "6ccad9a631fd53dfc30bd5ecd7aaeffe": "assets/logos/logos-christian-school.png", "be45e0a85c03cf596c7d1293014ac71a": "assets/logos/uniserv.webp", "bbd77a043585130f7766a04e69a29d6e": "assets/hero/hero-coast.webp", "928e636cd6db510a8f0f3802eff06bd4": "assets/hero/hero-mara.webp", "b2b554d8530890a0914c69f1b6773c81": "assets/hero/hero-vans.webp", "4de83eeb4739aed3e2e49e7f0a877851": "assets/hero/hero-fleet.webp", "9dc12d986eccb72ffae8cd3647be3bcb": "assets/hero/hero-lake.webp", "06c62b597e09f385092c7d027ffd09a1": "assets/hero/hero-wide.webp", "c3a7304bdc271c47ce9c97ca6aacabb5": "assets/hero/hero-sq.webp", "5308150dd62ef97b71a5319fb1a8b927": "assets/hero/hero-pals.webp"};
   const B = (id) => !id ? '' : (/[./]/.test(id) ? id : (STANDALONE ? (LOCAL[id] || '') : '/_blob/' + encodeURIComponent(id)));
   const img = (k) => B(A[k] || k);
 
@@ -1316,7 +1466,8 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     return (reg && R[reg.toUpperCase()]) || 'USD';
   }
   let CUR = null; try { CUR = localStorage.getItem('pals_cur'); } catch (e) { CUR = null; }
-  if (!CUR || !CURS.some((c) => c[0] === CUR)) CUR = guessCur();
+  let SUG_CUR = null;
+  if (!CUR || !CURS.some((c) => c[0] === CUR)) { CUR = 'KES'; const g = guessCur(); if (g !== 'KES') SUG_CUR = g; }
   try { const c = JSON.parse(localStorage.getItem('pals_rates') || 'null'); if (c && c.rates && Date.now() - c.t < 12 * 36e5) Object.assign(RATES, c.rates); } catch (e) {}
   let ratesTried = false;
   function loadRates() {
@@ -1347,11 +1498,11 @@ body.langload #app{opacity:.55;transition:opacity .2s}
   const TLNAME = { sw: 'Swahili', fr: 'French', es: 'Spanish', de: 'German', it: 'Italian', pt: 'Portuguese', zh: 'Simplified Chinese', ru: 'Russian', ar: 'Modern Standard Arabic' };
   const LOC = () => ({ en: 'en-GB', sw: 'sw-KE', fr: 'fr-FR', es: 'es-ES', de: 'de-DE', it: 'it-IT', pt: 'pt-PT', zh: 'zh-CN', ru: 'ru-RU', ar: 'ar' }[LANG] || 'en-GB');
   // Language: the visitor's own choice first, then their browser language, then English.
-  let LANG = null; try { LANG = localStorage.getItem('pals_lang'); } catch (e) { LANG = null; }
+  let LANG = null, SUG_LANG = null; try { LANG = localStorage.getItem('pals_lang'); } catch (e) { LANG = null; }
   if (!LANG || !LANGS.some((l) => l[0] === LANG)) {
     LANG = 'en';
     const prefs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en']);
-    for (const x of prefs) { const c = String(x || '').toLowerCase().split('-')[0]; if (c === 'en') break; if (LANGS.some((l) => l[0] === c)) { LANG = c; break; } }
+    for (const x of prefs) { const c = String(x || '').toLowerCase().split('-')[0]; if (c === 'en') break; if (LANGS.some((l) => l[0] === c)) { SUG_LANG = c; break; } }
   }
   const I18N = /*I18N*/{}/*END*/;
   const norm = (t) => t.replace(/\s+/g, ' ').trim();
@@ -1648,21 +1799,49 @@ body.langload #app{opacity:.55;transition:opacity .2s}
       '<div class="board reveal"><h3>How we look after every visitor</h3><ul class="pins">' + care.map((c, i) => '<li class="pnote" style="--r:' + [-1.6, 1.2, -0.8, 1.5, -1.2, 0.9][i % 6] + 'deg">' + pinSvg(i) + '<span class="nn">0' + (i + 1) + '</span><p>' + c + '</p></li>').join('') + '</ul></div></div></section>';
   }
   const ROUTE = '<svg class="route" viewBox="0 0 820 120" aria-hidden="true" fill="none"><path class="ln" d="M40 92 C 180 10, 300 10, 410 70 S 650 120, 780 30" stroke="currentColor" stroke-width="1.6"/><circle cx="40" cy="92" r="6" fill="currentColor"/><circle cx="40" cy="92" r="13" stroke="currentColor" stroke-opacity=".25"/><circle cx="410" cy="70" r="4.5" fill="currentColor" fill-opacity=".55"/><circle cx="780" cy="30" r="6" fill="currentColor"/><circle cx="780" cy="30" r="13" stroke="currentColor" stroke-opacity=".25"/><text x="40" y="118" text-anchor="middle">Nairobi</text><text x="780" y="62" text-anchor="middle">Anywhere</text></svg>';
+  // Hero picture board: our own safari cruisers, places we take people, and the school vans we run.
+  const photoPill = (keys, label, cls) => '<span class="ppill' + (cls ? ' ' + cls : '') + '" role="img" aria-label="' + esc(T(label)) + '">' + keys.map((k) => '<img src="' + img(k) + '" alt="" decoding="async" loading="lazy">').join('') + '</span>';
+  function heroH1() {
+    const pill = photoPill(['heroCoast', 'heroLake', 'heroMara'], 'Beach, safari and lake holidays', 'pp3');
+    const w = T('We’ll handle the rest.').split(' '), at = Math.max(1, w.length - 2);
+    const l2 = w.length > 2 ? '<b>' + w.slice(0, at).join(' ') + '</b> <span class="nowrap">' + pill + '<b>' + w.slice(at).join(' ') + '</b></span>' : pill + '<b>' + w.join(' ') + '</b>';
+    return '<h1 class="reveal hh1">' + T('Go anywhere.') + ' <span>' + l2 + '</span></h1>';
+  }
+  // Short statement with photos set between the words, like a postcard.
+  function heroStatement() {
+    return '<section class="hstate" aria-label="' + esc(T('What we do')) + '"><div class="wrap"><p class="hst reveal">' +
+      T('From a sandbank on the coast') + ' ' + photoPill(['heroCoast'], 'Turquoise sandbank on the Kenyan coast') + ' ' + T('to sunrise over the Mara') + ' ' + photoPill(['heroMara'], 'Tented safari camp in the Maasai Mara') + ', ' +
+      T('our own safari cruisers') + ' ' + photoPill(['heroPals'], 'Pals Travel safari Land Cruisers') + ' ' + T('and the school vans') + ' ' + photoPill(['heroWide'], 'Pals Travel school vans') + ' ' + T('that run every morning, one Nairobi team takes care of it all.') +
+      '</p></div></section>';
+  }
+  function heroArt() {
+    const im = (k, alt, hi) => '<img src="' + img(k) + '" alt="' + esc(T(alt)) + '" decoding="async"' + (hi ? ' fetchpriority="high"' : ' loading="lazy"') + '>';
+    const ring = T('Plan your trip') + ' · ' + T('Plan your trip') + ' · ';
+    return '<div class="hart" aria-label="' + esc(T('Pals Travel safari vehicles, holiday places and school vans')) + '">' +
+      '<div class="hb hb-tile"><span class="hbk">' + T('Planning trips since') + '</span><b translate="no">2010</b><span class="hbs">' + T('From Nairobi to anywhere') + '</span></div>' +
+      '<div class="hb hb-tall">' + im('heroPals', 'Pals Travel safari Land Cruisers with branded wheel covers', true) + '</div>' +
+      '<div class="hb hb-sq hb-fade">' + im('heroMara', 'Tented safari camp in the Maasai Mara', true) + im('heroCoast', 'Turquoise sandbank on the Kenyan coast') + im('heroLake', 'Lakeside lodge at sunset') +
+        '<a class="hring" href="#plan" data-request="plan" aria-label="' + esc(T('Plan your trip')) + '"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><path id="hrp" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"/></defs><text translate="no"><textPath href="#hrp" textLength="228" lengthAdjust="spacingAndGlyphs">' + esc(ring) + '</textPath></text></svg><span>' + ic('right', 2.4) + '</span></a></div>' +
+      '<div class="hb hb-wide">' + im('heroWide', 'Pals Travel school vans lined up and ready for the school run') + '</div>' +
+      '<ul class="hchips"><li>' + ic('globe', 2) + '<span>' + T('Safaris & holidays') + '</span></li><li>' + ic('car', 2) + '<span>' + T('Car hire & fleet') + '</span></li><li>' + ic('bus', 2) + '<span>' + T('School transport') + '</span></li></ul>' +
+    '</div>';
+  }
   function vHome() {
     const top = S.tours.filter(tourOn).slice(0, 3);
     const intents = [['tour', 'globe', 'A holiday or safari'], ['business', 'briefcase', 'A business trip'], ['investor', 'building', 'An investor visit'], ['teambuild', 'trophy', 'A company trip'], ['medical', 'stethoscope', 'Medical travel'], ['abroad', 'plane', 'Moving abroad']];
     const opts = [['plan', 'A tailor-made holiday'], ['tour', 'A safari'], ['business', 'A business trip'], ['investor', 'An investor visit'], ['teambuild', 'A company trip'], ['events', 'A conference or event'], ['medical', 'Medical travel'], ['abroad', 'Travel abroad for work or study'], ['school', 'School transport']];
-        return '<section class="hero4"><div class="wrap"><span class="kick reveal"><i>Since 2010</i>Nairobi, Kenya</span>' +
-      '<h1 class="reveal">Go anywhere. <span>We’ll handle the rest.</span></h1>' +
+        return '<section class="hero4 hsplit"><div class="wrap hgrid"><div class="htx"><span class="kick reveal"><i>Since 2010</i>Nairobi, Kenya</span>' +
+      heroH1() +
       '<p class="lead reveal">Safaris, holidays, business trips and transport, arranged by one dedicated team in Nairobi, from your first message to your safe return home.</p>' +
       '<div class="hmcta reveal"><a class="btn" href="#plan" data-request="plan">Plan a trip' + ARR + '</a>' + (PKG_ON ? '<a class="btn line" href="#safaris" data-pkgdest="all">Holiday packages</a>' : '<a class="btn line" href="#safaris">Safaris</a>') + '</div>' +
+      '</div>' + heroArt() + '</div><div class="wrap">' +
       '<form class="planner reveal" id="planner" autocomplete="off"><label><small>I’m planning</small><select id="pwhat">' + opts.map((o) => '<option value="' + o[0] + '">' + o[1] + '</option>').join('') + '</select></label>' +
       '<label><small>When</small><input id="pwhen" type="date" min="' + new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10) + '" aria-label="Travel date"></label>' +
       '<div class="pfield"><small>Travellers</small><span class="pstep"><button type="button" data-step="-1" aria-label="Fewer travellers">' + ic('minus', 2.2) + '</button><input id="ppax" type="number" min="1" value="2" inputmode="numeric" aria-label="Travellers"><button type="button" data-step="1" aria-label="More travellers">' + ic('plus', 2.2) + '</button></span></div>' +
       '<button class="btn go" type="submit">Start planning' + ARR + '</button></form>' +
-      (PKG_ON ? '<div class="hlink reveal"><a href="#safaris" data-pkgdest="all"><span class="dot"></span><span>Festive season packages</span> <b><span>from</span> <span translate="no">' + kes(Math.min.apply(null, PKG.list.map(pkgFrom))) + '</span></b><span class="go2">' + ic('right', 2.4) + '</span></a></div>' : '') +
+      (PKG_ON ? '<div class="hlink reveal"><a href="#safaris" data-pkgdest="all"><span class="dot"></span><span>Festive season packages</span> <b><span>from</span> <span translate="no">' + kes(Math.min.apply(null, PKG_LOCAL.map(pkgFrom))) + '</span></b><span class="go2">' + ic('right', 2.4) + '</span></a></div>' : '') +
       '</div></section>' +
-      partnersBand() +
+      partnersBand() + heroStatement() +
       '<section class="sec soft"><div class="wrap">' + sec('What we do', 'More than travel', 'Holidays, business, investment, medical and diaspora travel. Each has its own short enquiry, and a real person replies.') +
       '<div class="grid4 svclist">' + SERVICES.filter((x) => ['plan', 'tour', 'business', 'setup', 'investor', 'teambuild', 'medical', 'diaspora'].indexOf(x.k) !== -1).map((x) => '<button class="feature reveal" data-request="' + x.k + '" style="text-align:start;cursor:pointer;font:inherit;color:inherit">' + itile(x.k) + '<h3>' + esc(x.title) + '</h3><p>' + esc(x.line) + '</p><p class="fgo" style="margin-top:14px;color:var(--red2);font-weight:700;display:flex;align-items:center;gap:6px"><span>Enquire</span> ' + ic('right', 2) + '</p></button>').join('') + '</div><div class="center" style="margin-top:32px"><a class="btn line" href="#services">All services</a></div></div></section>' +
       '<section style="padding:clamp(64px,9vw,100px) 0 clamp(40px,6vw,64px)" aria-label="Destinations"><div class="wrap center"><p class="eyebrow reveal">Where we go</p><h2 class="h2 reveal">Destinations we know by heart</h2><p class="lead reveal" style="margin:14px auto 0;max-width:560px">A few of the places we arrange most often. If you have somewhere else in mind, we will plan that too.</p></div><div class="marquee"><div class="dtrack">' + DEST.map((d, i) => dcard(d, i, false)).join('') + DEST.map((d, i) => dcard(d, i, true)).join('') + '</div></div><div class="center"><a class="btn" href="#plan" data-request="plan">Plan your own trip' + ARR + '</a></div></section>' +
@@ -1697,54 +1876,101 @@ body.langload #app{opacity:.55;transition:opacity .2s}
       { d: 'Naivasha', car: 'sclass', inc: 'Accommodation on full board (meals served without soft drinks)', t: ['Pick-up and drop-off in a saloon car, minimum 3 guests', 6500], exNo: ['Transport', 'Soft drinks'], exYes: ['Soft drinks'],
         h: [['Sawela Lodges', 3, 'Full board', 78000, 54000], ['Burch’s Resort', 3, 'Full board', 55500, 42000], ['Lake Naivasha Resort', 3, 'Full board', 57000, 39000]] },
       { d: 'Maasai Mara', img: ['tent', 'balloons', 'lion'], car: 'vans', inc: 'Accommodation on full board (meals served without soft drinks)', t: ['Four days’ transport and game drives in a tour van, minimum 7 guests', 13200], exNo: ['Transport and game drives', 'Park fees', 'Soft drinks'], exYes: ['Park fees', 'Soft drinks'],
-        h: [['Oldarpoi Mara Camp', 3, 'Full board', 49500, 43800], ['Sentrim Mara Camp', 3, 'Full board', 54000, 51000], ['AA Lodge Mara', 3, 'Full board', 64500, 49200]] }
+        h: [['Oldarpoi Mara Camp', 3, 'Full board', 49500, 43800], ['Sentrim Mara Camp', 3, 'Full board', 54000, 51000], ['AA Lodge Mara', 3, 'Full board', 64500, 49200]] },
+      // International holidays (festive season sheet, valid now until 3 Jan 2027). Prices per person sharing, in US dollars, flights not included.
+      // h: [hotel, nights, meal plan, single-room price (null = on request), sharing price]
+      { d: 'Dubai', country: 'United Arab Emirates', cur: 'USD', intl: true, from: '2026-11-01', scene: 'city',
+        inc: ['3 nights’ hotel stay in a twin sharing room, with breakfast', 'Return airport transfers in Dubai, with meet and greet outside the airport', 'Desert safari with BBQ dinner and live entertainment, private transfer', 'Half-day Dubai city tour with an English-speaking guide, private transfer', 'Marina dhow cruise with buffet dinner and live entertainment, private transfer', 'Dubai visa fees'],
+        exNo: ['Flight tickets', 'Tourism Dirham fee'], exYes: ['Flight tickets', 'Tourism Dirham fee'],
+        h: [['Holiday Inn Express Dubai Airport', 3, 'Bed & breakfast', null, 490], ['Vendome Plaza Hotel Deira', 3, 'Bed & breakfast', null, 511], ['Gulf Inn Al Nasr', 3, 'Bed & breakfast', null, 535], ['Reya Creek Hotel Deira', 3, 'Bed & breakfast', null, 550], ['Citymax Bur Dubai', 3, 'Bed & breakfast', null, 580]] },
+      { d: 'Malaysia', country: 'Malaysia', cur: 'USD', intl: true, from: '2026-11-01', scene: 'city',
+        inc: ['3 nights’ hotel stay in Kuala Lumpur in a twin sharing room, with breakfast', 'Return airport transfers (airport, hotel, airport)', 'Half-day Kuala Lumpur city tour with a KL Tower Observation Deck ticket', 'Genting day tour with a photo stop at Batu Caves and a two-way cable car ticket', 'All tours and transfers private, with an English-speaking driver'],
+        exNo: ['Flight tickets'], exYes: ['Flight tickets'],
+        h: [['Metro Hotel Bukit Bintang', 3, 'Bed & breakfast', null, 306], ['Verdant Hill Hotel', 3, 'Bed & breakfast', null, 330], ['Grand Millennium Kuala Lumpur', 3, 'Bed & breakfast', null, 423]] },
+      { d: 'Thailand', country: 'Thailand', cur: 'USD', intl: true, from: '2026-11-01', scene: 'city',
+        inc: ['3 nights’ hotel stay in Bangkok in a twin sharing room, with breakfast', 'Private airport transfers on arrival and departure', 'Chao Phraya Princess dinner cruise with buffet, private transfer', 'Bangkok city tour (Marble and Golden temples), Gem Gallery and Space & Time Cube, with a guide', 'Safari World and Marine Park with lunch, private transfer', 'Mahanakhon SkyWalk and Bubble in the Forest, with a guide'],
+        exNo: ['Flight tickets'], exYes: ['Flight tickets'],
+        h: [['Manhattan Hotel Bangkok', 3, 'Bed & breakfast', null, 368], ['Eleven Hotel Bangkok Sukhumvit 11', 3, 'Bed & breakfast', null, 386]] },
+      { d: 'Singapore', country: 'Singapore', cur: 'USD', intl: true, from: '2026-11-01', scene: 'city',
+        inc: ['3 nights’ hotel stay in a twin sharing room, with breakfast', 'Private return airport transfers', 'Singapore city tour', 'Sentosa afternoon tour: Mount Faber cable car, Madame Tussauds 4-in-1 and the Wings of Time show'],
+        exNo: ['Flight tickets'], exYes: ['Flight tickets'],
+        h: [['Hotel Chancellor @ Orchard', 3, 'Bed & breakfast', null, 645], ['Hotel Royal Singapore', 3, 'Bed & breakfast', null, 686], ['Vintage Hotel Katong', 3, 'Bed & breakfast', null, 710]] }
     ]
   };
   // Hotel photos: hotel name -> asset id. Add an entry when a photo is uploaded.
   const PKG_ON = Date.now() <= Date.parse(PKG.ends);
   // Optional add-ons for the packages. Prices are per person in KES; null means "price on request".
   // The admin can change these prices (Admin > Add-ons & prices). Defaults come from the package sheet.
-  const ADDON_DEFAULT = { 'Return SGR tickets': 3200, 'Nairobi and Mombasa SGR transfers': null, 'Transport': 6500, 'Transport and game drives': 13200, 'Park fees': null, 'Soft drinks': null, 'Airport transfers': null, 'Extra nights': null, 'Excursions and activities': null, 'Travel insurance': null };
+  const ADDON_DEFAULT = { 'Flight tickets': null, 'Tourism Dirham fee': null, 'Return SGR tickets': 3200, 'Nairobi and Mombasa SGR transfers': null, 'Transport': 6500, 'Transport and game drives': 13200, 'Park fees': null, 'Soft drinks': null, 'Airport transfers': null, 'Extra nights': null, 'Excursions and activities': null, 'Travel insurance': null };
   const ADDON_EXTRA = ['Airport transfers', 'Extra nights', 'Excursions and activities', 'Travel insurance'];
   const addonPrice = (n) => (S.addons && Object.prototype.hasOwnProperty.call(S.addons, n)) ? S.addons[n] : ADDON_DEFAULT[n];
-  const addonList = (p, wt) => (wt ? p.exYes : p.exNo).concat(ADDON_EXTRA.filter((x) => (wt ? p.exYes : p.exNo).indexOf(x) === -1));
+  const addonList = (p, wt) => (wt ? p.exYes : p.exNo).concat(ADDON_EXTRA.filter((x) => (wt ? p.exYes : p.exNo).indexOf(x) === -1 && !(p.intl && x === 'Airport transfers')));
   const addonsHTML = (p, wt) => '<ul class="addons">' + addonList(p, wt).map((x) => { const v = addonPrice(x); return '<li><span>' + esc(x) + '</span><b translate="no">' + (v != null && v !== '' ? '+ ' + kes(v) + ' <small>' + T('per person') + '</small>' : '<small>' + T('Price on request') + '</small>') + '</b></li>'; }).join('') + '</ul>';
   const pkgDaysLeft = () => Math.max(0, Math.ceil((Date.parse(PKG.ends) - Date.now()) / 864e5));
   const PKGIMG = { 'Mombasa Continental': ['b10e18331e4089e030017cbc6e945095', 'd171d6ef39fbc5ccbdfa19abbf15c23a'], 'Travellers Beach': ['e7893b022b2f0b561604ae137a62700f', '5e23c2199a898d4c1db3b6bd9f76bb1d'], 'Sun N Sand Beach Resort': ['7ecc0a8111fdf198387d0c7086e7bc86', '0a9c930ca92dfb958f9eac3dee5a078c', 'b3d1a7791a5df0e11c66df419eef0c0c'], 'Papillon Lagoon Reef': ['999cf5d2905babee610f49f19fd787c9', '489fea1639d778eb8f2afc20fa11e7db'], 'Diani Reef': ['77aca7606b34fcc50ba6e5b499ca6b5d', 'ef0bb5511ac0d8e9adec47390e0116da'], 'Diani Sea Lodge': ['ce185ac86ed263af1a1a6a1af100b308', '57171336726dca2ea13e8e91ec3adb55'], 'Ocean Beach Resort': ['2dbb5c6ba7b14df098eb4bd4e7cd1349', 'e3fd50c2d863c072fb3c7f7c77767345'], 'Diamonds Malindi': ['971f6ac58035eace57e0d08f0c711d4c', 'f09a90316fbe3a08b025284c7e1f7e09', '8f19312553b0703af8d38f6b6d68a470'], 'Kilili Baharini Beach Resort': ['fd53fe4b5b0fd04e2552f145e2726400', '7193c80556e6fbc5c933bd0d5e89b937', '70707a49ea39d0176b035ca14668b8e9'], 'Sawela Lodges': ['83de0b61c0db81eed3f2354e36b93dad', 'bf5c6665860c073518deb92c7f2e8a61'], 'Burch’s Resort': ['67aa5b3b38b5f239790e2c2f5361bd16', '11b611bc2d9dac8462974df06f00567f'], 'Lake Naivasha Resort': ['4555dc61310d5535f6e3ab1ec5699ca5', '51f08dc4f8916ecdd6550b6b2a6bbc8c'], 'Oldarpoi Mara Camp': ['ee38b8d2f40bacecada09eddec455042', '0c0d47b74a9a3aa43b23fea1d18af87e'], 'Sentrim Mara Camp': ['0dcf938fcd1b5c1ea409d3dc8645c27b', '8ee28efb9b1417763e6e12b2c933d94f'], 'AA Lodge Mara': ['3f4e7766076242fd629076ea6d082fcd', '7a79e69d15c46c7f39206f8d7b8da362'] };
   // Destination banner photos: destination -> asset ids.
   const PKGHERO = { Mombasa: ['6479069b6ea8036858667a0360c40110', '56bd59c15735f20de1e9086ae84d4278'], Diani: ['fe4c4816095610a17628dda24e6c767a', '25ce0e6cdf38a305f5d6ed8b4c82a41c'], 'Malindi': ['06f21bc277f57b4319d9d0edb6ec265b', '952be51baa5617ee852a4aa4a1998256'], 'Naivasha': ['bc4941a7763b5a865b1d93678e2cc972', 'be56223fa91f43e1d6b403084dd6cd1e'] };
   const PICO = { Mombasa: 'beach', Diani: 'beach', Malindi: 'beach', Naivasha: 'lake', 'Maasai Mara': 'savanna' };
-  const scene = (k) => { const g = { beach: '<path d="M0 70c40-10 80-10 120 0s80 10 120 0 80-10 120 0v50H0z" fill="#CFE0F2"/><path d="M0 84c40-8 80-8 120 0s80 8 120 0 80-8 120 0v36H0z" fill="#B4CDE7"/><path d="M0 98c60-6 120-6 180 0s120 6 180 0v22H0z" fill="#EADFC8"/><circle cx="292" cy="30" r="14" fill="#F3D9A4"/><path d="M70 98c0-30 4-46 10-58M80 40c-12-4-22 0-28 8M80 40c10-6 22-6 30 2M80 40c-4-10-12-16-22-16M80 40c6-10 16-14 26-12" stroke="#5E7891" stroke-width="3" fill="none" stroke-linecap="round"/>', lake: '<path d="M0 62l60-28 50 22 70-36 80 40 50-18 50 22v48H0z" fill="#C9D6E3"/><path d="M0 82h360v38H0z" fill="#B4CDE7"/><path d="M30 92h60M150 100h80M260 90h50" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/><circle cx="300" cy="28" r="12" fill="#F3D9A4"/>', savanna: '<path d="M0 82c80-12 160-12 240-4s100 4 120 0v42H0z" fill="#E6D8B8"/><path d="M60 82V60M40 60h40c-6-8-14-12-20-12s-14 4-20 12z" stroke="#7A6A48" stroke-width="3" fill="#9BA77A"/><circle cx="290" cy="34" r="16" fill="#F1C98A"/>' }[k] || ''; return '<svg viewBox="0 0 360 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="360" height="120" fill="#EEF2F7"/>' + g + '</svg>'; };
+  // Calm landmark illustrations (used until hotel photos arrive).
+  const LAND = {
+    Dubai: '<path d="M0 98c50-14 110-16 170-6s120 10 190-4v32H0z" fill="#EAD9B9"/><path d="M0 108c70-8 140-8 210-2s100 6 150 0v14H0z" fill="#E0CBA4"/><g fill="#9DB2CA"><path d="M18 98V70h14v28zM40 98V60h12v38zM58 98V76h16v22zM250 98V64h14v34zM270 98V74h18v24zM296 98V58h12v40zM316 98V80h20v18z"/></g><path d="M176 98V64h6V44h4V22h2V4h2v18h2v22h4v20h6v34z" fill="#0F2D52" opacity=".82"/><path d="M140 98V72h10v26zM212 98V68h10v30z" fill="#7F98B4"/>',
+    Malaysia: '<path d="M0 104h360v16H0z" fill="#B9CDE3"/><g fill="#9DB2CA"><path d="M20 104V72h16v32zM42 104V62h14v42zM62 104V80h18v24zM262 104V66h16v38zM284 104V78h18v26zM308 104V58h14v46zM328 104V76h18v28z"/></g><g fill="#0F2D52" opacity=".82"><path d="M146 104V40l5-6V20l2-14 2 14v14l5 6v64zM200 104V40l5-6V20l2-14 2 14v14l5 6v64z"/><path d="M160 66h40v4h-40z"/></g><path d="M100 104V74h14v30zM236 104V70h12v34z" fill="#7F98B4"/>',
+    Thailand: '<path d="M0 102c60-4 120-4 180 0s120 4 180 0v18H0z" fill="#B9CDE3"/><path d="M40 108h90M210 112h110" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".7"/><g fill="#9DB2CA"><path d="M24 102V80h22v22zM54 102V72h14v30zM270 102V70h16v32zM292 102V82h22v20zM320 102V66h12v36z"/></g><g fill="#0F2D52" opacity=".82"><path d="M168 102l2-22 4-10 2-22 4-18 4 18 2 22 4 10 2 22z"/><path d="M128 102l2-14 3-6 1-12 3-8 3 8 1 12 3 6 2 14zM212 102l2-14 3-6 1-12 3-8 3 8 1 12 3 6 2 14z"/><path d="M120 102h120v-4H120z"/></g>',
+    Singapore: '<path d="M0 100h360v20H0z" fill="#B9CDE3"/><path d="M30 108h70M220 110h100" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".7"/><g fill="#9DB2CA"><path d="M14 100V64h14v36zM34 100V54h12v46zM52 100V72h16v28zM280 100V60h12v40zM298 100V70h16v30zM320 100V52h14v48z"/></g><g fill="#0F2D52" opacity=".82"><path d="M132 100l4-56h12l2 56zM170 100l4-56h12l2 56zM208 100l4-56h12l2 56z"/><path d="M124 44c30-6 80-6 112 0v-5H124z"/></g><path d="M92 100c4-14 18-22 30-18l-4 18z" fill="#7F98B4"/>'
+  };
+  const landScene = (d) => '<svg viewBox="0 0 360 120" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><linearGradient id="lg' + slug(d) + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3EFE6"/><stop offset="1" stop-color="#E4ECF5"/></linearGradient></defs><rect width="360" height="120" fill="url(#lg' + slug(d) + ')"/><circle cx="292" cy="30" r="13" fill="#F1C98A" opacity=".9"/>' + (LAND[d] || '') + '</svg>';
+  const scene = (k) => { const g = { beach: '<path d="M0 70c40-10 80-10 120 0s80 10 120 0 80-10 120 0v50H0z" fill="#CFE0F2"/><path d="M0 84c40-8 80-8 120 0s80 8 120 0 80-8 120 0v36H0z" fill="#B4CDE7"/><path d="M0 98c60-6 120-6 180 0s120 6 180 0v22H0z" fill="#EADFC8"/><circle cx="292" cy="30" r="14" fill="#F3D9A4"/><path d="M70 98c0-30 4-46 10-58M80 40c-12-4-22 0-28 8M80 40c10-6 22-6 30 2M80 40c-4-10-12-16-22-16M80 40c6-10 16-14 26-12" stroke="#5E7891" stroke-width="3" fill="none" stroke-linecap="round"/>', lake: '<path d="M0 62l60-28 50 22 70-36 80 40 50-18 50 22v48H0z" fill="#C9D6E3"/><path d="M0 82h360v38H0z" fill="#B4CDE7"/><path d="M30 92h60M150 100h80M260 90h50" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/><circle cx="300" cy="28" r="12" fill="#F3D9A4"/>', city: '<path d="M0 120V86h22V62h16v24h14V44h20v42h12V30l10-10 10 10v56h16V54h22v32h14V70h18v16h20V40h8V24h4v16h8v46h16V58h20v28h18V66h14v20h26v34z" fill="#C9D6E3"/><path d="M0 104h360v16H0z" fill="#B4CDE7"/><circle cx="62" cy="28" r="12" fill="#F3D9A4"/>', savanna: '<path d="M0 82c80-12 160-12 240-4s100 4 120 0v42H0z" fill="#E6D8B8"/><path d="M60 82V60M40 60h40c-6-8-14-12-20-12s-14 4-20 12z" stroke="#7A6A48" stroke-width="3" fill="#9BA77A"/><circle cx="290" cy="34" r="16" fill="#F1C98A"/>' }[k] || ''; return '<svg viewBox="0 0 360 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="360" height="120" fill="#EEF2F7"/>' + g + '</svg>'; };
   const kes = (n) => money(n, 'KES');
   const pkgFrom = (p) => Math.min.apply(null, p.h.map((x) => x[4]));
+  const PKG_LOCAL = PKG.list.filter((q) => !q.intl);
+  // Price in the package's own currency; other visitors also see an approximate conversion.
+  const pprice = (q, n) => q.cur && q.cur !== 'KES' ? (n == null ? T('Price on request') : fmtCur(n, q.cur)) : kes(n);
+  const pconv = (q, n) => q.cur && q.cur !== 'KES' && n != null && CUR !== q.cur ? '<em class="pkconv" translate="no">' + money(n, q.cur) + '</em>' : '';
+  const pincs = (q) => [].concat(q.inc);
+  const ptrans = (q, wt) => !!(wt && q.t);
+  const pwhere = (q) => q.country ? (q.country === q.d ? q.d : q.d + ', ' + q.country) : q.d + ', Kenya';
+  function destPanel(p, wt) {
+    const from = pkgFrom(p) + (ptrans(p, wt) ? p.t[1] : 0);
+    const ims = (PKGHERO[p.d] || []).map(B).concat(p.img ? p.img.map(img) : []).concat([].concat.apply([], p.h.map((h) => (PKGIMG[h[0]] || []).slice(0, 1).map(B)))).slice(0, 3);
+    const facts = [['moon', Math.min.apply(null, p.h.map((h) => h[1])) + ' ' + T('nights')], ['bed', p.h[0][2]], [p.intl ? 'plane' : 'route', p.intl ? T('Flights not included') : p.t ? T('Transport available') : ''], ['users', p.h.length + ' ' + T('hotels to choose from')]].filter((f) => f[1]);
+    return '<div class="dpanel reveal"><div class="dptext"><p class="dpk">' + ic(p.intl ? 'globe' : 'pin', 2) + '<span>' + esc(p.country || 'Kenya') + '</span></p>' +
+      '<h3 translate="no">' + esc(T(p.d)) + '</h3><p class="dpd">' + esc(DDESC[p.d] || '') + '</p>' +
+      '<ul class="dpf">' + facts.map((f) => '<li>' + ic(f[0], 2) + '<span>' + esc(f[1]) + '</span></li>').join('') + '</ul>' +
+      '<div class="dpfoot"><p><small>' + T('From') + '</small><strong translate="no">' + pprice(p, from) + '</strong><span>' + T('per person sharing') + '</span>' + pconv(p, from) + '</p>' +
+      '<a class="btn" href="#plan" data-book-pkg="' + esc(p.d) + '|' + esc(p.h[0][0]) + '">' + T('Book') + ' ' + ARR + '</a></div></div>' +
+      '<div class="dpart' + (ims.length > 1 ? ' two' : '') + '">' + (ims.length ? ims.slice(0, 2).map((u, n) => '<img src="' + u + '" alt="' + esc(p.d) + '" loading="lazy" decoding="async">').join('') : landScene(p.d)) + '</div></div>';
+  }
   function packagesHTML() {
     const all = !S.pkg || S.pkg === 'all'; const wt = !!S.pkgT;
     const sel = all ? PKG.list : PKG.list.filter((p) => p.d === S.pkg); const p = sel[0] || PKG.list[0];
+    const vfrom = sel.reduce((m, q) => (q.from && q.from < m ? q.from : m), '2026-12-20').split('-').map(Number);
+    const anyT = sel.some((q) => q.t);
     const loc = LOC();
     const day = (y, m, d) => { const t = new Date(y, m, d); return '<span class="cal"><span class="calm">' + t.toLocaleDateString(loc, { month: 'short' }).replace('.', '') + '</span><span class="cald" translate="no">' + d + '</span><span class="calw">' + t.toLocaleDateString(loc, { weekday: 'short' }) + ' · ' + y + '</span></span>'; };
-    const card = (q, h) => { const add = wt ? q.t[1] : 0; const ims = PKGIMG[h[0]] || (PKGHERO[q.d] ? [PKGHERO[q.d][0]] : []);
+    const card = (q, h) => { const add = ptrans(q, wt) ? q.t[1] : 0; const ims = PKGIMG[h[0]] || (PKGHERO[q.d] ? [PKGHERO[q.d][0]] : []);
       return '<article class="pkcard reveal"><div class="pkimg"><a class="pkhit" href="#stay/' + slug(h[0]) + '" aria-label="' + esc(h[0]) + '"></a>' +
-        (ims.length ? ims.map((id, n) => '<img' + (n ? '' : ' class="on"') + ' src="' + B(id) + '" alt="' + esc(h[0]) + '" loading="lazy">').join('') + (ims.length > 1 ? '<button class="pknext" data-pknext aria-label="Next photo">' + ic('right', 2.4) + '</button><span class="pkdots">' + ims.map((_, n) => '<i' + (n ? '' : ' class="on"') + '></i>').join('') + '</span>' : '') : scene(PICO[q.d])) +
+        (ims.length ? ims.map((id, n) => '<img' + (n ? '' : ' class="on"') + ' src="' + B(id) + '" alt="' + esc(h[0]) + '" loading="lazy">').join('') + (ims.length > 1 ? '<button class="pknext" data-pknext aria-label="Next photo">' + ic('right', 2.4) + '</button><span class="pkdots">' + ims.map((_, n) => '<i' + (n ? '' : ' class="on"') + '></i>').join('') + '</span>' : '') : (LAND[q.d] ? landScene(q.d) : scene(PICO[q.d]))) +
         '<span class="pkboard">' + esc(h[2]) + '</span></div>' +
-        '<div class="pkbody"><p class="pkdest">' + ic('pin', 2) + '<span>' + esc(q.d) + '</span><span class="sep">·</span><span>' + h[1] + '</span> <span>nights</span></p>' +
+        '<div class="pkbody"><p class="pkdest">' + ic(q.intl ? 'plane' : 'pin', 2) + '<span>' + esc(q.d) + '</span><span class="sep">·</span><span>' + h[1] + '</span> <span>nights</span></p>' +
         '<h3 translate="no"><a href="#stay/' + slug(h[0]) + '">' + esc(h[0]) + '</a></h3>' +
-        '<div class="pkfoot"><p class="pkfrom"><small>From</small> <strong translate="no">' + kes(h[4] + add) + '</strong> <span>per person sharing</span></p>' +
+        '<div class="pkfoot"><p class="pkfrom"><small>From</small> <strong translate="no">' + pprice(q, h[4] + add) + '</strong> <span>per person sharing</span>' + pconv(q, h[4] + add) + '</p>' +
         '<button class="pkbook" data-book-pkg="' + esc(q.d) + '|' + esc(h[0]) + '">Book</button></div></div></article>'; };
     return '<section class="pkgs" id="packages"><div class="pkhead reveal"><h2 class="h2">' + PKG.title + '</h2>' +
-      '<div class="pkvalid"><span class="pkvl">Valid</span>' + day(2026, 11, 20) + '<span class="calto">' + ic('right', 2) + '</span>' + day(2027, 0, 3) + '</div>' +
+      '<div class="pkvalid"><span class="pkvl">Valid</span>' + day(vfrom[0], vfrom[1] - 1, vfrom[2]) + '<span class="calto">' + ic('right', 2) + '</span>' + day(2027, 0, 3) + '</div>' +
       '<p class="pkleft"><span class="dot"></span><span>Offer ends in</span> <b translate="no">' + pkgDaysLeft() + '</b> <span>' + (pkgDaysLeft() === 1 ? 'day' : 'days') + '</span></p>' +
-      '<p class="lead">Beach, lake and safari stays for the holidays. Prices are per person.</p></div>' +
+      '<p class="lead">Beach, lake and safari stays in Kenya, and city holidays in Dubai, Malaysia, Thailand and Singapore. Prices are per person.</p></div>' +
       '<div class="pktabs" role="tablist"><button role="tab" aria-selected="' + all + '" data-pkg="all">All</button>' + PKG.list.map((x) => '<button role="tab" aria-selected="' + (!all && x === p) + '" data-pkg="' + esc(x.d) + '">' + esc(x.d) + '</button>').join('') + '</div>' +
-      '<div class="pkswitch" role="group" aria-label="Transport"><button data-pkgt="0" aria-pressed="' + !wt + '">Without transport</button><button data-pkgt="1" aria-pressed="' + wt + '">With transport</button></div>' +
+      (anyT ? '<div class="pkswitch" role="group" aria-label="Transport"><button data-pkgt="0" aria-pressed="' + !wt + '">Without transport</button><button data-pkgt="1" aria-pressed="' + wt + '">With transport</button></div>' : (all ? '<p class="pkintl">' + ic('plane', 2) + '<span>Flights are not included. We can book them for you from Nairobi.</span></p>' : '')) +
+      (all ? '' : destPanel(p, wt)) +
       '<div class="pkgrid">' + [].concat.apply([], sel.map((q) => q.h.map((h) => card(q, h)))).join('') + '</div>' +
-      (all ? '' : '<details class="pkinc reveal"><summary>What’s included' + ic('down', 2.2) + '</summary><div class="pknotes"><div><h4>' + ic('check', 2.4) + 'Included</h4><ul><li>' + esc(p.inc) + '</li>' + (wt ? '<li>' + esc(p.t[0]) + ' <b translate="no">+' + kes(p.t[1]) + '</b></li>' : '') + '</ul></div><div><h4>' + ic('plus', 2.4) + 'Add-ons we can arrange</h4><p class="addnote">Not part of the package price. Tick any of them when you book and we add them for you.</p>' + addonsHTML(p, wt) + '</div></div></details>') +
+      (all ? '' : '<details class="pkinc reveal"><summary>What’s included' + ic('down', 2.2) + '</summary><div class="pknotes"><div><h4>' + ic('check', 2.4) + 'Included</h4><ul>' + pincs(p).map((x) => '<li>' + esc(x) + '</li>').join('') + (ptrans(p, wt) ? '<li>' + esc(p.t[0]) + ' <b translate="no">+' + kes(p.t[1]) + '</b></li>' : '') + '</ul></div><div><h4>' + ic('plus', 2.4) + 'Add-ons we can arrange</h4><p class="addnote">Not part of the package price. Tick any of them when you book and we add them for you.</p>' + addonsHTML(p, wt) + '</div></div></details>') +
       '<p class="note center" style="margin-top:18px">Prices are subject to availability at the time of booking. We confirm every detail with you before anything is booked.</p></section>';
   }
   FORMS.package = { icon: 'calendar', title: 'Book a holiday package', label: 'Holiday package', fields: [
     { k: 'hotel', label: 'Hotel', type: 'select', req: true, options: [].concat.apply([], PKG.list.map((p) => p.h.map((h) => p.d + ' · ' + h[0]))) },
-    { k: 'transport', label: 'Transport', type: 'radio', options: ['Without transport', 'With transport'] },
+    { k: 'transport', label: 'Transport', type: 'radio', options: ['Without transport', 'With transport', 'Flights from Nairobi, please'] },
     { k: 'room', label: 'Room', type: 'radio', options: ['Twin sharing', 'Single room'] },
-    { k: 'checkin', label: 'Check-in date', type: 'date', req: true, dmin: '2026-12-20', dmax: '2027-01-03' },
+    { k: 'checkin', label: 'Check-in date', type: 'date', req: true, dmin: new Date(Date.now() + 3 * 3600e3).toISOString().slice(0, 10), dmax: '2027-01-03' },
     { k: 'nights', label: 'Nights', type: 'stepper', min: 1, val: 3 },
     { k: 'adults', label: 'Adults', type: 'stepper', min: 1, val: 2 },
     { k: 'children', label: 'Children under 12', type: 'stepper', min: 0, val: 0 },
@@ -1759,35 +1985,40 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     Diani: 'A long stretch of white sand south of Mombasa, known for clear water, coral reefs and relaxed beachfront resorts.',
     Malindi: 'A quieter coastal town north of Mombasa, with marine parks, coral reefs and an unhurried pace.',
     Naivasha: 'A freshwater lake in the Rift Valley, about two hours from Nairobi, with boat rides, birdlife and lakeside lodges.',
-    'Maasai Mara': 'Kenya’s best-known reserve, home to big cats and great herds, with camps on the edge of the open savannah.'
+    'Maasai Mara': 'Kenya’s best-known reserve, home to big cats and great herds, with camps on the edge of the open savannah.',
+    Dubai: 'A city of skyline views, desert dunes and warm winter sunshine, about five hours’ flight from Nairobi.',
+    Malaysia: 'Kuala Lumpur pairs the Petronas Towers and busy street food with cool hill country at Genting, a short drive away.',
+    Thailand: 'Bangkok mixes golden temples, river cruises and rooftop views with markets, shopping and easy day trips.',
+    Singapore: 'A clean, green and easy city to explore, with Sentosa island, waterfront gardens and food from all over Asia.'
   };
-  function stayMap(name, dest) {
-    const q = name + ', ' + dest + ', Kenya'; const e = encodeURIComponent(q);
+  function stayMap(name, dest, country) {
+    const abroad = !!country; country = country || 'Kenya';
+    const q = name + ', ' + (dest === country ? dest : dest + ', ' + country); const e = encodeURIComponent(q);
     const dir = 'https://www.google.com/maps/dir/?api=1&destination=' + e;
     const view = 'https://www.google.com/maps/search/?api=1&query=' + e;
     const live = S.standalone || S.serverDown;
-    const frame = live && allow('maps') ? '<iframe class="gmap" title="' + esc(T('Map and route to') + ' ' + name) + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen src="https://maps.google.com/maps?saddr=' + encodeURIComponent('Nairobi, Kenya') + '&daddr=' + e + '&output=embed&hl=' + (LANG === 'zh' ? 'zh-CN' : LANG) + '"></iframe>'
+    const frame = live && allow('maps') ? '<iframe class="gmap" title="' + esc(T('Map and route to') + ' ' + name) + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen src="https://maps.google.com/maps?' + (abroad ? 'q=' + e : 'saddr=' + encodeURIComponent('Nairobi, Kenya') + '&daddr=' + e) + '&output=embed&hl=' + (LANG === 'zh' ? 'zh-CN' : LANG) + '"></iframe>'
       : live ? '<div class="gmapask"><span class="smapbg" aria-hidden="true"></span><div class="gmapaskin"><p><b>' + T('Show the map and route?') + '</b>' + T('The map is provided by Google, which may set cookies when it loads.') + '</p><button class="btn sm" data-loadmap>' + T('Load map') + '</button></div></div>'
       : '<a class="smap" href="' + view + '" target="_blank" rel="noopener"><span class="smapbg" aria-hidden="true"></span><span class="smappin">' + ic('pin', 2) + '</span></a>';
-    return '<div class="gmapbox">' + frame + '<div class="gmapbar"><div class="gmapt"><span class="gmapi">' + ic('pin', 2.2) + '</span><span><b translate="no">' + esc(name) + '</b><small>' + esc(dest) + ', Kenya · ' + T('Route from Nairobi') + '</small></span></div>' +
+    return '<div class="gmapbox">' + frame + '<div class="gmapbar"><div class="gmapt"><span class="gmapi">' + ic('pin', 2.2) + '</span><span><b translate="no">' + esc(name) + '</b><small>' + esc(dest === country ? dest : dest + ', ' + country) + (abroad ? '' : ' · ' + T('Route from Nairobi')) + '</small></span></div>' +
       '<div class="gmapbtns"><a class="btn sm" href="' + dir + '" target="_blank" rel="noopener">' + ic('nav', 2.2) + T('Directions') + '</a><a class="btn sm line" href="' + view + '" target="_blank" rel="noopener">' + T('Open in Google Maps') + '</a></div></div></div>';
   }
   function vStay(p, h) {
-    const wt = !!S.pkgT; const add = wt ? p.t[1] : 0; const ims = stayImgs(p, h);
+    const wt = ptrans(p, !!S.pkgT); const add = wt ? p.t[1] : 0; const ims = stayImgs(p, h);
     const main = S.stayImg && ims.indexOf(S.stayImg) !== -1 ? S.stayImg : ims[0];
-    const feats = [['calendar', 'Festive season', PKG.dates], ['moon', 'Minimum stay', h[1] + ' ' + T('nights')], ['bed', 'Meal plan', h[2]], ['users', 'Rooms', T('Twin sharing') + ' · ' + T('Single room')], [p.d === 'Maasai Mara' ? 'bus' : p.d === 'Naivasha' ? 'car' : 'route', 'Transport option', p.t[0]], ['headset', 'Support', 'Pals team in Nairobi throughout']];
+    const feats = [['calendar', 'Festive season', p.from ? T('Now until 3 Jan 2027') : PKG.dates], ['moon', p.intl ? 'Package length' : 'Minimum stay', h[1] + ' ' + T('nights')], ['bed', 'Meal plan', h[2]], ['users', 'Rooms', p.intl ? T('Twin sharing') : T('Twin sharing') + ' · ' + T('Single room')], p.t ? [p.d === 'Maasai Mara' ? 'bus' : p.d === 'Naivasha' ? 'car' : 'route', 'Transport option', p.t[0]] : ['plane', 'Flights', T('Not included. We can book them from Nairobi.')], ['headset', 'Support', 'Pals team in Nairobi throughout']];
     return '<section class="wrap stay"><p class="crumb"><a href="#home">Home</a> / <a href="#safaris">Holidays &amp; safaris</a> / <span translate="no">' + esc(h[0]) + '</span></p>' +
-      '<div class="sgal reveal"><div class="sthumbs">' + ims.slice(0, 4).map((u) => '<button class="sth' + (u === main ? ' on' : '') + '" data-stayimg="' + esc(u) + '" aria-label="' + esc(h[0]) + ' – photo"><img src="' + u + '" alt="" loading="lazy" decoding="async"></button>').join('') + '</div><div class="smain">' + (main ? '<img src="' + main + '" alt="' + esc(h[0]) + '" decoding="async">' : scene(PICO[p.d])) + '</div></div>' +
+      '<div class="sgal reveal"><div class="sthumbs">' + ims.slice(0, 4).map((u) => '<button class="sth' + (u === main ? ' on' : '') + '" data-stayimg="' + esc(u) + '" aria-label="' + esc(h[0]) + ' – photo"><img src="' + u + '" alt="" loading="lazy" decoding="async"></button>').join('') + '</div><div class="smain">' + (main ? '<img src="' + main + '" alt="' + esc(h[0]) + '" decoding="async">' : LAND[p.d] ? landScene(p.d) : scene(PICO[p.d])) + '</div></div>' +
       '<div class="scols"><div class="sleft">' +
-        '<div class="sinfo reveal"><div class="sirow"><h1 translate="no">' + esc(h[0]) + '</h1><span class="sbadge">' + esc(h[2]) + '</span></div><p class="sloc">' + ic('pin', 2) + '<span>' + esc(p.d) + ', Kenya</span></p>' +
-          '<div class="sprice"><div><small>Twin sharing</small><strong>' + kes(h[4] + add) + '</strong><span>per person</span></div><div><small>Single room</small><strong>' + kes(h[3] + add) + '</strong><span>per person</span></div></div>' +
-          '<div class="pkswitch" role="group" aria-label="Transport" style="margin:16px 0 0"><button data-pkgt="0" aria-pressed="' + !wt + '">Without transport</button><button data-pkgt="1" aria-pressed="' + wt + '">With transport</button></div>' +
+        '<div class="sinfo reveal"><div class="sirow"><h1 translate="no">' + esc(h[0]) + '</h1><span class="sbadge">' + esc(h[2]) + '</span></div><p class="sloc">' + ic('pin', 2) + '<span>' + esc(pwhere(p)) + '</span></p>' +
+          '<div class="sprice"><div><small>Twin sharing</small><strong translate="no">' + pprice(p, h[4] + add) + '</strong><span>per person</span>' + pconv(p, h[4] + add) + '</div><div><small>Single room</small><strong translate="no">' + (h[3] == null ? T('On request') : pprice(p, h[3] + add)) + '</strong><span>per person</span>' + (h[3] == null ? '' : pconv(p, h[3] + add)) + '</div></div>' +
+          (p.t ? '<div class="pkswitch" role="group" aria-label="Transport" style="margin:16px 0 0"><button data-pkgt="0" aria-pressed="' + !wt + '">Without transport</button><button data-pkgt="1" aria-pressed="' + wt + '">With transport</button></div>' : '<p class="pkintl" style="margin:16px 0 0;justify-content:flex-start">' + ic('plane', 2) + '<span>' + T('Flights are not included. We can book them for you from Nairobi.') + '</span></p>') +
           (wt ? '<p class="pkadd" style="margin-top:12px">' + ic('plus', 2.2) + '<span>' + esc(p.t[0]) + '</span> <b>' + kes(p.t[1]) + '</b></p>' : '') + '</div>' +
-        '<h2 class="sh">Overview</h2><p class="sp">' + esc(DDESC[p.d] || '') + '</p><p class="sp">' + T('A festive season stay on') + ' ' + esc(h[2].toLowerCase()) + ', ' + T('with a minimum stay of') + ' ' + h[1] + ' ' + T('nights') + '. ' + T('Book it as it is, or ask us to add transport, extra nights or activities.') + '</p>' +
+        '<h2 class="sh">Overview</h2><p class="sp">' + esc(DDESC[p.d] || '') + '</p>' + (p.intl ? '<p class="sp">' + T('A three-night city holiday with breakfast every day, airport transfers and the tours listed below already arranged for you. Tell us your dates and we will match flights from Nairobi.') + '</p>' : '<p class="sp">' + T('A festive season stay on') + ' ' + esc(h[2].toLowerCase()) + ', ' + T('with a minimum stay of') + ' ' + h[1] + ' ' + T('nights') + '. ' + T('Book it as it is, or ask us to add transport, extra nights or activities.') + '</p>') +
         '<h2 class="sh">About this stay</h2><div class="sfeat">' + feats.map((f) => '<div><span class="sfi">' + ic(f[0], 1.9) + '</span><span><b>' + T(f[1]) + '</b><small>' + esc(f[2]) + '</small></span></div>').join('') + '</div>' +
-        '<h2 class="sh">Booking terms</h2><div class="srules"><div><h3>Included</h3><ul><li>' + esc(p.inc) + '</li>' + (wt ? '<li>' + esc(p.t[0]) + '</li>' : '') + '</ul></div><div><h3>Add-ons we can arrange</h3><p class="addnote">Not part of the package price. Tick any of them when you book and we add them for you.</p>' + addonsHTML(p, wt) + '</div></div>' +
+        '<h2 class="sh">Booking terms</h2><div class="srules"><div><h3>Included</h3><ul>' + pincs(p).map((x) => '<li>' + esc(x) + '</li>').join('') + (wt ? '<li>' + esc(p.t[0]) + '</li>' : '') + '</ul></div><div><h3>Add-ons we can arrange</h3><p class="addnote">Not part of the package price. Tick any of them when you book and we add them for you.</p>' + addonsHTML(p, wt) + '</div></div>' +
         '<p class="note" style="margin-top:14px">Prices are subject to availability at the time of booking. We confirm every detail with you before anything is booked.</p>' +
-        '<h2 class="sh">Location</h2>' + stayMap(h[0], p.d) +
+        '<h2 class="sh">Location</h2>' + stayMap(h[0], p.d, p.country) +
       '</div><aside class="sright"><div class="sbook">' + formHTML('package', null, { title: T('Book this stay') }) + '</div></aside></div></section>';
   }
   function vSafaris() {
@@ -1797,7 +2028,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     const cats = [['all', 'All'], ['day', 'Day trips'], ['lodge', 'Lodge'], ['camping', 'Camping'], ['multi', 'Multi-park']];
     const list = S.tours.filter((t) => tourOn(t) && (S.filter === 'all' || t.category === S.filter));
     const any = S.tours.some((t) => t.live !== false);
-    return pagehead('Safaris', 'Holidays &amp; safaris', PKG_ON ? 'Festive stays at the coast, the lake and the Mara, and safaris planned around you.' : 'Safaris and holidays planned around you.') +
+    return pagehead('Safaris', 'Holidays &amp; safaris', PKG_ON ? 'Festive stays at the coast, the lake and the Mara, city breaks abroad, and safaris planned around you.' : 'Safaris and holidays planned around you.') +
       '<section class="wrap" style="padding-bottom:80px">' + (PKG_ON ? packagesHTML() : '') +
       (any ? '<div style="margin-top:clamp(56px,8vw,96px)">' + sec('Safaris', 'Ready-made safaris', 'Book one as it is, or ask us to change anything about it.') + '<div class="chips" role="group" aria-label="Filter">' + cats.map((c) => '<button class="chip" data-filter="' + c[0] + '" aria-pressed="' + (S.filter === c[0]) + '">' + c[1] + '</button>').join('') + '</div>' +
       (list.length ? '<div class="grid">' + list.map(tourCard).join('') + '</div>' : '<p class="center muted" style="padding:40px 0">No trips in this category yet.</p>') + '</div>' : '') +
@@ -2122,7 +2353,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
     cookies: { title: 'Cookie Policy', desc: 'The cookies and browser storage used on palstravelleisure.co.ke, and how to change your choices.', body: () =>
       lsec('Our approach', '<p>We use only the browser storage this website needs to work. We do not use analytics, advertising or tracking cookies. Our fonts are hosted on our own website, so loading a page does not contact Google Fonts.</p>') +
       lsec('Strictly necessary storage', '<p>These items are stored in your browser and are not shared with anyone. They do not need consent.</p><div class="tablewrap"><table class="ltable"><thead><tr><th>Name</th><th>Purpose</th><th>Kept for</th></tr></thead><tbody>' +
-        [['pals_consent', 'Remembers your cookie choices', '12 months'], ['pals_lang', 'Remembers the language you chose', 'Until you clear it'], ['pals_cur', 'Remembers the currency you chose', 'Until you clear it'], ['pals_rates', 'Caches exchange rates so prices load quickly', '12 hours'], ['pals_rl', 'Limits repeated form submissions, to stop spam', 'Until you close the browser']].map((r) => '<tr><td translate="no"><code>' + r[0] + '</code></td><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>').join('') + '</tbody></table></div>') +
+        [['pals_consent', 'Remembers your cookie choices', '12 months'], ['pals_lang', 'Remembers the language you chose', 'Until you clear it'], ['pals_cur', 'Remembers the currency you chose', 'Until you clear it'], ['pals_sug', 'Remembers that you answered the language and currency suggestion', 'Until you clear it'], ['pals_rates', 'Caches exchange rates so prices load quickly', '12 hours'], ['pals_rl', 'Limits repeated form submissions, to stop spam', 'Until you close the browser']].map((r) => '<tr><td translate="no"><code>' + r[0] + '</code></td><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>').join('') + '</tbody></table></div>') +
       lsec('Optional: maps', '<p>Hotel pages can show a Google Map with the route from Nairobi. The map is only loaded if you allow it. When it loads, Google may set its own cookies and receive your IP address. See <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener">how Google uses cookies</a>. If you do not allow maps, you can still open directions in Google Maps with the buttons on each hotel page.</p>') +
       lsec('Changing your choices', '<p><button type="button" class="btn sm line" data-consent="settings">Cookie settings</button></p><p>You can also clear this website’s data in your browser settings at any time.</p>') },
     terms: { title: 'Terms of Service', desc: 'The terms for using the Pals Travel & Leisure website and making enquiries.', body: () =>
@@ -2157,6 +2388,38 @@ body.langload #app{opacity:.55;transition:opacity .2s}
       '<article class="ldoc"><p class="eyebrow">Legal</p><h1>' + L.title + '</h1><p class="lupd">Last updated: ' + UPD + '</p>' + (LANG !== 'en' ? '<p class="lnote">' + T('Parts of this page may be shown in English. If there is any difference between languages, the English version applies.') + '</p>' : '') + L.body() +
       '<p class="lupd" style="margin-top:28px">' + CO + ' · Nandi Road, Karen, Nairobi, Kenya · <a href="mailto:info@palstravelleisure.co.ke">info@palstravelleisure.co.ke</a> · +254 757 129 599</p></article></section>';
   }
+
+
+  // ---------- language / currency suggestion (never switches on its own) ----------
+  const SUGTXT = {
+    en: ['View this site in {l}?', 'Show prices in {c}?', 'View in {l} with prices in {c}?', 'Yes, switch', 'No thanks'],
+    sw: ['Ungependa kuona tovuti hii kwa {l}?', 'Uone bei kwa {c}?', 'Uone tovuti kwa {l} na bei kwa {c}?', 'Ndiyo, badilisha', 'Hapana, asante'],
+    fr: ['Voir ce site en {l} ?', 'Afficher les prix en {c} ?', 'Voir le site en {l}, avec les prix en {c} ?', 'Oui, changer', 'Non merci'],
+    es: ['¿Ver este sitio en {l}?', '¿Mostrar los precios en {c}?', '¿Ver el sitio en {l} con precios en {c}?', 'Sí, cambiar', 'No, gracias'],
+    de: ['Diese Seite auf {l} ansehen?', 'Preise in {c} anzeigen?', 'Seite auf {l} mit Preisen in {c} ansehen?', 'Ja, wechseln', 'Nein, danke'],
+    it: ['Vedere il sito in {l}?', 'Mostrare i prezzi in {c}?', 'Vedere il sito in {l} con i prezzi in {c}?', 'Sì, cambia', 'No, grazie'],
+    pt: ['Ver este site em {l}?', 'Mostrar os preços em {c}?', 'Ver o site em {l} com preços em {c}?', 'Sim, mudar', 'Não, obrigado'],
+    zh: ['用{l}浏览本网站？', '以{c}显示价格？', '用{l}浏览，并以{c}显示价格？', '是的，切换', '不用了'],
+    ru: ['Открыть сайт на языке: {l}?', 'Показывать цены в {c}?', 'Открыть сайт на языке {l} с ценами в {c}?', 'Да, переключить', 'Нет, спасибо'],
+    ar: ['هل تريد عرض الموقع باللغة {l}؟', 'هل تريد عرض الأسعار بـ {c}؟', 'هل تريد عرض الموقع باللغة {l} والأسعار بـ {c}؟', 'نعم، بدّل', 'لا، شكرًا']
+  };
+  let sugOff = false; try { sugOff = localStorage.getItem('pals_sug') === 'no'; } catch (e) {}
+  function renderSuggest() {
+    const box = $('#suggest'); if (!box) return;
+    const l = SUG_LANG && SUG_LANG !== LANG ? SUG_LANG : null, c = SUG_CUR && SUG_CUR !== CUR ? SUG_CUR : null;
+    if (sugOff || (!l && !c) || location.hash.indexOf('admin') !== -1) { box.innerHTML = ''; box.className = ''; return; }
+    const t = SUGTXT[l || 'en'] || SUGTXT.en, ln = l ? (['fr', 'es', 'it', 'pt', 'ru'].indexOf(l) !== -1 ? LANGS.find((x) => x[0] === l)[1].toLowerCase() : LANGS.find((x) => x[0] === l)[1]) : '';
+    const q = (l && c ? t[2] : l ? t[0] : t[1]).replace('{l}', ln).replace('{c}', c || '');
+    box.className = 'sug'; box.setAttribute('translate', 'no');
+    if (l) box.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr'); else box.removeAttribute('dir');
+    box.innerHTML = '<div class="sugbox" role="dialog" aria-label="' + esc(q) + '"><span class="sugi">' + ic(l ? 'globe' : 'tag', 2) + '</span><p>' + esc(q) + '</p><div class="sugb"><button class="btn sm" data-sug="yes">' + esc(t[3]) + '</button><button class="btn sm line" data-sug="no">' + esc(t[4]) + '</button></div><button class="sugx" data-sug="no" aria-label="' + esc(t[4]) + '">' + ic('x', 2.2) + '</button></div>';
+  }
+  document.addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-sug]'); if (!b) return;
+    const l = SUG_LANG && SUG_LANG !== LANG ? SUG_LANG : null, c = SUG_CUR && SUG_CUR !== CUR ? SUG_CUR : null;
+    sugOff = true; try { localStorage.setItem('pals_sug', 'no'); } catch (x) {} renderSuggest();
+    if (b.dataset.sug === 'yes') { if (c) { CUR = c; try { localStorage.setItem('pals_cur', c); } catch (x) {} loadRates(); } if (l) await setLang(l); else render(); }
+  });
 
   // ---------- render ----------
   function vNotFound() {
@@ -2455,7 +2718,7 @@ body.langload #app{opacity:.55;transition:opacity .2s}
   // ---------- boot ----------
   if (/\/admin2\/?$/.test(location.pathname) && location.hash !== '#admin2') history.replaceState(null, '', location.pathname.replace(/admin2\/?$/, '') + '#admin2');
   applyLangAttrs();
-  const boot = () => { renderFooter(); route(); tr($('#footer')); loadRates(); };
+  const boot = () => { renderFooter(); route(); tr($('#footer')); loadRates(); setTimeout(renderSuggest, 1200); };
   if (LANG === 'en') boot(); else Promise.race([loadLang(LANG), new Promise((r) => setTimeout(r, 2500))]).then(boot);
   (async () => {
     if (FRAPPE) {
