@@ -1375,6 +1375,17 @@ body.langload #app{opacity:.55;transition:opacity .2s}
 .mc.mc2:hover .mci{background:#0F2D52;border-color:#0F2D52}
 .mc.mc2:hover .mci .ic{color:#fff}
 @media (max-width:640px){.mc.mc2{padding:20px 18px}.mci{width:48px;height:48px;border-radius:14px;margin-bottom:14px}.mcn{top:20px;right:18px}}
+
+/* hero headline: never wider than the screen, in any language */
+.hero4 h1.hh1{font-size:min(clamp(42px,6.6vw,96px),calc(150vw / var(--L,8)));overflow-wrap:break-word;max-width:100%}
+@media (min-width:1024px){.hsplit h1.hh1{font-size:min(clamp(52px,4.9vw,78px),calc(78vw / var(--L,8)))!important}}
+.hsplit .hgrid{grid-template-columns:minmax(0,1fr)}
+@media (min-width:1024px){.hsplit .hgrid{grid-template-columns:minmax(0,1.02fr) minmax(0,1fr)}}
+.hero4 .kick{max-width:100%;flex-wrap:wrap}
+
+[dir="rtl"] .hring{right:auto;left:-6px;transform:translate(-50%,-50%)}
+[dir="rtl"] .hchips{right:auto;left:-30px}
+[dir="rtl"] .hchips a:hover{transform:translateX(4px)}
 </style>
 </head>
 <body>
@@ -1832,9 +1843,13 @@ body.langload #app{opacity:.55;transition:opacity .2s}
   const photoPill = (keys, label, cls) => '<span class="ppill' + (cls ? ' ' + cls : '') + '" role="img" aria-label="' + esc(T(label)) + '">' + keys.map((k) => '<img src="' + img(k) + '" alt="" decoding="async" loading="lazy">').join('') + '</span>';
   function heroH1() {
     const pill = photoPill(['heroCoast', 'heroLake', 'heroMara'], 'Beach, safari and lake holidays', 'pp3');
-    const w = T('We’ll handle the rest.').split(' '), at = Math.max(1, w.length - 2);
-    const l2 = w.length > 2 ? '<b>' + w.slice(0, at).join(' ') + '</b> <span class="nowrap">' + pill + '<b>' + w.slice(at).join(' ') + '</b></span>' : pill + '<b>' + w.join(' ') + '</b>';
-    return '<h1 class="reveal hh1">' + T('Go anywhere.') + ' <span>' + l2 + '</span></h1>';
+    const l1 = T('Go anywhere.'), w = T('We’ll handle the rest.').split(' ');
+    // Longest word decides the largest safe size, so long words (e.g. Kiswahili) never run off the screen.
+    const L = Math.max(8, ...(l1 + ' ' + w.join(' ')).split(/\s+/).map((x) => x.length));
+    const last = w[w.length - 1];
+    // The photo sits with the last word only if that pair still fits on one line; otherwise it gets its own spot.
+    const l2 = w.length > 1 && last.length <= 8 ? '<b>' + w.slice(0, -1).join(' ') + '</b> <span class="nowrap">' + pill + '<b>' + last + '</b></span>' : pill + ' <b>' + w.join(' ') + '</b>';
+    return '<h1 class="reveal hh1" style="--L:' + L + '">' + l1 + ' <span>' + l2 + '</span></h1>';
   }
   // Short statement with photos set between the words, like a postcard.
   function heroStatement() {
